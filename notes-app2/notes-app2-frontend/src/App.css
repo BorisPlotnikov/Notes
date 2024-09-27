@@ -1,0 +1,21 @@
+.App {
+    text-align: center;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+.notes {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.note {
+    background: #f4f4f4;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ddd;
+    width: 200px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
