@@ -1,4 +1,4 @@
-.App {
+.app {
     text-align: center;
 }
 
@@ -12,10 +12,10 @@ form {
 }
 
 .note {
-    background: #f4f4f4;
+    width: 200px;
     padding: 10px;
     margin: 10px;
     border: 1px solid #ddd;
-    width: 200px;
+    background: #f4f4f4;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
