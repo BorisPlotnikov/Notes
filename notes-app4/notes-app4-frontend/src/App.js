@@ -1,55 +1,72 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Note from './components/Note';
+import NoteList from './components/NoteList';
+import NoteForm  from './components/NoteForm';
 import ErrorNotification from './components/ErrorNotification';
 import './App.css';
 import './ErrorNotification.css';
 
 const App = () => {
-    const [errorMessage, setErrorMessage] = useState(null);
     const [notes, setNotes] = useState([]);
-    const [content, setContent] = useState('');
+    const [errorMessage, setErrorMessage] = useState(null);
 
     useEffect(() => {
-        fetchNotes();
+        const source = axios.CancelToken.source();
+        fetchNotes(source, source.token);
+
+        return () => {
+            source.cancel('Component unmounted, request canceled');
+        };
     }, []);
 
-    const fetchNotes = async () => {
+    useEffect(() => {
+        if (errorMessage) {
+            const timeout = setTimeout(() => setErrorMessage(null), 3000);
+            return () => clearTimeout(timeout);
+        }
+    }, [errorMessage]);
+
+    const fetchNotes = async (cancelToken = null) => {
         try {
-            const response = await axios.get('http://localhost:3001/notes');
+            const response = await axios.get('http://localhost:3001/notes', { cancelToken });
             setNotes(response.data);
             setErrorMessage(null);
         } catch (err) {
-            console.error('Error occurred while downloading notes', err);
-            setErrorMessage('Failed downloading notes');
+            if (axios.isCancel(err)) {
+                console.log('Request canceled', err.message);
+            } else {
+                handleError(setErrorMessage, 'Downloading failed', err);
+            }
         }
     };
 
-    const addNote = async (e) => {
-        try {
-            e.preventDefault();
-            if (!content.trim()) {
-                setErrorMessage('A note cannot be empty');
-                return;
-            }
-            const newNote = {content};
-            await axios.post('http://localhost:3001/notes', newNote);
-            fetchNotes();
-            setContent('');
+    const addNote = async (content) => {
+        const source = axios.CancelToken.source();
+        try  {
+            const newNote = { content : content.trim() };
+            const response = await axios.post('http://localhost:3001/notes', newNote, {
+                cancelToken: source.token
+            });
+            setNotes([...notes, response.data]);
             setErrorMessage(null);
         } catch (err) {
-            console.error('Error occurred while attempting to add the note', err);
-            setErrorMessage('Failed to add the note');
+            if (axios, isCancel(err)) {
+                console.log('request canceled', err.message);
+            } else {
+                handleError(setErrorMessage, 'Saving failed', err);
+            }
         }
     };
 
     const deleteNote = async (id) => {
+        const notesBackup = notes;
+        setNotes(notes.filter(note => note._id !== id));
         try {
             await axios.delete(`http://localhost:3001/notes/${id}`);
-            fetchNotes();
+            setErrorMessage(null);
         } catch (err) {
-            console.error('Error occurred while attempting to delete the note', err);
-            setErrorMessage('Failed to delete the note');
+                handleError(setErrorMessage, 'Deleting failed', err);
+                setNotes(notesBackup);
         }
     };
 
@@ -57,24 +74,15 @@ const App = () => {
         <div className='app'>
             <h1>Notes</h1>
             {errorMessage && <ErrorNotification message={errorMessage} />}
-            <form onSubmit = {addNote}>
-                <input
-                type='text'
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                placeholder='Add a new note'
-                />
-                <button type='submit'>Add</button>
-            </form>
-
-            <div className='notes'>
-                {notes.map(note => (
-                    <Note key={note._id} note={note} deleteNote={deleteNote} />
-                ))}
-            </div>
+            <NoteForm addNote={addNote} />
+            <NoteList notes={notes} deleteNote={deleteNote} />
         </div>
     );
 };
 
 export default App;
 
+// The URLs for your API calls are hardcoded to 'http://localhost:3001/notes'. For better flexibility and ease of deployment, it’s better to extract the base URL into a configuration file or use environment variables.
+// The form input can also be cleared immediately on submission to make the UI feel more responsive.
+// Editing notes functionality
+// Components: You already have Note and ErrorNotification in separate components. As this app grows, splitting out more logic into smaller, more reusable components (like NoteList for rendering notes) might make sense to maintain clarity.
