@@ -3,14 +3,14 @@ import axios from 'axios';
 import NoteList from './components/NoteList';
 import NoteForm  from './components/NoteForm';
 import ErrorNotification from './components/ErrorNotification';
-import './App.css';
-import './ErrorNotification.css';
+import '.css/App.css';
+import '.css/ErrorNotification.css';
 
 const App = () => {
     const [notes, setNotes] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
 
-    useEffect(() => {
+    useEffect(() => { 
         const source = axios.CancelToken.source();
         fetchNotes(source, source.token);
 
