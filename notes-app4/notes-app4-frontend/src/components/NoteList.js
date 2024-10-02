@@ -1,6 +1,6 @@
 import React from 'react';
 import Note from './Note';
-import './NoteList.css';
+import '../css/NoteList.css';
 
 const NoteList = ({ notes, deleteNote }) => {
     if (notes.length === 0) {
