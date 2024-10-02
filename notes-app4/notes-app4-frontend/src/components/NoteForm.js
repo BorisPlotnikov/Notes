@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './NoteForm.css';
+import '../css/NoteForm.css';
 
 const NoteForm = ({ addNote }) => {
     const [content, setContent] = useState('');
