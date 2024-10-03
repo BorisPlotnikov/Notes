@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import '../css/NoteForm.css';
+import PropTypes from 'prop-types';
 
-const NoteForm = ({ addNote }) => {
+const NoteForm = ({ addNote, errorMessage, setErrorMessage }) => {
     const [content, setContent] = useState('');
 
     const handleSubmit = (e) => {
@@ -19,7 +20,7 @@ const NoteForm = ({ addNote }) => {
             value={content}
             onChange={(e) => {
                 setContent(e.target.value);
-                // if (errorMessage) setErrorMessage(null);
+                if (errorMessage) setErrorMessage(null);
             }}
             placeholder='Add a new note'
             />
@@ -27,5 +28,11 @@ const NoteForm = ({ addNote }) => {
         </form>
     );
 }
+
+NoteForm.propTypes = {
+    addNote: PropTypes.func.isRequired,
+    errorMessage: PropTypes.string,
+    setErrorMessage: PropTypes.func
+};
 
 export default NoteForm;

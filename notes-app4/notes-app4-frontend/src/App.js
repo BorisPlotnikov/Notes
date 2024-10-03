@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 // import NoteList from './components/NoteList';
 // import NoteForm  from './components/NoteForm';
@@ -57,9 +57,9 @@ const App = () => {
     return (
         <div className='app'>
             <h1>Notes</h1>
-            {errorMessage && <ErrorNotification message={errorMessage} />}
-            <NoteForm addNote={addNote} />
+            <NoteForm addNote={addNote} errorMessage={errorMessage} setErrorMesage={setErrorMessage} />
             <NoteList notes={notes} deleteNote={deleteNote} />
+            {errorMessage && <ErrorNotification message={errorMessage} />}
         </div>
     );
 };
@@ -72,3 +72,4 @@ export default App;
 // Editing notes functionality
 // Components: You already have Note and ErrorNotification in separate components. As this app grows, splitting out more logic into smaller, more reusable components (like NoteList for rendering notes) might make sense to maintain clarity.
 // Since Axios 1.0, cancelToken has been deprecated in favor of the AbortController API, which is now the recommended approach to cancel requests
+// Implement the unique id

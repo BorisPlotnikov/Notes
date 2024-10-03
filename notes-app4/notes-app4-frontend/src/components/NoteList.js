@@ -1,11 +1,12 @@
-import React from 'react';
-import Note from './Note';
-import '../css/NoteList.css';
+// import React from 'react';
+// import Note from './Note';
+// import '../css/NoteList.css';
+// import PropTypes from 'prop-types';
 
-const NoteList = ({ notes, deleteNote }) => {
-    if (notes.length === 0) {
-        return <p>No notes to display</p>
-    }
+// const NoteList = ({ notes, deleteNote }) => {
+    // if (notes.length === 0) {
+    //     return <p>No notes to display</p>
+    // }
 
     return (
         <div className='notes'>
@@ -14,6 +15,16 @@ const NoteList = ({ notes, deleteNote }) => {
             ))}
         </div>
     );
-};
+// };
 
-export default NoteList;
+// NoteList.propTypes = {
+//     notes: PropTypes.arrayOf(
+//         PropTypes.shape({
+//             _id: PropTypes.string.isRequired,
+//             content: PropTypes.string.isRequired
+//         })
+//     ),
+//     deleteNote: PropTypes.func.isRequired
+// };
+
+// export default NoteList;

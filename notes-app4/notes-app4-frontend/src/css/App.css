@@ -2,15 +2,6 @@
     text-align: center;
 }
 
-form {
-    margin-bottom: 20px;
-}
-
-.notes {
-    display: flex;
-    flex-wrap: wrap;
-}
-
 .note {
     width: 200px;
     padding: 10px;
