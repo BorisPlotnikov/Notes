@@ -67,7 +67,6 @@ const App = () => {
 export default App;
 
 
-// The URLs for your API calls are hardcoded to 'http://localhost:3001/notes'. For better flexibility and ease of deployment, it’s better to extract the base URL into a configuration file or use environment variables.
 // The form input can also be cleared immediately on submission to make the UI feel more responsive.
 // Editing notes functionality
 // Components: You already have Note and ErrorNotification in separate components. As this app grows, splitting out more logic into smaller, more reusable components (like NoteList for rendering notes) might make sense to maintain clarity.

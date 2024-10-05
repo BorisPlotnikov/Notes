@@ -10,6 +10,8 @@ const NoteForm = ({ addNote, errorMessage, setErrorMessage }) => {
         if (content.trim()) {
             addNote(content);
             setContent('');
+        } else {
+            setErrorMessage('Note content cannot be empty');
         }
     };
 
