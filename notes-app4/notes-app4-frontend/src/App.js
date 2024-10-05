@@ -4,6 +4,8 @@ import NoteList from './components/NoteList';
 import NoteForm  from './components/NoteForm';
 import ErrorNotification from './components/ErrorNotification';
 import './css/App.css';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const App = () => {
     const [notes, setNotes] = useState([]);
@@ -23,7 +25,7 @@ const App = () => {
 
     const fetchNotes = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/notes');
+            const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/notes`);
             setNotes(response.data);
         } catch (err) {
                 handleError(setErrorMessage, 'Downloading failed', err);
@@ -33,7 +35,7 @@ const App = () => {
     const addNote = async (content) => {
         try  {
             const newNote = { content : content.trim() };
-            const response = await axios.post('http://localhost:3001/notes', newNote);
+            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/notes`, newNote);
             setNotes([...notes, response.data]);
         } catch (err) {
                 handleError(setErrorMessage, 'Saving failed', err);
@@ -45,7 +47,7 @@ const App = () => {
         setDeleteId(id);
         setNotes(prevNotes => prevNotes.filter(note => note._id !== id));
         try {
-            await axios.delete(`http://localhost:3001/notes/${id}`);
+            await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/notes/${id}`);
         } catch (err) {
                 handleError(setErrorMessage, 'Deleting failed', err);
                 setNotes(notesBackup);
