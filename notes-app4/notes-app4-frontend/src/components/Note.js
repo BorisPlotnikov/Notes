@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import '../css/Note.css';
 
-const Note =({ note, deleteNote, deletingId }) => (
+const Note =({ note, deleteNote, deleteId }) => (
     <div className='note'>
         <p>{note.content}</p>
-        <button onClick={() => deleteNote(note._id)} disabled={deletingId === note._id}>
-            {deletingId === note._id ? 'Deleting...' : 'Delete'}
+        <button 
+            onClick={() => deleteNote(note._id)}
+            disabled={deleteId === note._id}>
+            {deleteId === note._id ? 'Deleting...' : 'Delete'}
         </button>
     </div>
 );
@@ -16,7 +19,7 @@ Note.propTypes = {
         content: PropTypes.string.isRequired
     }).isRequired,
     deleteNote: PropTypes.func.isRequired,
-    deletingId: PropTypes.string
+    deleteId: PropTypes.string
 };
 
 export default Note;

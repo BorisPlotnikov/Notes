@@ -9,6 +9,7 @@
 const App = () => {
     // const [notes, setNotes] = useState([]);
     // const [errorMessage, setErrorMessage] = useState(null);
+    // const [deleteId, setDeleteId] = useState(null);
 
     // useEffect(() => { 
     //     fetchNotes();
@@ -43,14 +44,15 @@ const App = () => {
     // };
 
     // const deleteNote = async (id) => {
-    //     const notesBackup = notes;
-    //     setNotes(notes.filter(note => note._id !== id));
+    //     const backup = [...notes];
+    //     setDeleteId(id);
+    //     setNotes(prevNotes => prevNotes.filter(note => note._id !== id));
     //     try {
     //         await axios.delete(`http://localhost:3001/notes/${id}`);
     //         setErrorMessage(null);
     //     } catch (err) {
     //             handleError(setErrorMessage, 'Deleting failed', err);
-    //             setNotes(notesBackup);
+    //             setNotes(backup);
     //     }
     // };
 
@@ -58,7 +60,7 @@ const App = () => {
         <div className='app'>
             <h1>Notes</h1>
             <NoteForm addNote={addNote} errorMessage={errorMessage} setErrorMesage={setErrorMessage} />
-            <NoteList notes={notes} deleteNote={deleteNote} />
+            <NoteList notes={notes} deleteNote={deleteNote} deleteId={deleteId}/>
             {errorMessage && <ErrorNotification message={errorMessage} />}
         </div>
     );
@@ -73,3 +75,4 @@ export default App;
 // Components: You already have Note and ErrorNotification in separate components. As this app grows, splitting out more logic into smaller, more reusable components (like NoteList for rendering notes) might make sense to maintain clarity.
 // Since Axios 1.0, cancelToken has been deprecated in favor of the AbortController API, which is now the recommended approach to cancel requests
 // Implement the unique id
+// there’s a caveat when using notesBackup = notes. In React, state updates (setNotes) are asynchronous, so by the time notesBackup is accessed (in case of an error), notes might already be updated due to other renders.

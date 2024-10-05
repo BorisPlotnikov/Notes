@@ -3,7 +3,7 @@
 // import '../css/NoteList.css';
 // import PropTypes from 'prop-types';
 
-// const NoteList = ({ notes, deleteNote }) => {
+// const NoteList = ({ notes, deleteNote, deleteId }) => {
     // if (notes.length === 0) {
     //     return <p>No notes to display</p>
     // }
@@ -11,7 +11,7 @@
     return (
         <div className='notes'>
             {notes.map(note => (
-                <Note key={note._id} note={note} deleteNote={deleteNote} />
+                <Note key={note._id} note={note} deleteNote={deleteNote} deleteId={deleteid}/>
             ))}
         </div>
     );
@@ -24,7 +24,9 @@
 //             content: PropTypes.string.isRequired
 //         })
 //     ),
-//     deleteNote: PropTypes.func.isRequired
+//     deleteNote: PropTypes.func.isRequired,
+//     deleteId: PropTypes.string
+//     
 // };
 
 // export default NoteList;
