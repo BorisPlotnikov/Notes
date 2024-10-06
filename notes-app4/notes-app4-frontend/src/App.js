@@ -11,6 +11,7 @@ const App = () => {
     const [notes, setNotes] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
     const [deleteId, setDeleteId] = useState(null);
+    const [editNote, setEditNote] = useState(null);
 
     useEffect(() => { 
         fetchNotes();
@@ -54,11 +55,21 @@ const App = () => {
         }
     };
 
+    const updateNote = async (updateNote) => {
+        try {
+            const response = await axios.put (`${process.env.REACT_APP_API_BASE_URL}/notes/${updatedNote._id}`, updatedNote);
+            setNotes(notes.map(note => (note.id === updatedNote._id ? response.data : note)));
+            setEditNote(null);
+        } catch (err) {
+            handleError(setErrorMessage, 'Failed to update note', err);
+        }
+    };
+
     return (
         <div className='app'>
             <h1>Notes</h1>
-            <NoteForm addNote={addNote} errorMessage={errorMessage} setErrorMesage={setErrorMessage} />
-            <NoteList notes={notes} deleteNote={deleteNote} deleteId={deleteId}/>
+            <NoteForm addNote={addNote} errorMessage={errorMessage} setErrorMesage={setErrorMessage} editNote={editNote} updateNote={updateNote} />
+            <NoteList notes={notes} deleteNote={deleteNote} deleteId={deleteId} setEditNote={setEditNote}/>
             {errorMessage && <ErrorNotification message={errorMessage} />}
         </div>
     );
@@ -66,10 +77,6 @@ const App = () => {
 
 export default App;
 
-
-// The form input can also be cleared immediately on submission to make the UI feel more responsive.
 // Editing notes functionality
-// Components: You already have Note and ErrorNotification in separate components. As this app grows, splitting out more logic into smaller, more reusable components (like NoteList for rendering notes) might make sense to maintain clarity.
 // Since Axios 1.0, cancelToken has been deprecated in favor of the AbortController API, which is now the recommended approach to cancel requests
 // Implement the unique id
-// there’s a caveat when using notesBackup = notes. In React, state updates (setNotes) are asynchronous, so by the time notesBackup is accessed (in case of an error), notes might already be updated due to other renders.

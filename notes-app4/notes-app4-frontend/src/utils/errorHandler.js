@@ -18,7 +18,7 @@ const handleError = (setErrorMessage, userMessage, error) => {
         }
 
         console.error(`${userMessage}: ${detailedMessage}`, error.response.data);
-        setErrorMessage(`${userMessage}: ${detaledMessage}`);
+        setErrorMessage(`${userMessage}: ${detailedMessage}`);
     } else if (error.request) {
         console.error(`${userMessage}: No response from the server.`, error.message);
         setErrorMessage(`${userMessage}: No response from the server. Please check your network.`);
