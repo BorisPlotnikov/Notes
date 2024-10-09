@@ -1,18 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import ErrorNotification from './components/ErrorNotification';
 import PropTypes from 'prop-types';
 import '../css/Note.css';
 
-const Note =({ note, deleteNote, deleteId, setEditNote }) => (
-    <div className='note'>
-        <p>{note.content}</p>
-        <button onClick={() => setEditNote(note)}>Edit</button>
-        <button 
-            onClick={() => deleteNote(note._id)}
-            disabled={deleteId === note._id}>
-            {deleteId === note._id ? 'Deleting...' : 'Delete'}
-        </button>
-    </div>
-);
+const Note =({ note, deleteNote, deleteId, setEditNote }) => {
+    const [controller, setController] = useState(null);
+
+    useEffect(() => {
+        return () => {
+            if (controller) {
+                controller.abort();
+            }
+        };
+    }, [controller]);
+
+    const handleDelete = async (id) => {
+        if (controller) {
+            controller.abort();
+        }
+
+        const newController = new AbortController();
+        setController(newController);
+
+        try {
+            await deleteNote(id);
+        } catch (err) {
+            handleError(setErrorMessage, 'Failed to delete note:', err);
+        }
+    };
+
+    return (
+        <div className='note'>
+            <p>{note.content}</p>
+            <button onClick={() => setEditNote(note)}>Edit</button>
+            <button 
+                onClick={() => handleDelete(note._id)}
+                disabled={deleteId === note._id}>
+                {deleteId === note._id ? 'Deleting...' : 'Delete'}
+            </button>
+        </div>
+    );
+};
 
 Note.propTypes = {
     note: PropTypes.shape({
