@@ -106,7 +106,3 @@ const App = () => {
 };
 
 export default App;
-
-// Since Axios 1.0, cancelToken has been deprecated in favor of the AbortController API, which is now the recommended approach to cancel requests
-// Implement the unique id
-// Implement editing note inside the note itself
