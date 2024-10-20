@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+import dotenv from 'dotenv';
+dotenv.config();
 import NoteList from './components/NoteList';
 import NoteForm  from './components/NoteForm';
 import ErrorNotification from './components/ErrorNotification';
 import './css/App.css';
-import dotenv from 'dotenv';
-dotenv.config();
+
 
 const App = () => {
     const [notes, setNotes] = useState([]);
@@ -45,7 +47,7 @@ const App = () => {
 
         const addNote = async (noteContent, signal) => {
             try  {
-                const newNote = { noteContent : noteContent.trim() };
+                const newNote = { id : uuidv4(), noteContent : noteContent.trim() };
                 const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/notes`, newNote, { signal });
                 setNotes((prevNotes) => [...prevNotes, response.data]);
             } catch (err) {
@@ -61,7 +63,7 @@ const App = () => {
         const controller = new AbortController();
         const notesBackup = [...notes];
         setDeleteId(id);
-        setNotes(prevNotes => prevNotes.filter(note => note._id !== id));
+        setNotes(prevNotes => prevNotes.filter(note => note.id !== id));
         
         try {
             await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/notes/${id}`, { signal: controller.signal });
@@ -81,8 +83,8 @@ const App = () => {
         const controller = new AbortController();
 
         try {
-            const response = await axios.put (`${process.env.REACT_APP_API_BASE_URL}/notes/${updateNote._id}`, updateNote, { signal });
-            setNotes((prevNotes) => prevNotes.map(note => (note._id === updateNote._id ? response.data : note)));
+            const response = await axios.put (`${process.env.REACT_APP_API_BASE_URL}/notes/${updateNote.id}`, updateNote, { signal });
+            setNotes((prevNotes) => prevNotes.map(note => (note.id === updateNote.id ? response.data : note)));
             setEditNote(null);
         } catch (err) {
             if (axios.isCancel(err)) {

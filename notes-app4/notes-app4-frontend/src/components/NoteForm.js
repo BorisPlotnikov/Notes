@@ -64,13 +64,10 @@ NoteForm.propTypes = {
     errorMessage: PropTypes.string,
     setErrorMessage: PropTypes.func,
     editNote: PropTypes.shape({
-        _id: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
         noteContent: PropTypes.string.isRequired
     }),
     updateNote: PropTypes.func.isRequired
 };
 
 export default NoteForm;
-
-// The setNoteContent('') is called after both adding and updating a note. This is good, but you might want to ensure that it's only done after the action is successful.
-// n handleSubmit, after the add/update operation, you may want to clear the controller state to avoid any stale references
