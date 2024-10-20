@@ -34,9 +34,9 @@ const Note =({ note, deleteNote, deleteId, setEditNote }) => {
             <p>{note.content}</p>
             <button onClick={() => setEditNote(note)}>Edit</button>
             <button 
-                onClick={() => handleDelete(note._id)}
-                disabled={deleteId === note._id}>
-                {deleteId === note._id ? 'Deleting...' : 'Delete'}
+                onClick={() => handleDelete(note.id)}
+                disabled={deleteId === note.id}>
+                {deleteId === note.id ? 'Deleting...' : 'Delete'}
             </button>
         </div>
     );
@@ -44,7 +44,7 @@ const Note =({ note, deleteNote, deleteId, setEditNote }) => {
 
 Note.propTypes = {
     note: PropTypes.shape({
-        _id: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
         content: PropTypes.string.isRequired
     }),
     deleteNote: PropTypes.func.isRequired,

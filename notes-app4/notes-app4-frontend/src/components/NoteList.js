@@ -1,7 +1,6 @@
 import React from 'react';
 import Note from './Note';
 import '../css/NoteList.css';
-import { v4 as uuid4 } from 'uuid';
 import PropTypes from 'prop-types';
 
 const NoteList = ({ notes, deleteNote, deleteId }) => {
@@ -21,7 +20,7 @@ const NoteList = ({ notes, deleteNote, deleteId }) => {
 NoteList.propTypes = {
     notes: PropTypes.arrayOf(
         PropTypes.shape({
-            _id: PropTypes.string.isRequired,
+            id: PropTypes.string.isRequired,
             content: PropTypes.string.isRequired
         })
     ),

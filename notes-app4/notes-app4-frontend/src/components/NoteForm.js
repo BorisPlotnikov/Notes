@@ -64,7 +64,7 @@ NoteForm.propTypes = {
     errorMessage: PropTypes.string,
     setErrorMessage: PropTypes.func,
     editNote: PropTypes.shape({
-        _id: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
         noteContent: PropTypes.string.isRequired
     }),
     updateNote: PropTypes.func.isRequired
