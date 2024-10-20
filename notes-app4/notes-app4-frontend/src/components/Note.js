@@ -7,18 +7,11 @@ const Note =({ note, deleteNote, deleteId, setEditNote }) => {
     const [controller, setController] = useState(null);
 
     useEffect(() => {
-        return () => {
-            if (controller) {
-                controller.abort();
-            }
-        };
+        return () => controller && controller.abort();
     }, [controller]);
 
     const handleDelete = async (id) => {
-        if (controller) {
-            controller.abort();
-        }
-
+        controller && controller.abort();
         const newController = new AbortController();
         setController(newController);
 

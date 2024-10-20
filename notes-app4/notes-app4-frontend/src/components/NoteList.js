@@ -4,14 +4,12 @@ import '../css/NoteList.css';
 import PropTypes from 'prop-types';
 
 const NoteList = ({ notes, deleteNote, deleteId }) => {
-    if (notes.length === 0) {
-        return <p>No notes to display</p>
-    }
+   notes.length === 0 && <p>No notes to display</p>
 
     return (
         <div className='notes'>
             {notes.map(note => (
-                <Note key={uuidv4()} note={note} deleteNote={deleteNote} deleteId={deleteId}/>
+                <Note key={note.id} noteContent={note.noteContent} deleteNote={deleteNote} deleteId={deleteId}/>
             ))}
         </div>
     );
