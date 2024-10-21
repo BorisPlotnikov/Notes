@@ -3,13 +3,11 @@ import '../css/ErrorNotification.css';
 import PropTypes from 'prop-types';
 
 const ErrorNotification = ({ message }) => {
-    if (!message) return null;
-
-    return (
+    return message ? (
         <div className="error-notification">
             {message}
         </div>
-    );
+     ) : null;
 };
 
 ErrorNotification.propTypes = {
