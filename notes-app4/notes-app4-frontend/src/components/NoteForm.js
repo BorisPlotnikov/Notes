@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import ErrorNotification from './components/ErrorNotification';
 import '../css/NoteForm.css';
 import PropTypes from 'prop-types';
 
@@ -8,19 +7,15 @@ const NoteForm = ({ addNote, errorMessage, setErrorMessage, editNote, updateNote
     const [controller, setController] = useState(null);
 
     useEffect(() => {
-        if (editNote) {
-            setNoteContent(editNote.noteContent);
-        }
+        editNote && setNoteContent(editNote.noteContent);
     }, [editNote]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (controller) {
-            controller.abort();
-        }
-
+        controller && controller.abort();
         const newController = new AbortController();
         setController(newController);
+        
         try {
             if (editNote) {
                 await updateNote({ ...editNote, noteContent }, newController.signal);
@@ -36,12 +31,8 @@ const NoteForm = ({ addNote, errorMessage, setErrorMessage, editNote, updateNote
     };
 
     useEffect(() => {
-        return () => {
-            if (controller) {
-                controller.abort();
-            }
-        };
-    }, [controller]);
+        return () => controller && controller.abort();
+        }, [controller]);
 
     return (
         <form onSubmit={handleSubmit} className='note-form'>
@@ -50,7 +41,7 @@ const NoteForm = ({ addNote, errorMessage, setErrorMessage, editNote, updateNote
             value={noteContent}
             onChange={(e) => {
                 setNoteContent(e.target.value);
-                if (errorMessage) setErrorMessage(null);
+                errorMessage && setErrorMessage(null);
             }}
             placeholder='Add a new note'
             />
