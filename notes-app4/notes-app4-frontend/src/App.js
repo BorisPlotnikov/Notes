@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import dotenv from 'dotenv';
-dotenv.config();
 import NoteList from './components/NoteList';
 import NoteForm  from './components/NoteForm';
 import ErrorNotification from './components/ErrorNotification';
 import './css/App.css';
 
+dotenv.config();
 
 const App = () => {
     const [notes, setNotes] = useState([]);
