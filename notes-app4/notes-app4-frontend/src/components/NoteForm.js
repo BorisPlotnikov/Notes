@@ -17,13 +17,11 @@ const NoteForm = ({ addNote, errorMessage, setErrorMessage, editNote, updateNote
         setController(newController);
         
         try {
-            if (editNote) {
-                await updateNote({ ...editNote, noteContent }, newController.signal);
-            } else if (noteContent.trim()) {
-                await addNote(noteContent, newController.signal);
-            } else {
-                setErrorMessage('Note content cannot be empty');
-            }
+            editNote ?
+            await updateNote({ ...editNote, noteContent }, newController.signal) :
+            noteContent.trim() ?
+            await addNote(noteContent, newController.signal) :
+            setErrorMessage('Note content cannot be empty');
         } catch (err) {
             handleError(setErrorMessage, editNote ? 'Editing failed' : 'Saving failed', err);
         } finally {

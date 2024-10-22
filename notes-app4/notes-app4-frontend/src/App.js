@@ -23,11 +23,11 @@ const App = () => {
                 const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/notes`, { signal: controller.signal });
                 setNotes(response.data);
             } catch (err) {
-                if (axios.isCancel(err)) {
-                    handleError(setErrorMessage, 'Request canceled:', err)
-                } else {
-                    handleError(setErrorMessage, 'Downloading failed', err);
-                }
+                handleError(
+                    setErrorMessage,
+                    axios.isCancel(err) ? 'Request is canceled' : 'Downloading failed',
+                    err
+                );
             }
         };
 
@@ -51,11 +51,11 @@ const App = () => {
                 const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/notes`, newNote, { signal });
                 setNotes((prevNotes) => [...prevNotes, response.data]);
             } catch (err) {
-                if (axios.isCancel(err)) {
-                    handleError(setErrorMessage, 'Request canceled', err);
-                } else {
-                    handleError(setErrorMessage, 'Saving failed', err);
-                }
+                handleError(
+                    setErrorMessage,
+                    axios.isCancel(err) ? 'Request is canceled' : 'Saving failed',
+                    err
+                );
             }
         };
 
@@ -87,11 +87,11 @@ const App = () => {
             setNotes((prevNotes) => prevNotes.map(note => (note.id === updateNote.id ? response.data : note)));
             setEditNote(null);
         } catch (err) {
-            if (axios.isCancel(err)) {
-                handleError(setErrorMessage, 'Request canceled', err);
-            } else {
-                handleError(setErrorMessage, 'Failed to update note', err);
-            }
+            handleError(
+                setErrorMessage,
+                axios.isCancel(err) ? 'Request is canceled' : 'Updating failed',
+                err
+            );
         }
 
         return controller;
