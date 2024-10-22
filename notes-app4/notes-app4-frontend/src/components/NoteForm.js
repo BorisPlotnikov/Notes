@@ -24,9 +24,11 @@ const NoteForm = ({ addNote, errorMessage, setErrorMessage, editNote, updateNote
             } else {
                 setErrorMessage('Note content cannot be empty');
             }
-            setNoteContent('');
         } catch (err) {
             handleError(setErrorMessage, editNote ? 'Editing failed' : 'Saving failed', err);
+        } finally {
+            setNoteContent('');
+            setController(null);
         }
     };
 
