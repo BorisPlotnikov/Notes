@@ -1,30 +1,30 @@
-const handleError = (setErrorMessage, userMessage, error) => {
+const handleError = (setErrorMessage, message1, error) => {
     if (error.response) {
         const status = error.response.status;
-        let detailedMessage = '';
+        let message2 = '';
 
         switch (status) {
             case 400:
-                detailedMessage = 'Bad Request. Please check your input.';
+                message2 = 'Bad Request. Please check your input.';
                 break;
             case 404:
-                detailedMessage = 'Resource not found.';
+                message2 = 'Resource not found.';
                 break;
             case 500:
-                detailedMessage = 'Internal Server Error. Please try again later.';
+                message2 = 'Internal Server Error. Please try again later.';
                 break;
             default:
-                detailedMessage = 'An unexpected error occurred. please try again.';
+                message2 = 'An unexpected error occurred. please try again.';
         }
 
-        console.error(`${userMessage}: ${detailedMessage}`, error.response.data);
-        setErrorMessage(`${userMessage}: ${detailedMessage}`);
+        console.error(`${message1}: ${message2}`, error.response.data);
+        setErrorMessage(`${message1}: ${message2}`);
     } else if (error.request) {
-        console.error(`${userMessage}: No response from the server.`, error.message);
-        setErrorMessage(`${userMessage}: No response from the server. Please check your network.`);
+        console.error(`${message1}: No response from the server.`, error.message);
+        setErrorMessage(`${message1}: No response from the server. Please check your network.`);
     } else {
-        console.error(`${userMessage}: ${error.message}`);
-        setErrorMessage(`${userMessage}: ${error.message}`);
+        console.error(`${message1}: ${error.message}`);
+        setErrorMessage(`${message1}: ${error.message}`);
     }
 };
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import ErrorNotification from './components/ErrorNotification';
 import PropTypes from 'prop-types';
 import '../css/Note.css';
 
