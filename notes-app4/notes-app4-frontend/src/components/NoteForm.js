@@ -24,7 +24,7 @@ const NoteForm = ({ addNote, errorMessage, setErrorMessage, editNote, updateNote
                 await addNote(noteContent, newController.signal);
                 setNoteContent('');
             } else {
-                setErrorMessage('Note content cannot be empty');
+                handleError(setErrorMessage, 'Note content cannot be empty', new Error('Note content is empty'));
             }
         } catch (err) {
             handleError(setErrorMessage, `${editNote ? 'Editing' : 'Saving'} failed`, err);
