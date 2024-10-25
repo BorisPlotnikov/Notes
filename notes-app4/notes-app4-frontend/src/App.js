@@ -21,7 +21,11 @@ const App = () => {
         const fetchNotes = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/notes`, { signal: controller.signal });
-                setNotes(response.data);
+                if (Array.isArray(response.data)) {
+                    setNotes(response.data);
+                } else {
+                    handleError(setErrorMessage, 'Unexpected data format');
+                }              
             } catch (err) {
                 handleError(
                     setErrorMessage,
