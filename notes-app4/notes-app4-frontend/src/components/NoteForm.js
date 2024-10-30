@@ -48,7 +48,7 @@ const NoteForm = ({ addNote, errorMessage, setErrorMessage, editNote, updateNote
             }}
             placeholder='Add a new note'
             />
-            <button type='submit' disabled={!noteContent.trim() || processing}>{editNote ? 'save': 'Add'} Note</button>
+            <button type='submit' disabled={!noteContent.trim() || processing}>{processing ? 'Processing...' : (editNote ? 'Save': 'Add')} Note</button>
         </form>
     );
 }
