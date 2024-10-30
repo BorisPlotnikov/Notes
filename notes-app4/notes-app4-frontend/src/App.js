@@ -14,11 +14,13 @@ const App = () => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [deleteId, setDeleteId] = useState(null);
     const [editNote, setEditNote] = useState(null);
+    const [processing, setProcessing] = useState(false);
 
     useEffect(() => {
         const controller = new AbortController();
 
         const fetchNotes = async () => {
+            setProcessing(true);
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/notes`, { signal: controller.signal });
                 if (Array.isArray(response.data)) {
@@ -32,6 +34,8 @@ const App = () => {
                     axios.isCancel(err) ? 'Request is canceled' : 'Downloading failed',
                     err
                 );
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -50,6 +54,7 @@ const App = () => {
     }, [errorMessage]);
 
         const addNote = async (noteContent, signal) => {
+            setProcessing(true);
             try  {
                 const newNote = { id : uuidv4(), noteContent : noteContent.trim() };
                 const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/notes`, newNote, { signal });
@@ -60,10 +65,13 @@ const App = () => {
                     axios.isCancel(err) ? 'Request is canceled' : 'Saving failed',
                     err
                 );
+            } finally {
+                setProcessing(false);
             }
         };
 
     const deleteNote = async (id) => {
+        setProcessing(true);
         const controller = new AbortController();
         const notesBackup = [...notes];
         setDeleteId(id);
@@ -78,14 +86,16 @@ const App = () => {
                 handleError(setErrorMessage, 'Deleting failed', err);
                 setNotes(notesBackup);
             }
+        } finally {
+            setProcessing(false);
         }
 
         return controller;
     };
 
     const updateNote = async (updateNote, signal) => {
+        setProcessing(true);
         const controller = new AbortController();
-
         try {
             const response = await axios.put (`${process.env.REACT_APP_API_BASE_URL}/notes/${updateNote.id}`, updateNote, { signal });
             setNotes((prevNotes) => prevNotes.map(note => (note.id === updateNote.id ? response.data : note)));
@@ -96,6 +106,8 @@ const App = () => {
                 axios.isCancel(err) ? 'Request is canceled' : 'Updating failed',
                 err
             );
+        } finally {
+            setProcessing(false);
         }
 
         return controller;
