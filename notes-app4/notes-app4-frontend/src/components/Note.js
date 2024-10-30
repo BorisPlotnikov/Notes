@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import '../css/Note.css';
 
-const Note =({ note, deleteNote, deleteId, setEditNote }) => {
+const Note =({ note, deleteNote, deleteId, setEditNote, processing }) => {
     const [controller, setController] = useState(null);
 
     useEffect(() => {

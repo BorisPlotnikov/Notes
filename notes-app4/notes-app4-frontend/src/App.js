@@ -14,11 +14,15 @@ const App = () => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [deleteId, setDeleteId] = useState(null);
     const [editNote, setEditNote] = useState(null);
+    const [processing, setProcessing] = useState(false);
+    const [adding, setAdding] = useState(false);
+    const [saving, setSaving] = useState(false);
 
     useEffect(() => {
         const controller = new AbortController();
 
         const fetchNotes = async () => {
+            setProcessing(true);
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/notes`, { signal: controller.signal });
                 if (Array.isArray(response.data)) {
@@ -32,6 +36,8 @@ const App = () => {
                     axios.isCancel(err) ? 'Request is canceled' : 'Downloading failed',
                     err
                 );
+            } finally {
+                setProcessing(false);
             }
         };
 
@@ -50,6 +56,8 @@ const App = () => {
     }, [errorMessage]);
 
         const addNote = async (noteContent, signal) => {
+            setProcessing(true);
+            setAdding(true);
             try  {
                 const newNote = { id : uuidv4(), noteContent : noteContent.trim() };
                 const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/notes`, newNote, { signal });
@@ -60,10 +68,14 @@ const App = () => {
                     axios.isCancel(err) ? 'Request is canceled' : 'Saving failed',
                     err
                 );
+            } finally {
+                setProcessing(false);
+                setAdding(false);
             }
         };
 
     const deleteNote = async (id) => {
+        setProcessing(true);
         const controller = new AbortController();
         const notesBackup = [...notes];
         setDeleteId(id);
@@ -78,14 +90,17 @@ const App = () => {
                 handleError(setErrorMessage, 'Deleting failed', err);
                 setNotes(notesBackup);
             }
+        } finally {
+            setProcessing(false);
         }
 
         return controller;
     };
 
     const updateNote = async (updateNote, signal) => {
+        setProcessing(true);
+        setSaving(true);
         const controller = new AbortController();
-
         try {
             const response = await axios.put (`${process.env.REACT_APP_API_BASE_URL}/notes/${updateNote.id}`, updateNote, { signal });
             setNotes((prevNotes) => prevNotes.map(note => (note.id === updateNote.id ? response.data : note)));
@@ -96,6 +111,9 @@ const App = () => {
                 axios.isCancel(err) ? 'Request is canceled' : 'Updating failed',
                 err
             );
+        } finally {
+            setProcessing(false);
+            setSaving(false);
         }
 
         return controller;
@@ -104,7 +122,16 @@ const App = () => {
     return (
         <div className='app'>
             <h1>Notes</h1>
-            <NoteForm addNote={addNote} errorMessage={errorMessage} setErrorMessage={setErrorMessage} editNote={editNote} updateNote={updateNote} />
+            <NoteForm
+                addNote={addNote}
+                errorMessage={errorMessage}
+                setErrorMessage={setErrorMessage}
+                editNote={editNote}
+                updateNote={updateNote}
+                processing={processing}
+                saving={saving}
+                adding={adding}
+            />
             <NoteList notes={notes} deleteNote={deleteNote} deleteId={deleteId} setEditNote={setEditNote}/>
             {errorMessage && <ErrorNotification message={errorMessage} />}
         </div>
