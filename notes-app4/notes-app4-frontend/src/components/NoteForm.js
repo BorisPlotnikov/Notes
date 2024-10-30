@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../css/NoteForm.css';
 import PropTypes from 'prop-types';
 
-const NoteForm = ({ addNote, errorMessage, setErrorMessage, editNote, updateNote }) => {
+const NoteForm = ({ addNote, errorMessage, setErrorMessage, editNote, updateNote, processing, saving, adding }) => {
     const [noteContent, setNoteContent] = useState('');
     const [controller, setController] = useState(null);
 
@@ -37,6 +37,14 @@ const NoteForm = ({ addNote, errorMessage, setErrorMessage, editNote, updateNote
         return () => controller && controller.abort();
         }, [controller]);
 
+    const buttonLabel = saving
+    ? 'Saving...'
+    : adding
+    ? 'Adding...'
+    : editNote
+    ? 'Save'
+    : 'Add'
+
     return (
         <form onSubmit={handleSubmit} className='note-form'>
             <input
@@ -48,7 +56,7 @@ const NoteForm = ({ addNote, errorMessage, setErrorMessage, editNote, updateNote
             }}
             placeholder='Add a new note'
             />
-            <button type='submit' disabled={!noteContent.trim() || processing}>{processing ? 'Processing...' : (editNote ? 'Save': 'Add')} Note</button>
+            <button type='submit' disabled={!noteContent.trim() || processing}>{buttonLabel}</button>
         </form>
     );
 }
@@ -61,7 +69,10 @@ NoteForm.propTypes = {
         id: PropTypes.string.isRequired,
         noteContent: PropTypes.string.isRequired
     }),
-    updateNote: PropTypes.func.isRequired
+    updateNote: PropTypes.func.isRequired,
+    processing: PropTypes.bool.isRequired,
+    saving: PropTypes.bool.isRequired,
+    adding: PropTypes.bool.isRequired
 };
 
 export default NoteForm;

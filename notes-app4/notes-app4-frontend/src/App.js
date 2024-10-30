@@ -15,12 +15,15 @@ const App = () => {
     const [deleteId, setDeleteId] = useState(null);
     const [editNote, setEditNote] = useState(null);
     const [processing, setProcessing] = useState(false);
+    const [adding, setAdding] = useState(false);
+    const [saving, setSaving] = useState(false);
 
     useEffect(() => {
         const controller = new AbortController();
 
         const fetchNotes = async () => {
             setProcessing(true);
+            setFetching(true);
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/notes`, { signal: controller.signal });
                 if (Array.isArray(response.data)) {
@@ -35,7 +38,9 @@ const App = () => {
                     err
                 );
             } finally {
-                setLoading(false);
+                setProcessing(false);
+                setFetching(false);
+
             }
         };
 
@@ -55,6 +60,7 @@ const App = () => {
 
         const addNote = async (noteContent, signal) => {
             setProcessing(true);
+            setAdding(true);
             try  {
                 const newNote = { id : uuidv4(), noteContent : noteContent.trim() };
                 const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/notes`, newNote, { signal });
@@ -67,11 +73,13 @@ const App = () => {
                 );
             } finally {
                 setProcessing(false);
+                setAdding(false);
             }
         };
 
     const deleteNote = async (id) => {
         setProcessing(true);
+        setDeleting(true);
         const controller = new AbortController();
         const notesBackup = [...notes];
         setDeleteId(id);
@@ -88,6 +96,7 @@ const App = () => {
             }
         } finally {
             setProcessing(false);
+            setDeleting(false);
         }
 
         return controller;
@@ -95,6 +104,7 @@ const App = () => {
 
     const updateNote = async (updateNote, signal) => {
         setProcessing(true);
+        setSaving(true);
         const controller = new AbortController();
         try {
             const response = await axios.put (`${process.env.REACT_APP_API_BASE_URL}/notes/${updateNote.id}`, updateNote, { signal });
@@ -108,6 +118,7 @@ const App = () => {
             );
         } finally {
             setProcessing(false);
+            setSaving(false);
         }
 
         return controller;
@@ -116,7 +127,16 @@ const App = () => {
     return (
         <div className='app'>
             <h1>Notes</h1>
-            <NoteForm addNote={addNote} errorMessage={errorMessage} setErrorMessage={setErrorMessage} editNote={editNote} updateNote={updateNote} />
+            <NoteForm
+                addNote={addNote}
+                errorMessage={errorMessage}
+                setErrorMessage={setErrorMessage}
+                editNote={editNote}
+                updateNote={updateNote}
+                processing={processing}
+                saving={saving}
+                adding={adding}
+            />
             <NoteList notes={notes} deleteNote={deleteNote} deleteId={deleteId} setEditNote={setEditNote}/>
             {errorMessage && <ErrorNotification message={errorMessage} />}
         </div>
