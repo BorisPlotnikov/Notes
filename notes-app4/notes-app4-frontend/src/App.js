@@ -23,7 +23,6 @@ const App = () => {
 
         const fetchNotes = async () => {
             setProcessing(true);
-            setFetching(true);
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/notes`, { signal: controller.signal });
                 if (Array.isArray(response.data)) {
@@ -39,8 +38,6 @@ const App = () => {
                 );
             } finally {
                 setProcessing(false);
-                setFetching(false);
-
             }
         };
 
@@ -79,7 +76,6 @@ const App = () => {
 
     const deleteNote = async (id) => {
         setProcessing(true);
-        setDeleting(true);
         const controller = new AbortController();
         const notesBackup = [...notes];
         setDeleteId(id);
@@ -96,7 +92,6 @@ const App = () => {
             }
         } finally {
             setProcessing(false);
-            setDeleting(false);
         }
 
         return controller;
