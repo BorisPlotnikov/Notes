@@ -4,20 +4,33 @@ import { v4 as uuidv4 } from 'uuid';
 import dotenv from 'dotenv';
 import NoteList from './components/NoteList';
 import NoteForm  from './components/NoteForm';
+import handleError from '../utils/errorHandler';
 import ErrorNotification from './components/ErrorNotification';
 import './css/App.css';
 
 dotenv.config();
-
+// _____________________________________________________________________________________________________________________________________________
 const App = () => {
     const [notes, setNotes] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
-    const [deleteId, setDeleteId] = useState(null);
-    const [editNote, setEditNote] = useState(null);
+    const [modId, setModId] = useState(null);
+    const [noteToEdit, setNoteToEdit] = useState(null);
     const [processing, setProcessing] = useState(false);
     const [adding, setAdding] = useState(false);
     const [saving, setSaving] = useState(false);
+// _____________________________________________________________________________________________________________________________________________
+    useEffect(() => {
+            const timer = setTimeout(() => setProcessing(true), 300);
+            return () => clearTimeout(timer);
+    }, []);
 
+    useEffect(() => {
+        if (errorMessage) {
+            const timeout = setTimeout(() => setErrorMessage(null), 3000);
+            return () => clearTimeout(timeout);
+        }
+    }, [errorMessage]);
+// ______________________________________________________________________________________________________________________________________________
     useEffect(() => {
         const controller = new AbortController();
 
@@ -47,39 +60,32 @@ const App = () => {
             controller.abort();
         };
     }, []);
-
-    useEffect(() => {
-        if (errorMessage) {
-            const timeout = setTimeout(() => setErrorMessage(null), 3000);
-            return () => clearTimeout(timeout);
+// _______________________________________________________________________________________________________________________________________________
+    const addNote = async (content, signal) => {
+        setProcessing(true);
+        setAdding(true);
+        try  {
+            const indexedNote = { id : uuidv4(), content : content };
+            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/notes`, indexedNote, { signal });
+            setNotes((prevNotes) => [...prevNotes, response.data]);
+        } catch (err) {
+            handleError(
+                setErrorMessage,
+                axios.isCancel(err) ? 'Request is canceled' : 'Saving failed',
+                err
+            );
+        } finally {
+            setProcessing(false);
+            setAdding(false);
         }
-    }, [errorMessage]);
-
-        const addNote = async (noteContent, signal) => {
-            setProcessing(true);
-            setAdding(true);
-            try  {
-                const newNote = { id : uuidv4(), noteContent : noteContent.trim() };
-                const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/notes`, newNote, { signal });
-                setNotes((prevNotes) => [...prevNotes, response.data]);
-            } catch (err) {
-                handleError(
-                    setErrorMessage,
-                    axios.isCancel(err) ? 'Request is canceled' : 'Saving failed',
-                    err
-                );
-            } finally {
-                setProcessing(false);
-                setAdding(false);
-            }
-        };
-
+    };
+// ______________________________________________________________________________________________________________________________________________
     const deleteNote = async (id) => {
         setProcessing(true);
-        const controller = new AbortController();
-        const notesBackup = [...notes];
         setDeleteId(id);
         setNotes(prevNotes => prevNotes.filter(note => note.id !== id));
+        const notesBackup = [...notes];
+        const controller = new AbortController();
         
         try {
             await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/notes/${id}`, { signal: controller.signal });
@@ -96,15 +102,15 @@ const App = () => {
 
         return controller;
     };
-
-    const updateNote = async (updateNote, signal) => {
+// _______________________________________________________________________________________________________________________________________________
+    const updateNote = async (noteToEdit, signal) => {
         setProcessing(true);
         setSaving(true);
         const controller = new AbortController();
         try {
-            const response = await axios.put (`${process.env.REACT_APP_API_BASE_URL}/notes/${updateNote.id}`, updateNote, { signal });
-            setNotes((prevNotes) => prevNotes.map(note => (note.id === updateNote.id ? response.data : note)));
-            setEditNote(null);
+            const response = await axios.put (`${process.env.REACT_APP_API_BASE_URL}/notes/${noteToEdit.id}`, noteToEdit, { signal });
+            setNotes((prevNotes) => prevNotes.map(note => (note.id === noteToEdit.id ? response.data : note)));
+            setNoteToEdit(null);
         } catch (err) {
             handleError(
                 setErrorMessage,
@@ -118,7 +124,7 @@ const App = () => {
 
         return controller;
     };
-
+// ________________________________________________________________________________________________________________________________________________
     return (
         <div className='app'>
             <h1>Notes</h1>
@@ -126,13 +132,24 @@ const App = () => {
                 addNote={addNote}
                 errorMessage={errorMessage}
                 setErrorMessage={setErrorMessage}
-                editNote={editNote}
+                noteToEdit={noteToEdit}
                 updateNote={updateNote}
                 processing={processing}
                 saving={saving}
                 adding={adding}
             />
-            <NoteList notes={notes} deleteNote={deleteNote} deleteId={deleteId} setEditNote={setEditNote}/>
+            {processing ? (
+                <div className="spinner">Loading...</div> // Display loading indicator
+            ) : notes.length > 0 ? (
+                <NoteList
+                    notes={notes}
+                    deleteNote={deleteNote}
+                    modId={modId}
+                    setNoteToEdit={setNoteToEdit}
+                />
+            ) : (
+                <div>No notes available</div>
+            )}
             {errorMessage && <ErrorNotification message={errorMessage} />}
         </div>
     );

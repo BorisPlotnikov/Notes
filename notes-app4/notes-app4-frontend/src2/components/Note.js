@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../css/Note.css';
 
-const Note =({ id, content, deleteNote, editNote }) => {
+const Note = ({ id, content, deleteNote, editNote }) => {
 
     return (
         <div className='note'>
