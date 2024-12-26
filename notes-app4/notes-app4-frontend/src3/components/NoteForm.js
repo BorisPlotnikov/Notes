@@ -13,19 +13,6 @@ const NoteForm = ({ addNote, setMessage, loading }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const trimmedContent = content.trim();
-        if (!trimmedContent) {
-            handleError(setMessage, 'An attempt to submit empty content');
-            return;
-        }
-
-
-        if (trimmedContent.length < MIN_LENGTH || trimmedContent.length > MAX_LENGTH) {
-            const message = trimmedContent.length < MIN_LENGTH
-                ? `An attempt to submit less than ${MIN_LENGTH} characters.`
-                : `An attempt to submit more than ${MAX_LENGTH} characters.`;
-            handleError(setMessage, message);
-            return;
-        }        
 
         try {
             await addNote(trimmedContent);
@@ -35,24 +22,45 @@ const NoteForm = ({ addNote, setMessage, loading }) => {
         };
     };
 
+    const handleChange = (e) => {
+        const value = e.target.value;
+        if (value.length <= MAX_LENGTH && value !== content) {
+            setContent(value);
+        }
+    };
+    
+
     return (
-        <form onSubmit={handleSubmit} className='note-form'>
+        <form onSubmit={handleSubmit} className='note-form' aria-busy={loading}>
             <label htmlFor='note-content' className='sr-only'>Add a new note</label>
             <input
-            type='text'
-            value={content}
-            onChange={(e) => {
-                setContent(e.target.value.trimStart().trimEnd());
-            }}
-            placeholder='Add a new note'
-            aria-label='Note Content'
-            maxLength={MAX_LENGTH}
+                id="note-content"
+                type="text"
+                value={content}
+                onChange={handleChange}
+                placeholder="Add a new note"
+                aria-label="Enter note content"
+                aria-describedby="character-counter"
+                maxLength={MAX_LENGTH}
             />
-            <div className={`character-counter ${content.length >= MAX_LENGTH - 20 ? 'warning' : ''}`} aria-live="polite">
-                {content.length} / {MAX_LENGTH}
-            </div>
 
-            <button type='submit' disabled={loading || !content}>{loading ? 'Adding...' : 'Add'}</button>
+            <div
+                id="character-counter"
+                className={`character-counter ${content.length >= MAX_LENGTH - 20 && 'warning'}`}
+                aria-live="polite"
+                aria-label="Character count"
+            >
+                {
+                    trimmedContent.length > 0 && trimmedContent.length < MIN_LENGTH
+                    ? `Minimum ${MIN_LENGTH} characters`
+                    : trimmedContent.length >= MAX_LENGTH
+                    ? `Maximum ${MAX_LENGTH} characters`
+                    : `${trimmedContent.length}/${MAX_LENGTH}`
+                }
+            </div>
+            <button type='submit' disabled={loading || trimmedContent.length < MIN_LENGTH || trimmedContent.length > MAX_LENGTH}>
+                {loading ? 'Adding...' : 'Add'}
+            </button>
         </form>
     );
 };
