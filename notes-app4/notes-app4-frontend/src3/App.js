@@ -12,18 +12,22 @@ const App = () => {
     const [notes, setNotes] = useState([]);
     const [message, setMessage] = useState(null);
     const [loading, setLoading] = useState(false);
+    const controller = new AbortController();
+
+    useEffect(() => {
+        return () => {
+            controller.abort();
+        };
+    }, []);
 
     const addNote = async (content) => {
         setLoading(true);
         try {
             const newNote = { id : uuidv4(), content : content };
-            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/notes`, newNote);
+            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/notes`, newNote, { signal : controller.signal });
             setNotes((prevNotes) => [...prevNotes, response.data]);
         } catch (err) {
-            handleError(
-                setMessage,
-                err
-            );
+                handleError(setMessage, {axios.isCancel(err) ? 'Request canceled' : null}, err);
         } finally {
             setLoading(false);
         }
