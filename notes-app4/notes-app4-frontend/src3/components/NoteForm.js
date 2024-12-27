@@ -3,17 +3,22 @@ import handleError from '../utils/errorHandler';
 import '../css/NoteForm.css';
 import PropTypes from 'prop-types';
 
-const NoteForm = ({ addNote, setMessage, loading }) => {
+const MAX_LENGTH = 200;
+const MIN_LENGTH = 1;
 
+const NoteForm = ({ addNote, setMessage, loading }) => {
+    
     const [content, setContent] = useState('');
     
-    const MAX_LENGTH = 200;
-    const MIN_LENGTH = 1;
+    const trimmedContent = useMemo(() => content.trim(), [content]);
+    const length = trimmedContent.length;
+    const isContentValid = useMemo(() => length >= MIN_LENGTH && length <= MAX_LENGTH, [length]);
+    const isNearMaxLength = useMemo(() => length >= MAX_LENGTH - 20, [length]);
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const trimmedContent = content.trim();
-
+        
         try {
             await addNote(trimmedContent);
             setContent('');
@@ -21,15 +26,7 @@ const NoteForm = ({ addNote, setMessage, loading }) => {
             handleError(setMessage, 'Saving failed', err);
         };
     };
-
-    const handleChange = (e) => {
-        const value = e.target.value;
-        if (value.length <= MAX_LENGTH && value !== content) {
-            setContent(value);
-        }
-    };
     
-
     return (
         <form onSubmit={handleSubmit} className='note-form' aria-busy={loading}>
             <label htmlFor='note-content' className='sr-only'>Add a new note</label>
@@ -37,8 +34,8 @@ const NoteForm = ({ addNote, setMessage, loading }) => {
                 id="note-content"
                 type="text"
                 value={content}
-                onChange={handleChange}
-                placeholder="Add a new note"
+                onChange={(e) => setContent(e.target.value)}
+                placeholder={loading ? "Please wait..." : "Add a new note"}
                 aria-label="Enter note content"
                 aria-describedby="character-counter"
                 maxLength={MAX_LENGTH}
@@ -46,21 +43,25 @@ const NoteForm = ({ addNote, setMessage, loading }) => {
 
             <div
                 id="character-counter"
-                className={`character-counter ${content.length >= MAX_LENGTH - 20 && 'warning'}`}
+                className={`character-counter ${isNearMaxLength ? 'warning' : ''}`}
                 aria-live="polite"
                 aria-label="Character count"
             >
-                {
-                    trimmedContent.length > 0 && trimmedContent.length < MIN_LENGTH
+                {length < MIN_LENGTH
                     ? `Minimum ${MIN_LENGTH} characters`
-                    : trimmedContent.length >= MAX_LENGTH
+                    : length >= MAX_LENGTH
                     ? `Maximum ${MAX_LENGTH} characters`
-                    : `${trimmedContent.length}/${MAX_LENGTH}`
+                    : `${length}/${MAX_LENGTH}`
                 }
             </div>
-            <button type='submit' disabled={loading || trimmedContent.length < MIN_LENGTH || trimmedContent.length > MAX_LENGTH}>
+            
+            <button
+                type='submit'
+                disabled={loading || !isContentValid}
+                aria-label={loading ? "Adding note..." : "Add a new note"}
+            >
                 {loading ? 'Adding...' : 'Add'}
-            </button>
+            </button> 
         </form>
     );
 };

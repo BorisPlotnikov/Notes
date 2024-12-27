@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ErrorNotification from './components/ErrorNotification';
 import Spinner from './components/Spinner';
 import dotenv from 'dotenv';
@@ -16,8 +16,8 @@ const App = () => {
     const addNote = async (content) => {
         setLoading(true);
         try {
-            const indexedNote = { id : uuidv4(), content : content };
-            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/notes`, indexedNote);
+            const newNote = { id : uuidv4(), content : content };
+            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/notes`, newNote);
             setNotes((prevNotes) => [...prevNotes, response.data]);
         } catch (err) {
             handleError(
@@ -34,6 +34,7 @@ const App = () => {
             <h1>Notes</h1>
             <NoteForm
                 addNote={addNote}
+                setMessage={setMessage}
                 loading={loading}
             />
             {loading ? <Spinner /> : null}
