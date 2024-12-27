@@ -13,8 +13,7 @@ const NoteForm = ({ addNote, setMessage, loading }) => {
     const trimmedContent = useMemo(() => content.trim(), [content]);
     const length = trimmedContent.length;
     const isContentValid = useMemo(() => length >= MIN_LENGTH && length <= MAX_LENGTH, [length]);
-    const isNearMaxLength = useMemo(() => length >= MAX_LENGTH - 20, [length]);
-    
+    const isNearMaxLength = useMemo(() => length >= MAX_LENGTH - 20, [length]);    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
