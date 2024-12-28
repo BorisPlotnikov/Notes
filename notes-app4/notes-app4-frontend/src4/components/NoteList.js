@@ -3,7 +3,7 @@ import Note from './Note';
 import '../css/NoteList.css';
 import PropTypes from 'prop-types';
 
-const NoteList = ({ notes, deleteNote, editNote }) => {
+const NoteList = ({ notes, deleteNote }) => {
     return (
         <div className='notes'>
             {notes.map(note => (
@@ -12,7 +12,6 @@ const NoteList = ({ notes, deleteNote, editNote }) => {
                     id={note.id}
                     content={note.content}
                     deleteNote={deleteNote}
-                    editNote={editNote}
                 />
             ))}
         </div>
@@ -25,7 +24,6 @@ NoteList.propTypes = {
                     content:PropTypes.string.isRequired
                 })
             ).isRequired,
-    deleteNote: PropTypes.func.isRequired,
-    editNote: PropTypes.func.isRequired
+    deleteNote: PropTypes.func.isRequired
 };
 export default NoteList;
