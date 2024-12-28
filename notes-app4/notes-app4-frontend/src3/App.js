@@ -45,7 +45,7 @@ const App = () => {
                 setMessage={setMessage}
                 loading={loading}
             />
-            {loading ? <Spinner /> : null}
+            {loading && <Spinner />}
             {message && <ErrorNotification message={message} />}  
         </div>
     );
