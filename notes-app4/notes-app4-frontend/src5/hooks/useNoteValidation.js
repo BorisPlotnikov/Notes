@@ -23,8 +23,8 @@ const useNoteValidation = (initialContent = '') => {
         length,
         MAX_LENGTH,
         MIN_LENGTH,
-        isContentValid,
         isNearMaxLength,
+        isContentValid,
         handleChange
     };
 };
