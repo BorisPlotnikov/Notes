@@ -1,3 +1,4 @@
+// App.js
 import React, { useState, useEffect } from 'react';
 import ErrorNotification from './components/ErrorNotification';
 import Spinner from './components/Spinner';

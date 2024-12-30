@@ -10,7 +10,7 @@ const NoteList = ({ notes, updateNote }) => {
                 <Note
                     key={note.id}
                     id={note.id}
-                    content={note.content}
+                    noteContent={note.content}
                     updateNote={updateNote}
                 />
             ))}

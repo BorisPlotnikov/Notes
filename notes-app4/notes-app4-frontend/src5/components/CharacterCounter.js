@@ -1,6 +1,8 @@
+// CharacterCounter.js
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const CharacterCounter = ({ length, isNearMaxLength, MIN_LENGTH, MAX_LENGTH }) => {
+const CharacterCounter = ({ length, MIN_LENGTH = 1, MAX_LENGTH = 200, isNearMaxLength }) => {
     return (
         <div
             id="character-counter"
@@ -17,5 +19,12 @@ const CharacterCounter = ({ length, isNearMaxLength, MIN_LENGTH, MAX_LENGTH }) =
         </div>
     );
 };
+
+CharacterCounter.propTypes = {
+    length: PropTypes.number.isRequired,
+    MIN_LENGTH: PropTypes.number.isRequired,
+    MAX_LENGTH: PropTypes.number.isRequired,
+    isNearMaxLength: PropTypes.bool.isRequired
+}
 
 export default CharacterCounter;
