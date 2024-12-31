@@ -1,4 +1,5 @@
 // Note.js
+
 import React, { useState } from 'react';
 import useNoteValidation from '../hooks/useNoteValidation';
 import CharacterCounter from './CharacterCounter';
@@ -22,7 +23,7 @@ const Note = ({ id, noteContent, updateNote, loading }) => {
 
 
     return (
-        <div className='note'>
+        <div className='note' aria-busy={loading} >
             {editing ? (
                 <>
                     <textarea

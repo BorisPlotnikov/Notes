@@ -1,4 +1,5 @@
 // NoteForm.js
+
 import React from 'react';
 import useNoteValidation from '../hooks/useNoteValidation';
 import CharacterCounter from './CharacterCounter';

@@ -1,0 +1,11 @@
+/* CharacterCounter.css */
+
+.character-counter {
+    font-size: 0.875rem;
+    color: #555;
+    margin-top: 0.5rem;
+}
+
+.character-counter.warning {
+    color: red;
+}

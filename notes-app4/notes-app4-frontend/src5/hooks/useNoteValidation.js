@@ -1,4 +1,5 @@
 // useNoteValidation.js
+
 import { useState } from 'react';
 
 const MAX_LENGTH = 200;

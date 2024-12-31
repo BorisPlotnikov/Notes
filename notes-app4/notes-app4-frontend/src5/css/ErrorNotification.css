@@ -1,4 +1,6 @@
-error-notification {
+/* errorNotification.css */
+
+.error-notification {
     text-align: center;
     color: #ffffff;
     border-radius: 5px;

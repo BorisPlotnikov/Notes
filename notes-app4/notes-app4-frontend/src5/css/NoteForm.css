@@ -1,15 +1,7 @@
+/* NoteForm.css */
+
 .note-form {
     margin-bottom: 20px;
-}
-
-.character-counter {
-    font-size: 0.875rem;
-    color: #555;
-    margin-top: 0.5rem;
-}
-
-.character-counter span {
-    font-weight: bold;
 }
 
 input {
@@ -26,10 +18,8 @@ button {
 
 button:disabled {
     background-color: #ccc;
-}
-
-.character-counter.warning {
-    color: red;
+    color: #888;
+    cursor: not-allowed;
 }
 
 .sr-only {
