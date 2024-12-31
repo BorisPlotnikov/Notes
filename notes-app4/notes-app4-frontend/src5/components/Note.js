@@ -5,7 +5,7 @@ import CharacterCounter from './CharacterCounter';
 import PropTypes from 'prop-types';
 import '../css/Note.css';
 
-const Note = ({ id, noteContent, updateNote }) => {
+const Note = ({ id, noteContent, updateNote, loading }) => {
     const { content, trimmedContent, length, MAX_LENGTH, MIN_LENGTH, isNearMaxLength, handleChange } = useNoteValidation(noteContent);
     const [editing, setEditing] = useState(false);
 
@@ -36,13 +36,13 @@ const Note = ({ id, noteContent, updateNote }) => {
                         MAX_LENGTH={MAX_LENGTH}
                         isNearMaxLength={isNearMaxLength}
                     />
-                    <button onClick={handleSave} aria-label="Save the note">Save</button>
-                    <button onClick={handleCancel} aria-label="Cancel the editing">Cancel</button>
+                    <button onClick={handleSave} disable={loading} aria-label="Save the note" type="button">Save</button>
+                    <button onClick={handleCancel} disable={loading} aria-label="Cancel the editing" type="button">Cancel</button>
                 </>
             ) : (
                 <>
                     <p>{content}</p>
-                    <button onClick={handleEdit} aria-label="Edit the note" type="button">Edit</button>
+                    <button onClick={handleEdit} disabled={editing || loading} aria-label="Edit the note" type="button">Edit</button>
                 </>
             )}
         </div>
@@ -52,7 +52,8 @@ const Note = ({ id, noteContent, updateNote }) => {
 Note.propTypes = {
     id: PropTypes.string.isRequired,
     noteContent: PropTypes.string.isRequired,
-    updateNote: PropTypes.func.isRequired
+    updateNote: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired
 };
 
 export default Note;

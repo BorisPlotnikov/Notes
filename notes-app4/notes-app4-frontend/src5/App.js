@@ -48,6 +48,7 @@ const App = () => {
             <NoteList
                 notes={notes}
                 updateNote={updateNote}
+                loading={loading}
             />
             {loading && <Spinner />}
             {message && <ErrorNotification message={message} />}  

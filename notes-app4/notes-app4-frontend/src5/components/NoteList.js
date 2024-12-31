@@ -1,9 +1,11 @@
+// NoteList.js
+
 import React from 'react';
 import Note from './Note';
 import '../css/NoteList.css';
 import PropTypes from 'prop-types';
 
-const NoteList = ({ notes, updateNote }) => {
+const NoteList = ({ notes, updateNote, loading }) => {
     return (
         <div className='note-list'>
             {notes.map(note => (
@@ -12,6 +14,7 @@ const NoteList = ({ notes, updateNote }) => {
                     id={note.id}
                     noteContent={note.content}
                     updateNote={updateNote}
+                    loading={loading}
                 />
             ))}
         </div>
@@ -23,6 +26,8 @@ NoteList.propTypes = {
                     id: PropTypes.string.isRequired,
                     content:PropTypes.string.isRequired
                 })
-            ).isRequired
+            ).isRequired,
+    updateNote: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired
 };
 export default NoteList;
