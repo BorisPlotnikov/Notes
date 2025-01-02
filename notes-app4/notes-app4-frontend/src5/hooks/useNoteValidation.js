@@ -1,10 +1,5 @@
 // useNoteValidation.js
 
-import { useState } from 'react';
-
-const MAX_LENGTH = 200;
-const MIN_LENGTH = 1;
-
 const useNoteValidation = (initialContent = '') => {
     const [content, setContent] = useState(initialContent);
     
@@ -19,15 +14,15 @@ const useNoteValidation = (initialContent = '') => {
     };
     
     return {
-        content, 
-        setContent,
+        content,
         trimmedContent,
+        handleChange,
         length,
-        MAX_LENGTH,
         MIN_LENGTH,
+        MAX_LENGTH,
         isNearMaxLength,
         isContentValid,
-        handleChange
+        setContent,
     };
 };
 

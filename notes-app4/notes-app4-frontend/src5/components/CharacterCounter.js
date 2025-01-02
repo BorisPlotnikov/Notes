@@ -1,12 +1,47 @@
 // CharacterCounter.js
 
-import React from 'react';
+import React, { useState } from 'react';
 import '../css/CharacterCounter.css';
 import PropTypes from 'prop-types';
 
-const CharacterCounter = ({ length, MIN_LENGTH = 1, MAX_LENGTH = 200, isNearMaxLength }) => {
-    return (
-        <div
+const MIN_LENGTH = 1;
+const MAX_LENGTH = 200;
+
+// ___________
+const processing = (initialContent) => {
+    const [content, setContent] = useState(initialContent);    
+    
+    const handleChange = (e) => {
+        setContent(e.target.value);
+    }
+    
+    const trimmedContent = content.trim();
+    const length = trimmedContent.length;
+    
+    const isContentValid = length >= MIN_LENGTH && length <= MAX_LENGTH;
+    const isNearMaxLength = length <= MAX_LENGTH - 20;
+    
+    return {
+        setContent,
+        content,
+        trimmedContent,
+        isContentValid,
+        length,
+        isNearMaxLength,
+        handleChange
+    };
+};
+// ___________
+    
+    const counter = () => {
+        
+        const {
+            length,
+            isNearMaxLength
+        } = processing(initialContent = '');
+
+        return (
+            <div
             id="character-counter"
             className={`character-counter ${isNearMaxLength ? 'warning' : ''}`}
             aria-live="polite"
@@ -19,14 +54,21 @@ const CharacterCounter = ({ length, MIN_LENGTH = 1, MAX_LENGTH = 200, isNearMaxL
                 : `${length}/${MAX_LENGTH}`
             }        
         </div>
-    );
-};
+        );
+    };
 
 CharacterCounter.propTypes = {
-    length: PropTypes.number.isRequired,
-    MIN_LENGTH: PropTypes.number.isRequired,
-    MAX_LENGTH: PropTypes.number.isRequired,
-    isNearMaxLength: PropTypes.bool.isRequired
-}
+    initalContent: PropTypes.string
+};
 
-export default CharacterCounter;
+export { counter,
+            handleChange,
+            setContent,
+            content,
+            trimmedContent,
+            MIN_LENGTH,
+            MAX_LENGTH,
+            length,
+            isContentValid,
+            isNearMaxLength
+        }
