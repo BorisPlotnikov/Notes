@@ -20,6 +20,11 @@
     resize: none;
 }
 
+.textarea-container {
+    display: flex;
+    align-items: baseline;
+}
+
 button {
     margin-top: 5px;
     cursor: pointer;
@@ -28,3 +33,15 @@ button {
 button:hover {
     background-color: #f0f0f0;
 }
+
+.sr-only {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+}
+

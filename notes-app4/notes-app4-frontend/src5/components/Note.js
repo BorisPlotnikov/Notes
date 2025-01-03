@@ -6,46 +6,70 @@ import CharacterCounter from './CharacterCounter';
 import PropTypes from 'prop-types';
 import '../css/Note.css';
 
+// Functional component for managing individual notes
 const Note = ({ id, noteContent, updateNote, loading }) => {
-    const { content, trimmedContent, length, MAX_LENGTH, MIN_LENGTH, isNearMaxLength, handleChange } = useNoteValidation(noteContent);
+    const { content, trimmedContent, handleChange } = useNoteValidation(noteContent);
     const [editing, setEditing] = useState(false);
 
-    const handleEdit = () => setEditing(true);
-
+    // Handle saving the note content
     const handleSave = () => {
         updateNote(id, trimmedContent);
         setEditing(false);
     };
 
-    const handleCancel = () => {
-        setEditing(false);
-    };
-
+    // Render the editing state view with textarea and buttons
+    const renderEditingState = () => (
+        <div className="textarea-container">
+            <textarea
+                value={content}
+                onChange={handleChange}
+                aria-label="Edit note content"
+            />
+            <CharacterCounter content={trimmedContent} className="character-counter" />
+            <button
+                onClick={handleSave}
+                disabled={loading}
+                aria-label="Save the note"
+            >
+                Save
+            </button>
+            <button
+                onClick={() => setEditing(false)}
+                disabled={loading}
+                aria-label="Cancel the editing"
+            >
+                Cancel
+            </button>
+        </div>
+    );
+    
+    // Render the display state view with note content and edit button
+    const renderDisplayState = () => (
+        <>
+            <p>{content}</p>
+            <button
+                onClick={() => setEditing(true)}
+                disabled={editing || loading}
+                aria-label="Edit the note"
+            >
+                Edit
+            </button>
+        </>
+    );
 
     return (
         <div className='note' aria-busy={loading} >
-            {editing ? (
-                <>
-                    <textarea
-                        value={content}
-                        onChange={handleChange}
-                        aria-label="Edit note content"
-                    />
-                    <CharacterCounter
-                        length={length}
-                        MIN_LENGTH={MIN_LENGTH}
-                        MAX_LENGTH={MAX_LENGTH}
-                        isNearMaxLength={isNearMaxLength}
-                    />
-                    <button onClick={handleSave} disable={loading} aria-label="Save the note" type="button">Save</button>
-                    <button onClick={handleCancel} disable={loading} aria-label="Cancel the editing" type="button">Cancel</button>
-                </>
-            ) : (
-                <>
-                    <p>{content}</p>
-                    <button onClick={handleEdit} disabled={editing || loading} aria-label="Edit the note" type="button">Edit</button>
-                </>
-            )}
+            {editing ? renderEditingState() : renderDisplayState()}
+
+            {/* Accessibility alert region */}
+            <div
+                className="sr-only"
+                aria-live="polite"
+                aria-relevant="additions text"
+                style={{ position: 'absolute', left: '-9999px' }}
+            >
+                {loading ? 'Loading...' : 'Changes saved successfully.'}
+            </div>
         </div>
     );
 };
