@@ -1,5 +1,6 @@
 import React from 'react';
 import '../css/AccessibilityAlertRegion.css';
+import PropTypes from 'prop-types';
 
 const AccessibilityAlertRegion = ({ loading }) => {
     return (
@@ -11,6 +12,10 @@ const AccessibilityAlertRegion = ({ loading }) => {
             {loading ? 'Loading...' : 'Changes saved successfully.'}
         </div>
     );
+};
+
+AccessibilityAlertRegion.propTypes = {
+    loading: PropTypes.bool.isRequired
 };
 
 export default AccessibilityAlertRegion;

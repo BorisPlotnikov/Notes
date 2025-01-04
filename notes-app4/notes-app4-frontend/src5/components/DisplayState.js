@@ -4,7 +4,13 @@ import React from 'react';
 import useNoteValidation from '../hooks/useNoteValidation';
 import PropTypes from 'prop-types';
 
-const DisplayState = ({ setEditing, editing, noteContent, loading }) => {
+const DisplayState = ({
+    setEditing,
+    editing,
+    noteContent,
+    loading
+}) => {
+    
     const { content } = useNoteValidation(noteContent);
 
     return (
