@@ -1,9 +1,10 @@
-// DisplaySTate.js
+// DisplayState.js
 
 import React from 'react';
 import useNoteValidation from '../hooks/useNoteValidation';
+import PropTypes from 'prop-types';
 
-const RenderDisplayState = ({ setEditing, editing, noteContent, loading }) => {
+const DisplayState = ({ setEditing, editing, noteContent, loading }) => {
     const { content } = useNoteValidation(noteContent);
 
     return (
@@ -21,4 +22,11 @@ const RenderDisplayState = ({ setEditing, editing, noteContent, loading }) => {
     );
 };
 
-export default RenderDisplayState;
+DisplayState.propTypes = {
+    setEditing: PropTypes.func.isRequired,
+    editing: PropTypes.bool.isRequired,
+    noteContent: PropTypes.string.isRequired,
+    loading: PropTypes.bool.isRequired
+};
+
+export default DisplayState;
