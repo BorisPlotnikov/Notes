@@ -1,6 +1,8 @@
 // Note.js
 
 import React, { useState } from 'react';
+import DisplayState from './DisplayState';
+import EditingState from './EditingState';
 import useNoteValidation from '../hooks/useNoteValidation';
 import CharacterCounter from './CharacterCounter';
 import PropTypes from 'prop-types';
@@ -17,7 +19,7 @@ const Note = ({ id, noteContent, updateNote, loading }) => {
         setEditing(false);
     };
 
-    // Render the editing state view with textarea and buttons
+    // Render the editing state
     const renderEditingState = () => (
         <div className="textarea-container">
             <textarea
@@ -59,7 +61,17 @@ const Note = ({ id, noteContent, updateNote, loading }) => {
 
     return (
         <div className='note' aria-busy={loading} >
-            {editing ? renderEditingState() : renderDisplayState()}
+            {/* {editing ? renderEditingState() : renderDisplayState()} */}
+            {
+                editing
+                ? <EditingState />
+                : <DisplayState
+                    setEditing={setEditing}
+                    editing={editing}
+                    noteContent={noteContent}
+                    loading={loading}
+                />
+            }
 
             {/* Accessibility alert region */}
             <div
