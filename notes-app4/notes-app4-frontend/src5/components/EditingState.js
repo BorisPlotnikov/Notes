@@ -21,7 +21,7 @@ const EditingState = ({
                     onChange={handleChange}
                     aria-label="Edit note content"
                 />
-                <CharacterCounter content={trimmedContent} className="character-counter" />
+                <CharacterCounter content={trimmedContent} />
                 <button
                     onClick={handleSave}
                     disabled={loading}

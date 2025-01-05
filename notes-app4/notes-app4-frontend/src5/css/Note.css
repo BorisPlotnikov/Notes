@@ -9,39 +9,3 @@
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-.note p {
-    display: inline-block;
-    margin-right: 10px;
-}
-
-.note textarea {
-    width: 100%;
-    height: 100px;
-    resize: none;
-}
-
-.textarea-container {
-    display: flex;
-    align-items: baseline;
-}
-
-button {
-    margin-top: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #f0f0f0;
-}
-
-.sr-only {
-    position: absolute;
-    left: -9999px;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-}
-
