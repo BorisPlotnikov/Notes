@@ -1,0 +1,35 @@
+/* NoteForm.css */
+
+.note-form {
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+button {
+    margin-top: 1rem;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+button:disabled {
+    background-color: #ccc;
+    color: #888;
+    cursor: not-allowed;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    overflow: hidden;
+}
+
