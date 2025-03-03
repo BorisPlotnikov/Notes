@@ -1,0 +1,22 @@
+/* Note.css */
+
+/* Styling for individual note elements */
+.note {
+    /* Set the width of the note to 200px */
+    width: 200px;
+
+    /* Add padding inside the note for better spacing around content */
+    padding: 10px;
+
+    /* Add margin around the note to create space between other notes */
+    margin: 10px;
+
+    /* Add a light gray border around the note */
+    border: 1px solid #ddd;
+
+    /* Set a light gray background color for the note */
+    background: #f4f4f4;
+
+    /* Add a subtle box shadow around the note for a lifted effect */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}

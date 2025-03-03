@@ -1,0 +1,32 @@
+/* Spinner.css */
+
+/* Styling for the spinner element */
+.spinner {
+    /* Light gray color for the spinner's border */
+    border: 8px solid #f3f3f3;
+
+    /* Blue color for the top part of the spinner to create the spinning effect */
+    border-top: 8px solid #3498db;
+
+    /* Make the spinner circular */
+    border-radius: 50%;
+
+    /* Set the width and height of the spinner */
+    width: 40px;
+    height: 40px;
+
+    /* Animation for rotating the spinner */
+    animation: spin 1s linear infinite;
+
+    /* Center the spinner with margin */
+    margin: 20px auto;
+}
+
+/* Keyframes for the spinning animation */
+@keyframes spin {
+    /* Starting state (0 degrees) */
+    0% { transform: rotate(0deg); }
+
+    /* Final state (360 degrees) */
+    100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,66 @@
+/* NoteForm.css */
+
+/* Styling for the note form container */
+.note-form {
+    /* Add space below the form (separates it from content below) */
+    margin-bottom: 20px;
+}
+
+/* Styling for the input fields inside the form */
+input {
+    /* Make the input field take up 100% of the width of its container */
+    width: 100%;
+
+    /* Add padding inside the input field for better spacing */
+    padding: 10px;
+
+    /* Set font size to 1rem for consistency and readability */
+    font-size: 1rem;
+}
+
+/* Styling for buttons inside the form */
+button {
+    /* Add space above the button (separates it from the input field above) */
+    margin-top: 1rem;
+
+    /* Add padding inside the button for better click area */
+    padding: 10px;
+
+    /* Set font size to 1rem for consistency */
+    font-size: 1rem;
+}
+
+/* Styling for the button when it is disabled */
+button:disabled {
+    /* Set background color to a light gray when disabled */
+    background-color: #ccc;
+
+    /* Change text color to a darker gray when disabled */
+    color: #888;
+
+    /* Change the cursor to indicate that the button is not clickable */
+    cursor: not-allowed;
+}
+
+/* Styling for elements that should be visually hidden but still accessible */
+.sr-only {
+    /* Position the element off-screen (positioning it absolutely) */
+    position: absolute;
+
+    /* Make the element very small so it is hidden from view */
+    width: 1px;
+    height: 1px;
+
+    /* Remove any margin or padding */
+    margin: -1px;
+    padding: 0;
+
+    /* Remove any borders */
+    border: 0;
+
+    /* Clip the element out of the visible area */
+    clip: rect(0, 0, 0, 0);
+
+    /* Hide overflow content */
+    overflow: hidden;
+}

@@ -1,0 +1,22 @@
+/* CharacterCounter.css */
+
+/* Styling for the character counter */
+.character-counter {
+    /* Set the opacity to 0.5 to make the counter text semi-transparent */
+    opacity: 0.5;
+
+    /* Set the font size to 0.875rem for a smaller, more subtle text */
+    font-size: 0.875rem;
+
+    /* Set the text color to a medium gray */
+    color: #555;
+
+    /* Add a small margin to the left of the counter for spacing */
+    margin-left: 10px;
+}
+
+/* Styling for the character counter when it has the 'warning' class */
+.character-counter.warning {
+    /* Change the text color to red when the warning class is added, indicating an issue */
+    color: red;
+}

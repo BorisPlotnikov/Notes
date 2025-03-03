@@ -1,0 +1,37 @@
+/* DisplayState.css */
+
+/* Styling for paragraph elements */
+p {
+    /* Make the paragraph behave like an inline element, allowing other elements to sit beside it */
+    display: inline-block;
+
+    /* Add some space to the right of the paragraph */
+    margin-right: 10px;
+}
+
+/* Styling for button elements */
+button {
+    /* Add a small margin at the top to separate the button from other elements */
+    margin-top: 5px;
+
+    /* Change the cursor to a pointer when hovering over the button, indicating it's clickable */
+    cursor: pointer;
+}
+
+/* Styling for the button when it is hovered over */
+button:hover {
+    /* Change the background color when the button is hovered for a visual effect */
+    background-color: #f0f0f0;
+}
+
+/* Styling for the button when it is disabled */
+button:disabled {
+    /* Set the background color to light gray when the button is disabled */
+    background-color: #ccc;
+
+    /* Set the text color to a darker gray to indicate that it is inactive */
+    color: #888;
+
+    /* Change the cursor to indicate the button is not clickable */
+    cursor: not-allowed;
+}

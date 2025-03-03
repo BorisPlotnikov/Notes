@@ -1,0 +1,49 @@
+/* EditingState.css */
+
+/* Styling for the textarea element */
+textarea {
+    /* Make the textarea take up the full width of its container */
+    width: 100%;
+
+    /* Set a fixed height for the textarea */
+    height: 100px;
+
+    /* Prevent resizing the textarea (for a consistent UI) */
+    resize: none;
+}
+
+/* Styling for the button elements */
+button {
+    /* Add a small margin at the top to separate the button from other elements */
+    margin-top: 5px;
+
+    /* Change the cursor to a pointer to indicate that it's clickable */
+    cursor: pointer;
+}
+
+/* Styling for the button when it is hovered over */
+button:hover {
+    /* Change the background color when the button is hovered for a visual effect */
+    background-color: #f0f0f0;
+}
+
+/* Styling for the button when it is disabled */
+button:disabled {
+    /* Set the background color to light gray when the button is disabled */
+    background-color: #ccc;
+
+    /* Set the text color to a darker gray to indicate that it is inactive */
+    color: #888;
+
+    /* Change the cursor to indicate the button is not clickable */
+    cursor: not-allowed;
+}
+
+/* Styling for the container around the textarea */
+.textarea-container {
+    /* Use flexbox to layout elements */
+    display: flex;
+
+    /* Align items along the baseline (ensures alignment of items in the container) */
+    align-items: baseline;
+}
