@@ -1,7 +1,7 @@
 // Spinner.js
 
 import React, { useEffect, useState } from 'react'; // Import React and necessary hooks
-import './Spinner.css'; // Import the CSS file for spinner styles
+import '../css/Spinner.css'; // Import the CSS file for spinner styles
 
 const Spinner = () => {
     // State to manage whether the spinner should be shown or not

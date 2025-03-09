@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 
 // Import the CSS stylesheet for styling the app (located in the 'index.css' file)
-import '.css/index.css';
+import './css/index.css';
 
 // Create a reference to the root element in the HTML where the app will be rendered
 const root = ReactDOM.createRoot(document.getElementById('root'));

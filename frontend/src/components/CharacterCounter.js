@@ -1,7 +1,7 @@
 // CharacterCounter.js
 
 import React from 'react'; // Import React library for JSX syntax
-import { useNoteValidation } from '../hooks/useNoteValidation'; // Custom hook for note validation (to get length and validation)
+import useNoteValidation from '../hooks/useNoteValidation'; // Custom hook for note validation (to get length and validation)
 import { LENGTHS } from '../constants/constants'; // Constant values for minimum and maximum note lengths
 import '../css/CharacterCounter.css'; // Import the component's CSS file for styling
 import PropTypes from 'prop-types'; // Import PropTypes for prop validation

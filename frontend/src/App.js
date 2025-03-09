@@ -1,9 +1,9 @@
 // App.js
 
 import React, { useState } from 'react';  // Import React and the useState hook
-import useUpdateNote from '../hooks/useUpdateNote';  // Custom hook for updating notes
-import useDeleteNote from '../hooks/useDeleteNote';  // Custom hook for deleting notes
-import NoteList from './componenets/NoteList';  // Component for displaying the list of notes
+import useUpdateNote from './hooks/useUpdateNote';  // Custom hook for updating notes
+import useDeleteNote from './hooks/useDeleteNote';  // Custom hook for deleting notes
+import NoteList from './components/NoteList';  // Component for displaying the list of notes
 import ErrorNotification from './components/ErrorNotification';  // Component to show error messages
 import Spinner from './components/Spinner';  // Component to show a loading spinner
 import './css/App.css';  // Import CSS for styling the App

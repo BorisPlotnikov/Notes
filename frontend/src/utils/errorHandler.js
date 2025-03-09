@@ -6,6 +6,7 @@ const handleError = (
     log = `An operation failed.`,  // Default log message if no specific message is provided
     error = `No additional error data is available.`  // Default error message
 ) => {
+    let message = 'An unexpected error occured';
 
     // Function to check the status code and return a corresponding message
     const checkStatus = (statusCode) => {

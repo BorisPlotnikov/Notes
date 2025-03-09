@@ -39,4 +39,4 @@ const useNoteValidation = (initialContent = '') => {
 };
 
 // Export the custom hook for use in other parts of the application
-export { useNoteValidation };
+export default useNoteValidation;
