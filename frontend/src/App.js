@@ -3,6 +3,7 @@
 import React, { useState } from 'react';  // Import React and the useState hook
 import useUpdateNote from './hooks/useUpdateNote';  // Custom hook for updating notes
 import useDeleteNote from './hooks/useDeleteNote';  // Custom hook for deleting notes
+import NoteForm from './components/NoteForm'; // Component for note creating input form
 import NoteList from './components/NoteList';  // Component for displaying the list of notes
 import ErrorNotification from './components/ErrorNotification';  // Component to show error messages
 import Spinner from './components/Spinner';  // Component to show a loading spinner
@@ -21,6 +22,7 @@ const App = () => {
     return (
         <div className='app'>
             <h1>Notes</h1>  {/* Header for the app */}
+            <NoteForm />
             <NoteList
                 notes={notes}  // Pass the notes state to the NoteList component
                 updateNote={updateNote}  // Pass the updateNote function to the NoteList component
