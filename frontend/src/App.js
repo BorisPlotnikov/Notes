@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';  // Import React and the useState hook
 import useUpdateNote from './hooks/useUpdateNote';  // Custom hook for updating notes
+import useAddNote from './hooks/useAddNote'; // Custom hook for adding notes
 import useDeleteNote from './hooks/useDeleteNote';  // Custom hook for deleting notes
 import NoteForm from './components/NoteForm'; // Component for note creating input form
 import NoteList from './components/NoteList';  // Component for displaying the list of notes
@@ -16,13 +17,18 @@ const App = () => {
     const [loading, setLoading] = useState(false);  // Indicates whether the app is loading
 
     // Destructure the functions from custom hooks for updating and deleting notes
+    const { addNote } = useAddNote(setNotes, setErrorMessage, setLoading);
     const { updateNote } = useUpdateNote(setNotes, setErrorMessage, setLoading);
     const { deleteNote } = useDeleteNote(setNotes, setErrorMessage, setLoading);
 
     return (
         <div className='app'>
             <h1>Notes</h1>  {/* Header for the app */}
-            <NoteForm />
+            <NoteForm
+                addNote={addNote} 
+                setErrorMessage={setErrorMessage} 
+                loading={loading}
+            />
             <NoteList
                 notes={notes}  // Pass the notes state to the NoteList component
                 updateNote={updateNote}  // Pass the updateNote function to the NoteList component
