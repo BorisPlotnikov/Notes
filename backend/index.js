@@ -2,8 +2,10 @@
 
 // Import the Express library to set up the server
 const express = require('express');
+const cors = require('cors');
 // Create an instance of the Express application
 const app = express();
+app.use(cors());
 
 // Import the routes for handling '/notes' endpoint
 const notesRouter = require('./routes/notes');
