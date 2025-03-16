@@ -3,6 +3,7 @@
 // Import the Express library to set up the server
 const express = require('express');
 const cors = require('cors');
+const apiConfig = require('./utils/apiConfig');
 // Create an instance of the Express application
 const app = express();
 app.use(cors());
@@ -22,7 +23,7 @@ app.use('/notes', notesRouter);
 app.use(errorHandler);
 
 // Define the port the server will listen on, using the environment variable or default to 3000
-const PORT = process.env.PORT || 3000;
+const PORT = apiConfig.port;
 
 // Start the Express server and listen on the specified port
 app.listen(PORT, () => {
