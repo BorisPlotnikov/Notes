@@ -1,6 +1,7 @@
 // App.js
 
-import React, { useState } from 'react';  // Import React and the useState hook
+import React, { useState, useEffect } from 'react';  // Import React and the useState hook
+import useFetchNotes from './hooks/useFetchNotes'; // Custom hook for fetching notes
 import useUpdateNote from './hooks/useUpdateNote';  // Custom hook for updating notes
 import useAddNote from './hooks/useAddNote'; // Custom hook for adding notes
 import useDeleteNote from './hooks/useDeleteNote';  // Custom hook for deleting notes
@@ -20,6 +21,8 @@ const App = () => {
     const { addNote } = useAddNote(setNotes, setErrorMessage, setLoading);
     const { updateNote } = useUpdateNote(setNotes, setErrorMessage, setLoading);
     const { deleteNote } = useDeleteNote(setNotes, setErrorMessage, setLoading);
+
+    useFetchNotes(setNotes, setErrorMessage, setLoading);
 
     return (
         <div className='app'>
