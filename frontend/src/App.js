@@ -1,6 +1,6 @@
 // App.js
 
-import React, { useState, useEffect } from 'react';  // Import React and the useState hook
+import React, { useState } from 'react';  // Import React and the useState hook
 import useFetchNotes from './hooks/useFetchNotes'; // Custom hook for fetching notes
 import useUpdateNote from './hooks/useUpdateNote';  // Custom hook for updating notes
 import useAddNote from './hooks/useAddNote'; // Custom hook for adding notes
