@@ -12,13 +12,11 @@ const useAbortController = () => {
     const createAbortController = () => {
         // Abort the existing controller if it exists, to cancel any ongoing request
         if (controllerRef.current) {
-            console.log('Aborting previous request')
             controllerRef.current.abort();
         }
         // Create a new AbortController and store it in the ref
         const controller = new AbortController();
         controllerRef.current = controller;
-        console.log('Created new AbortController')
     };
 
     // Function to get the current AbortController's signal
