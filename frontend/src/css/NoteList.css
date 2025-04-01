@@ -1,10 +1,6 @@
 /* NoteList.css */
 
-/* Styling for the container of the note list */
 .note-list {
-    /* Use flexbox layout to arrange items in a row */
     display: flex;
-
-    /* Allow the flex items to wrap onto multiple lines if necessary */
     flex-wrap: wrap;
 }

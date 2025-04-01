@@ -1,24 +1,13 @@
 /* AccessibilityAlertRegion */
 
-/* This class is used to visually hide content but keep it accessible for screen readers */
 .sr-only {
-    /* Position the element absolutely, so it can be removed from normal document flow */
     position: absolute;
-
-    /* Move the element off-screen to the far left */
     left: -9999px;
-
-    /* Set a width and height of 1px, making the element effectively invisible */
     width: 1px;
     height: 1px;
-
-    /* Remove any margin or padding to ensure no space is taken up */
     margin: -1px;
     padding: 0;
-
-    /* Hide overflow content, ensuring nothing is visible */
     overflow: hidden;
-
-    /* Clip the element, effectively reducing its visible area to 0 */
     clip: rect(0, 0, 0, 0);
 }
+

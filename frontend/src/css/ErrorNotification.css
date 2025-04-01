@@ -1,22 +1,10 @@
 /* errorNotification.css */
 
-/* Styling for the error notification element */
 .error-notification {
-    /* Center-align the text inside the notification */
     text-align: center;
-
-    /* Set the text color to white for contrast against the red background */
     color: #ffffff;
-
-    /* Round the corners of the notification box */
     border-radius: 5px;
-
-    /* Add padding inside the notification for spacing */
     padding: 10px;
-
-    /* Add space below the notification */
     margin-bottom: 15px;
-
-    /* Set the background color to a red shade to indicate an error */
     background-color: #ff0000;
 }
