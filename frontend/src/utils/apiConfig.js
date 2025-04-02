@@ -4,7 +4,6 @@ import handleError from '../utils/errorHandler';
 
 const getApiBaseUrl =  (setErrorMessage) => {
     const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
-    console.log('API Base URL:', apiBaseUrl); // Log the value of the API base URL
 
     if (!apiBaseUrl) {
         handleError(
