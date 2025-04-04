@@ -22,24 +22,30 @@ const EditingState = ({
                     onChange={handleChange}
                     aria-label="Edit note content"
                 />
+                <div className="character-counter">
+                    <CharacterCounter content={trimmedContent} />
+                </div>
                 
-                <CharacterCounter content={trimmedContent} />
-                
-                <button
-                    onClick={handleSave}
-                    disabled={loading}
-                    aria-label="Save the note"
-                >
-                    Save
-                </button>
-                
-                <button
-                    onClick={() => setState(STATES.DISPLAY)}
-                    disabled={loading}
-                    aria-label="Cancel the editing"
-                >
-                    Cancel
-                </button>
+                <div className="button-container">
+                    <button
+                        className="save"
+                        onClick={handleSave}
+                        disabled={loading}
+                        aria-label="Save the note"
+                    >
+                        Save
+                    </button>
+                    
+                    <button
+                        className="cancel"
+                        onClick={() => setState(STATES.DISPLAY)}
+                        disabled={loading}
+                        aria-label="Cancel the editing"
+                    >
+                        Cancel
+                    </button>
+                </div>                
+
             </div>
     );
 };

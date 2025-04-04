@@ -1,6 +1,9 @@
 /* CharacterCounter.css */
 
 .character-counter {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
     opacity: 0.5;
     font-size: 0.875rem;
     color: #555;
