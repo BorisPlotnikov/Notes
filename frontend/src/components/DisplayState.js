@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { STATES } from '../constants/constants';
+import '../css/DisplayState.css';
 import PropTypes from 'prop-types';
 
 const DisplayState = ({
@@ -16,22 +17,26 @@ const DisplayState = ({
     return (
         <>
             <p>{content}</p>
-            
-            <button
-                onClick={() => deleteNote(id)}
-                disabled={loading}
-                aria-label="delete the note"
-            >
-                Delete
-            </button>
-            
-            <button
-                onClick={() => setState(STATES.EDITING)}
-                disabled={state === STATES.EDITING || loading}
-                aria-label="Edit the note"
-            >
-                Edit
-            </button>
+
+            <div className="button-container">         
+                <button
+                    className="delete"
+                    onClick={() => deleteNote(id)}
+                    disabled={loading}
+                    aria-label="delete the note"
+                >
+                    Delete
+                </button>
+                
+                <button
+                    className="edit"
+                    onClick={() => setState(STATES.EDITING)}
+                    disabled={state === STATES.EDITING || loading}
+                    aria-label="Edit the note"
+                >
+                    Edit
+                </button>
+            </div>
         </>
     );
 };

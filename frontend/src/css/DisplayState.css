@@ -5,6 +5,12 @@ p {
     margin-right: 10px;
 }
 
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
 button {
     margin-top: 5px;
     cursor: pointer;
@@ -19,3 +25,14 @@ button:disabled {
     color: #888;
     cursor: not-allowed;
 }
+
+button.delete, button.edit {
+    width: auto;
+    flex: 1;
+    margin: 0;
+}
+
+button.delete {
+    margin-right: 10px;
+}
+
