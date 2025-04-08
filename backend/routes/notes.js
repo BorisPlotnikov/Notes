@@ -1,44 +1,14 @@
 // routes/notes.js
 
-const express = require('express');
+import express from 'express';
+import getNotes from './handlers/getNotes.js'; // remove file extension
+import createNote from './handlers/createNote.js'; // remove file extension
+import deleteNote from './handlers/deleteNote.js'; // remove file extension
 const router = express.Router();
-const Note = require('../models/Note');
-const sendResponse = require('../helpers/sendResponse');
 
-router.get('/', async (req, res, next) => {
-    try {
-        const notes = await Note.find();
-        sendResponse(res, 200, notes);
-    } catch (err) {
-        return next(err);
-    }
-});
+router.get('/', getNotes);
+router.post('/', createNote);
+router.delete('/:noteId', deleteNote);
 
-router.post('/', async (req, res, next) => {
-    const note = new Note({
-        content: req.body.content
-    });
-    try {
-        const savedNote = await note.save();
-        sendResponse(res, 201, savedNote);
-    } catch (err) {
-        return next(err);
-    }
-});
-
-router.delete('/:noteId', async (req, res, next) => {
-    try {
-        const deletedNote = await Note.findByIdAndDelete(req.params.noteId);
-        
-        if (!deletedNote) {
-            return next({ status: 404, message: "Note not found" });
-        }
-        
-        sendResponse(res, 200, deletedNote);
-    } catch (err) {
-        return next(err);
-    }
-});
-
-module.exports = router;
+export default router;
 

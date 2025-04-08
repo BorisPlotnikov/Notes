@@ -1,7 +1,10 @@
-require('dotenv').config();
+// apiConfig.js
+
+import dotenv from 'dotenv';
+dotenv.config();
 
 const apiConfig = {
     port: process.env.PORT || 3001
 };
 
-module.exports = apiConfig;
+export default apiConfig;

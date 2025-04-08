@@ -1,6 +1,6 @@
 // models/Note.js
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const noteSchema = new mongoose.Schema({
     content: {
@@ -9,4 +9,4 @@ const noteSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Note', noteSchema);
+export default mongoose.model('Note', noteSchema);
