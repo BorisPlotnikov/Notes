@@ -30,6 +30,7 @@ const App = () => {
                 setErrorMessage={setErrorMessage}
                 loading={loading}
             />
+
             <NoteList
                 notes={notes}
                 updateNote={updateNote}

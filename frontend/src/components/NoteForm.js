@@ -9,7 +9,15 @@ import '../css/NoteForm.css';
 import PropTypes from 'prop-types';
 
 const NoteForm = ({ addNote, setErrorMessage, loading }) => {
-    const { content, setContent, trimmedContent, length, isNearMaxLength, isContentValid, handleChange } = useNoteValidation();
+    const {
+        content, 
+        setContent, 
+        trimmedContent, 
+        length, 
+        isNearMaxLength, 
+        isContentValid, 
+        handleChange 
+    } = useNoteValidation();
 
     const handleSubmit = async (e) => {
         e.preventDefault();

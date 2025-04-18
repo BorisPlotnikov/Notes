@@ -18,6 +18,10 @@ const Note = ({ id, noteContent, updateNote, deleteNote, loading }) => {
         setState(STATES.DISPLAY);
     };
 
+    const handleCancel = () => {
+        setState(STATES.DISPLAY);
+    }
+
     return (
         <div className='note' aria-busy={loading}>
             <div aria-live="polite">
@@ -28,6 +32,7 @@ const Note = ({ id, noteContent, updateNote, deleteNote, loading }) => {
                         handleChange={handleChange}
                         trimmedContent={trimmedContent}
                         handleSave={handleSave}
+                        handleCancel={handleCancel}
                         setState={setState}
                         loading={loading}
                       />

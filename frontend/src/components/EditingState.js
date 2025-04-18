@@ -2,7 +2,6 @@
 
 import React from 'react';
 import CharacterCounter from './CharacterCounter';
-import { STATES } from '../constants/constants';
 import '../css/EditingState.css';
 import PropTypes from 'prop-types';
 
@@ -11,8 +10,9 @@ const EditingState = ({
                         handleChange,
                         trimmedContent,
                         handleSave,
+                        handleCancel,
                         setState,
-                        loading,
+                        loading
                     }) => {
 
     return (
@@ -21,6 +21,7 @@ const EditingState = ({
                     value={content}
                     onChange={handleChange}
                     aria-label="Edit note content"
+                    autoFocus
                 />
                 <div className="character-counter">
                     <CharacterCounter content={trimmedContent} />
@@ -38,7 +39,7 @@ const EditingState = ({
                     
                     <button
                         className="cancel"
-                        onClick={() => setState(STATES.DISPLAY)}
+                        onClick={handleCancel} // focus
                         disabled={loading}
                         aria-label="Cancel the editing"
                     >
@@ -56,7 +57,8 @@ EditingState.propTypes = {
     trimmedContent: PropTypes.string.isRequired,
     handleSave: PropTypes.func.isRequired,
     setState: PropTypes.func.isRequired,
-    loading: PropTypes.bool.isRequired
+    loading: PropTypes.bool.isRequired,
+    handleCancel: PropTypes.func.isRequired // focus
 };
 
 export default EditingState;
