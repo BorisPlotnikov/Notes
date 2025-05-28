@@ -11,37 +11,37 @@ import '../css/Note.css';
 
 const Note = ({ id, noteContent, updateNote, deleteNote, loading }) => {
     const { content, trimmedContent, handleChange } = useNoteValidation(noteContent);
-    const [state, setState] = useState(STATES.DISPLAY);
+    const [noteState, setNoteState] = useState(STATES.NOTE.DISPLAY);
 
     const handleSave = () => {
         updateNote(id, trimmedContent);
-        setState(STATES.DISPLAY);
+        setNoteState(STATES.NOTE.DISPLAY);
     };
 
     const handleCancel = () => {
-        setState(STATES.DISPLAY);
+        setNoteState(STATES.NOTE.DISPLAY);
     }
 
     return (
         <div className='note' aria-busy={loading}>
             <div aria-live="polite">
                 {
-                    state === STATES.EDITING
+                    noteState === STATES.NOTE.EDITING
                     ? <EditingState
                         content={content}
                         handleChange={handleChange}
                         trimmedContent={trimmedContent}
                         handleSave={handleSave}
                         handleCancel={handleCancel}
-                        setState={setState}
+                        setNoteState={setNoteState}
                         loading={loading}
                       />
                     : <DisplayState
                         content={content}
                         id={id}
-                        state={state}
+                        noteState={noteState}
                         deleteNote={deleteNote}
-                        setState={setState}
+                        setNoteState={setNoteState}
                         loading={loading}
                       />
                 }

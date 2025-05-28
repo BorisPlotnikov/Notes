@@ -8,7 +8,7 @@ import useDeleteNote from './hooks/useDeleteNote';
 import NoteForm from './components/NoteForm';
 import NoteList from './components/NoteList';
 import ErrorNotification from './components/ErrorNotification';
-import Spinner from './components/Spinner';
+import Spinner from './components/Spinner';                                               
 import './css/App.css';
 
 const App = () => {

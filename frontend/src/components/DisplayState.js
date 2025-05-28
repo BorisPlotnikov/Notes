@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 const DisplayState = ({
     content,
     id,
-    state,
+    noteState,
     deleteNote,
-    setState,
+    setNoteState,
     loading
 }) => {
 
@@ -30,8 +30,8 @@ const DisplayState = ({
                 
                 <button
                     className="edit"
-                    onClick={() => setState(STATES.EDITING)}
-                    disabled={state === STATES.EDITING || loading}
+                    onClick={() => setNoteState(STATES.NOTE.EDITING)}
+                    disabled={noteState === STATES.NOTE.EDITING || loading}
                     aria-label="Edit the note"
                 >
                     Edit
@@ -43,10 +43,10 @@ const DisplayState = ({
 
 DisplayState.propTypes = {
     content: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired, // Check this ID
-    state: PropTypes.oneOf([STATES.EDITING, STATES.DISPLAY]).isRequired,
+    id: PropTypes.string.isRequired,
+    noteState: PropTypes.oneOf([STATES.NOTE.EDITING, STATES.NOTE.DISPLAY]).isRequired,
     deleteNote: PropTypes.func.isRequired,
-    setState: PropTypes.func.isRequired,
+    setNoteState: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired
 };
 

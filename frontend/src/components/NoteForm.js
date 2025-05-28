@@ -1,6 +1,6 @@
 // NoteForm.js
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import useNoteValidation from '../hooks/useNoteValidation';
 import { LENGTHS } from '../constants/constants';
 import CharacterCounter from './CharacterCounter';
@@ -9,6 +9,13 @@ import '../css/NoteForm.css';
 import PropTypes from 'prop-types';
 
 const NoteForm = ({ addNote, setErrorMessage, loading }) => {
+
+    const inputRef = useRef(null);
+    
+    useEffect(() => {
+        inputRef.current?.focus();
+    }, []);
+
     const {
         content, 
         setContent, 
@@ -38,6 +45,7 @@ const NoteForm = ({ addNote, setErrorMessage, loading }) => {
                 type="text"
                 value={content}
                 onChange={handleChange}
+                ref = {inputRef}
                 placeholder={loading ? "Please wait..." : "Add a new note"}
                 aria-label="Enter note content"
                 aria-describedby="character-counter"

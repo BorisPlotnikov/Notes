@@ -11,7 +11,6 @@ const EditingState = ({
                         trimmedContent,
                         handleSave,
                         handleCancel,
-                        setState,
                         loading
                     }) => {
 
@@ -39,7 +38,7 @@ const EditingState = ({
                     
                     <button
                         className="cancel"
-                        onClick={handleCancel} // focus
+                        onClick={handleCancel}
                         disabled={loading}
                         aria-label="Cancel the editing"
                     >
@@ -56,9 +55,8 @@ EditingState.propTypes = {
     handleChange: PropTypes.func.isRequired,
     trimmedContent: PropTypes.string.isRequired,
     handleSave: PropTypes.func.isRequired,
-    setState: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
-    handleCancel: PropTypes.func.isRequired // focus
+    handleCancel: PropTypes.func.isRequired
 };
 
 export default EditingState;
