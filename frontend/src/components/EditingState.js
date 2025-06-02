@@ -5,7 +5,7 @@ import CharacterCounter from './CharacterCounter';
 import '../css/EditingState.css';
 import PropTypes from 'prop-types';
 
-const EditingState = ({
+const EditingState = ({ // state
                         content,
                         handleChange,
                         trimmedContent,

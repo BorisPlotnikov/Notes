@@ -4,10 +4,6 @@ const STATES = {
     NOTE: {
         EDITING: 'editing',
         DISPLAY: 'display'
-    },
-    GLOBAL: {
-        NONE_EDITING: 'none_editing',
-        ANY_EDITING: 'any_editing'
     }
 };
 

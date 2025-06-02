@@ -5,28 +5,30 @@ import EditingState from './EditingState';
 import DisplayState from './DisplayState';
 import AccessibilityAlertRegion from './AccessibilityAlertRegion';
 import useNoteValidation from '../hooks/useNoteValidation';
-import { STATES } from '../constants/constants';
+import { STATES } from '../constants/constants'; // state
 import PropTypes from 'prop-types';
 import '../css/Note.css';
 
-const Note = ({ id, noteContent, updateNote, deleteNote, loading }) => {
-    const { content, trimmedContent, handleChange } = useNoteValidation(noteContent);
-    const [noteState, setNoteState] = useState(STATES.NOTE.DISPLAY);
+const Note = ({ id, noteContent, updateNote, deleteNote, loading }) => { 
+    const [content, setContent] = useState(noteContent);
+    const handleChange = (e) => setContent(e.target.value);
+    const { trimmedContent } = useNoteValidation(content);
+    const [noteState, setNoteState] = useState(STATES.NOTE.DISPLAY); // state
 
     const handleSave = () => {
         updateNote(id, trimmedContent);
-        setNoteState(STATES.NOTE.DISPLAY);
+        setNoteState(STATES.NOTE.DISPLAY); // state
     };
 
     const handleCancel = () => {
-        setNoteState(STATES.NOTE.DISPLAY);
+        setNoteState(STATES.NOTE.DISPLAY); // state
     }
 
     return (
         <div className='note' aria-busy={loading}>
             <div aria-live="polite">
                 {
-                    noteState === STATES.NOTE.EDITING
+                    noteState === STATES.NOTE.EDITING // state
                     ? <EditingState
                         content={content}
                         handleChange={handleChange}

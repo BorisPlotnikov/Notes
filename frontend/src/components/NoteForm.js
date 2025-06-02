@@ -1,9 +1,9 @@
 // NoteForm.js
 
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import useNoteValidation from '../hooks/useNoteValidation';
 import { LENGTHS } from '../constants/constants';
-import CharacterCounter from './CharacterCounter';
+// import CharacterCounter from './CharacterCounter';
 import handleError from '../utils/errorHandler';
 import '../css/NoteForm.css';
 import PropTypes from 'prop-types';
@@ -16,15 +16,17 @@ const NoteForm = ({ addNote, setErrorMessage, loading }) => {
         inputRef.current?.focus();
     }, []);
 
+    const [content, setContent] = useState("");    
+
+    const handleChange = (e) => {
+        setContent(e.target.value);
+    }
+
     const {
-        content, 
-        setContent, 
-        trimmedContent, 
-        length, 
-        isNearMaxLength, 
-        isContentValid, 
-        handleChange 
-    } = useNoteValidation();
+        trimmedContent,
+        // isNearMaxLength, 
+        isContentValid,
+    } = useNoteValidation(content);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -51,7 +53,7 @@ const NoteForm = ({ addNote, setErrorMessage, loading }) => {
                 aria-describedby="character-counter"
                 maxLength={LENGTHS.MAX}
             />
-            <CharacterCounter length={length} isNearMaxLength={isNearMaxLength} />
+            {/* <CharacterCounter length={length} isNearMaxLength={isNearMaxLength} /> */}
             <button
                 type='submit'
                 disabled={loading || !isContentValid}
