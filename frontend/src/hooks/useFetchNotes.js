@@ -27,11 +27,8 @@ const useFetchNotes = (setNotes, setErrorMessage, setLoading) => {
                     handleError(setErrorMessage, 'Unexpected data format');
                 }                
             } catch (err) {
-                handleError(
-                    setErrorMessage,
-                    axios.isCancel(err) ? 'Request canceled' : 'Downloading failed',
-                    err
-                );
+                if (axios.isCancel(err)) return;
+                handleError(setErrorMessage, 'Downloading failed', err);
             } finally {
                 setLoading(false);
             }
