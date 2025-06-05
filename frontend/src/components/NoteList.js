@@ -5,7 +5,7 @@ import Note from './Note';
 import '../css/NoteList.css';
 import PropTypes from 'prop-types';
 
-const NoteList = ({ notes, updateNote, deleteNote, loading }) => {
+const NoteList = ({ notes, updateNote, deleteNote, loading, setNoteEditingState }) => {
 
     const displayNotes = () => {
         return notes.map(note => {
@@ -17,6 +17,7 @@ const NoteList = ({ notes, updateNote, deleteNote, loading }) => {
                     updateNote={updateNote}
                     deleteNote={deleteNote}
                     loading={loading}
+                    setNoteEditingState={setNoteEditingState}
                 />
             );
     });
@@ -36,12 +37,15 @@ const NoteList = ({ notes, updateNote, deleteNote, loading }) => {
 NoteList.propTypes = {
     notes: PropTypes.arrayOf(
                 PropTypes.shape({
-                    content: PropTypes.string.isRequired
+                    _id: PropTypes.string.isRequired,
+                    content: PropTypes.string.isRequired,
+                    isEditing: PropTypes.bool.isRequired
                 })
             ).isRequired,
     updateNote: PropTypes.func.isRequired,
     deleteNote: PropTypes.func.isRequired,
-    loading: PropTypes.bool.isRequired
+    loading: PropTypes.bool.isRequired,
+    setNoteEditingState: PropTypes.func.isRequired,
 };
 
 export default NoteList;

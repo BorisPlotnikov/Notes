@@ -9,7 +9,7 @@ import { STATES } from '../constants/constants'; // state
 import PropTypes from 'prop-types';
 import '../css/Note.css';
 
-const Note = ({ id, noteContent, updateNote, deleteNote, loading }) => { 
+const Note = ({ id, noteContent, updateNote, deleteNote, loading, setNoteEditingState }) => { 
     const [content, setContent] = useState(noteContent);
     const handleChange = (e) => setContent(e.target.value);
     const { trimmedContent } = useNoteValidation(content);
@@ -17,10 +17,13 @@ const Note = ({ id, noteContent, updateNote, deleteNote, loading }) => {
 
     const handleSave = () => {
         updateNote(id, trimmedContent);
+        setNoteEditingState(id, false);
         setNoteState(STATES.NOTE.DISPLAY); // state
     };
 
     const handleCancel = () => {
+        setContent(noteContent);
+        setNoteEditingState(id, false);
         setNoteState(STATES.NOTE.DISPLAY); // state
     }
 
@@ -44,6 +47,7 @@ const Note = ({ id, noteContent, updateNote, deleteNote, loading }) => {
                         noteState={noteState}
                         deleteNote={deleteNote}
                         setNoteState={setNoteState}
+                        setNoteEditingState={setNoteEditingState}
                         loading={loading}
                       />
                 }
@@ -59,7 +63,8 @@ Note.propTypes = {
     noteContent: PropTypes.string.isRequired,
     updateNote: PropTypes.func.isRequired,
     deleteNote: PropTypes.func.isRequired,
-    loading: PropTypes.bool.isRequired
+    loading: PropTypes.bool.isRequired,
+    setNoteEditingState: PropTypes.func.isRequired,
 };
 
 export default Note;

@@ -1,6 +1,6 @@
 // App.js
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import useFetchNotes from './hooks/useFetchNotes';
 import useUpdateNote from './hooks/useUpdateNote';
 import useAddNote from './hooks/useAddNote';
@@ -12,6 +12,7 @@ import Spinner from './components/Spinner';
 import './css/App.css';
 
 const App = () => {
+    const inputRef = useRef(null);
     const [notes, setNotes] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -20,7 +21,23 @@ const App = () => {
     const { updateNote } = useUpdateNote(setNotes, setErrorMessage, setLoading);
     const { deleteNote } = useDeleteNote(setNotes, setErrorMessage, setLoading);
 
+    const setNoteEditingState = (noteId, isEditing) => {
+        setNotes(prevNotes => 
+            prevNotes.map(note =>
+                note._id === noteId ? { ...note, isEditing } : note
+            )
+        );
+    }
+
     useFetchNotes(setNotes, setErrorMessage, setLoading);
+
+    useEffect(() => {
+        const anyNoteEditing = notes.some(note => note.isEditing);
+        
+        if (!anyNoteEditing && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [notes]);
 
     return (
         <div className='app'>
@@ -29,6 +46,7 @@ const App = () => {
                 addNote={addNote}
                 setErrorMessage={setErrorMessage}
                 loading={loading}
+                inputRef={inputRef}
             />
 
             <NoteList
@@ -36,6 +54,7 @@ const App = () => {
                 updateNote={updateNote}
                 deleteNote={deleteNote}
                 loading={loading}
+                setNoteEditingState={setNoteEditingState}
             />
             {loading && <Spinner />}
             {errorMessage && <ErrorNotification message={errorMessage} />}

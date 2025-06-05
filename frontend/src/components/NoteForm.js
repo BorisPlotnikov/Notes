@@ -8,13 +8,13 @@ import handleError from '../utils/errorHandler';
 import '../css/NoteForm.css';
 import PropTypes from 'prop-types';
 
-const NoteForm = ({ addNote, setErrorMessage, loading }) => {
+const NoteForm = ({ addNote, setErrorMessage, loading, inputRef }) => {
 
-    const inputRef = useRef(null);
+    // const inputRef = useRef(null);
     
-    useEffect(() => {
-        inputRef.current?.focus();
-    }, []);
+    // useEffect(() => {
+    //     inputRef.current?.focus();
+    // }, []);
 
     const [content, setContent] = useState("");    
 

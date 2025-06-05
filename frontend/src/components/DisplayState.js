@@ -11,6 +11,7 @@ const DisplayState = ({
     noteState, // state
     deleteNote,
     setNoteState,
+    setNoteEditingState,
     loading
 }) => {
 
@@ -30,7 +31,9 @@ const DisplayState = ({
                 
                 <button
                     className="edit"
-                    onClick={() => setNoteState(STATES.NOTE.EDITING)} // state
+                    onClick={() => {
+                        setNoteEditingState(id, true);
+                        setNoteState(STATES.NOTE.EDITING)}} // state
                     disabled={noteState === STATES.NOTE.EDITING || loading} // state
                     aria-label="Edit the note"
                 >
@@ -47,6 +50,7 @@ DisplayState.propTypes = {
     noteState: PropTypes.oneOf([STATES.NOTE.EDITING, STATES.NOTE.DISPLAY]).isRequired,
     deleteNote: PropTypes.func.isRequired,
     setNoteState: PropTypes.func.isRequired,
+    setNoteEditingState: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired
 };
 

@@ -22,7 +22,10 @@ const useFetchNotes = (setNotes, setErrorMessage, setLoading) => {
                 );
     
                 if (Array.isArray(response.data)) {
-                    setNotes(response.data);
+                    setNotes(response.data.map(note => ({
+                        ...note,
+                        isEditing: false
+                    })));
                 } else {
                     handleError(setErrorMessage, 'Unexpected data format');
                 }                
