@@ -1,4 +1,4 @@
-// useFetchNote.js
+// useFetchNotes.js
 
 import { useEffect } from 'react';
 import useAbortController from '../hooks/useAbortController';
@@ -38,7 +38,7 @@ const useFetchNotes = (setNotes, setErrorMessage, setLoading) => {
         };
 
         fetchNotes();
-        
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 };
