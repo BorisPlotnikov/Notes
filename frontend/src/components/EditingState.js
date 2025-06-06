@@ -24,7 +24,7 @@ const EditingState = ({
     const contentLength = trimmedContent.length;
     
     const {
-        // isContentValid,
+        isContentValid,
         isNearMaxLength,
     } = useNoteValidation(contentLength);
 
@@ -50,8 +50,8 @@ const EditingState = ({
                     <button
                         className="save"
                         onClick={handleSave}
-                        disabled={loading}
-                        aria-label="Save the note"
+                        disabled={loading || !isContentValid}
+                        aria-label={loading ? "Saving the note..." : "Save note"}
                     >
                         Save
                     </button>
