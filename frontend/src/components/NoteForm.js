@@ -1,32 +1,27 @@
 // NoteForm.js
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import useNoteValidation from '../hooks/useNoteValidation';
 import { LENGTHS } from '../constants/constants';
-// import CharacterCounter from './CharacterCounter';
+import CharacterCounter from './CharacterCounter';
 import handleError from '../utils/errorHandler';
 import '../css/NoteForm.css';
 import PropTypes from 'prop-types';
 
 const NoteForm = ({ addNote, setErrorMessage, loading, inputRef }) => {
 
-    // const inputRef = useRef(null);
-    
-    // useEffect(() => {
-    //     inputRef.current?.focus();
-    // }, []);
-
     const [content, setContent] = useState("");    
+    const trimmedContent = content.trim();
+    const contentLength = trimmedContent.length;
 
     const handleChange = (e) => {
         setContent(e.target.value);
     }
 
     const {
-        trimmedContent,
-        // isNearMaxLength, 
         isContentValid,
-    } = useNoteValidation(content);
+        isNearMaxLength,
+    } = useNoteValidation(contentLength);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -42,18 +37,23 @@ const NoteForm = ({ addNote, setErrorMessage, loading, inputRef }) => {
     return (
         <form onSubmit={handleSubmit} className='note-form' aria-busy={loading}>
             <label htmlFor='note-content' className='sr-only'>Add a new note</label>
-            <input
-                id="note-content"
-                type="text"
-                value={content}
-                onChange={handleChange}
-                ref = {inputRef}
-                placeholder={loading ? "Please wait..." : "Add a new note"}
-                aria-label="Enter note content"
-                aria-describedby="character-counter"
-                maxLength={LENGTHS.MAX}
-            />
-            {/* <CharacterCounter length={length} isNearMaxLength={isNearMaxLength} /> */}
+            <div className="input-wrapper">
+                <input
+                    id="note-content"
+                    type="text"
+                    value={content}
+                    onChange={handleChange}
+                    ref = {inputRef}
+                    placeholder={loading ? "Please wait..." : "Add a new note"}
+                    aria-label="Enter note content"
+                    aria-describedby="character-counter"
+                    maxLength={LENGTHS.MAX}
+                />
+                <CharacterCounter 
+                    contentLength={contentLength} 
+                    isNearMaxLength={isNearMaxLength} 
+                />
+            </div>
             <button
                 type='submit'
                 disabled={loading || !isContentValid}

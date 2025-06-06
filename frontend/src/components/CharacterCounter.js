@@ -1,16 +1,11 @@
 // CharacterCounter.js
 
 import React from 'react';
-import useNoteValidation from '../hooks/useNoteValidation';
 import { LENGTHS } from '../constants/constants';
 import '../css/CharacterCounter.css';
 import PropTypes from 'prop-types';
 
-const CharacterCounter = ({ content = '' }) => {
-    const {
-        length,
-        isNearMaxLength
-    } = useNoteValidation(content);
+const CharacterCounter = ({ contentLength = 0, isNearMaxLength = false }) => {
 
     return (
         <div
@@ -20,18 +15,18 @@ const CharacterCounter = ({ content = '' }) => {
             aria-label="Character count"
         >
             {
-                length < LENGTHS.MIN
-                ?  `Minimum ${LENGTHS.MIN} characters`
-                : length >= LENGTHS.MAX
-                ? `Maximum ${LENGTHS.MAX} characters`
-                : `${length}/${LENGTHS.MAX}`
+                contentLength < LENGTHS.MIN
+                ?  `Minimum ${LENGTHS.MIN} ${LENGTHS.MIN === 1 ? "character" : "characters"}`
+                : contentLength >= LENGTHS.MAX
+                ? `Maximum ${LENGTHS.MAX} ${LENGTHS.MAX === 1 ? "character" : "characters"}`
+                : `${contentLength}/${LENGTHS.MAX}`
             }        
         </div>
     );
 };
 
 CharacterCounter.propTypes = {
-    content: PropTypes.string
+    contentLength: PropTypes.number.isRequired
 };
 
 export default CharacterCounter;

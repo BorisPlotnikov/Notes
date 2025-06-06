@@ -1,14 +1,14 @@
 // DisplayState.js
 
 import React from 'react';
-import { STATES } from '../constants/constants'; // state 
+import { STATES } from '../constants/constants';
 import '../css/DisplayState.css';
 import PropTypes from 'prop-types';
 
 const DisplayState = ({
     content,
     id,
-    noteState, // state
+    noteState,
     deleteNote,
     setNoteState,
     setNoteEditingState,
@@ -33,8 +33,8 @@ const DisplayState = ({
                     className="edit"
                     onClick={() => {
                         setNoteEditingState(id, true);
-                        setNoteState(STATES.NOTE.EDITING)}} // state
-                    disabled={noteState === STATES.NOTE.EDITING || loading} // state
+                        setNoteState(STATES.NOTE.EDITING)}}
+                    disabled={noteState === STATES.NOTE.EDITING || loading}
                     aria-label="Edit the note"
                 >
                     Edit

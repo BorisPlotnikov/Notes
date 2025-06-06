@@ -2,10 +2,11 @@
 
 import React, { useEffect, useRef } from 'react';
 import CharacterCounter from './CharacterCounter';
+import useNoteValidation from '../hooks/useNoteValidation';
 import '../css/EditingState.css';
 import PropTypes from 'prop-types';
 
-const EditingState = ({ // state
+const EditingState = ({
                         content,
                         handleChange,
                         trimmedContent,
@@ -20,16 +21,29 @@ const EditingState = ({ // state
         inputRef.current?.focus();
     }, []);
 
+    const contentLength = trimmedContent.length;
+    
+    const {
+        // isContentValid,
+        isNearMaxLength,
+    } = useNoteValidation(contentLength);
+
     return (
             <div className="textarea-container">
-                <textarea
-                    value={content}
-                    ref={inputRef}
-                    onChange={handleChange}
-                    aria-label="Edit note content"
-                />
-                <div className="character-counter">
-                    <CharacterCounter content={trimmedContent} />
+
+                <div className="input-wrapper">
+                    <textarea
+                        value={content}
+                        ref={inputRef}
+                        onChange={handleChange}
+                        aria-label="Edit note content"
+                    />
+                    <div className="character-counter">
+                        <CharacterCounter 
+                            contentLength={contentLength} 
+                            isNearMaxLength={isNearMaxLength} 
+                        />
+                    </div>
                 </div>
                 
                 <div className="button-container">
