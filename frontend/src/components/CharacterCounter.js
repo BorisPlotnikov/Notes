@@ -1,6 +1,7 @@
 // CharacterCounter.js
 
 import React from 'react';
+import pluralize from 'pluralize';
 import { LENGTHS } from '../constants/constants';
 import '../css/CharacterCounter.css';
 import PropTypes from 'prop-types';
@@ -16,9 +17,9 @@ const CharacterCounter = ({ contentLength = 0, isNearMaxLength = false }) => {
         >
             {
                 contentLength < LENGTHS.MIN
-                ?  `Minimum ${LENGTHS.MIN} ${LENGTHS.MIN === 1 ? "character" : "characters"}`
+                ?  `Minimum ${LENGTHS.MIN} ${pluralize('character', LENGTHS.MIN)}`
                 : contentLength >= LENGTHS.MAX
-                ? `Maximum ${LENGTHS.MAX} ${LENGTHS.MAX === 1 ? "character" : "characters"}`
+                ? `Maximum ${LENGTHS.MAX} ${pluralize('character', LENGTHS.MAX === 1)}`
                 : `${contentLength}/${LENGTHS.MAX}`
             }        
         </div>
