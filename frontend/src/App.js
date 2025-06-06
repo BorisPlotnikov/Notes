@@ -12,32 +12,47 @@ import Spinner from './components/Spinner';
 import './css/App.css';
 
 const App = () => {
-    const inputRef = useRef(null);
     const [notes, setNotes] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [editingStack, setEditingStack] = useState([]);
+    const inputRefs = useRef({});
+    const inputRef = useRef(null);
 
     const { addNote } = useAddNote(setNotes, setErrorMessage, setLoading);
     const { updateNote } = useUpdateNote(setNotes, setErrorMessage, setLoading);
     const { deleteNote } = useDeleteNote(setNotes, setErrorMessage, setLoading);
 
     const setNoteEditingState = (noteId, isEditing) => {
-        setNotes(prevNotes => 
+        setNotes(prevNotes =>
             prevNotes.map(note =>
                 note._id === noteId ? { ...note, isEditing } : note
             )
         );
-    }
+
+        setEditingStack(prevStack => {
+            const newStack = isEditing
+            ? [...prevStack.filter(id => id !== noteId), noteId]
+            : prevStack.filter(id => id !== noteId);
+            return newStack;
+        });
+    };
 
     useFetchNotes(setNotes, setErrorMessage, setLoading);
 
     useEffect(() => {
-        const anyNoteEditing = notes.some(note => note.isEditing);
-        
-        if (!anyNoteEditing && inputRef.current) {
+        const latestEditingNoteId = editingStack[editingStack.length - 1];
+
+        if (latestEditingNoteId && !inputRefs.current[latestEditingNoteId]) {
+            console.warn(`No input ref found for noteId: ${latestEditingNoteId}`);
+        }        
+
+        if (latestEditingNoteId && inputRefs.current[latestEditingNoteId]) {
+            inputRefs.current[latestEditingNoteId].focus();
+        } else if (inputRef.current) {
             inputRef.current.focus();
         }
-    }, [notes]);
+    }, [editingStack]);
 
     return (
         <div className='app'>
@@ -55,6 +70,7 @@ const App = () => {
                 deleteNote={deleteNote}
                 loading={loading}
                 setNoteEditingState={setNoteEditingState}
+                inputRefs={inputRefs}
             />
             {loading && <Spinner />}
             {errorMessage && <ErrorNotification message={errorMessage} />}

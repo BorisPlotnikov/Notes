@@ -8,7 +8,15 @@ import { STATES } from '../constants/constants';
 import PropTypes from 'prop-types';
 import '../css/Note.css';
 
-const Note = ({ id, noteContent, updateNote, deleteNote, loading, setNoteEditingState }) => { 
+const Note = ({ 
+    id, 
+    noteContent, 
+    updateNote, 
+    deleteNote, 
+    loading, 
+    setNoteEditingState, 
+    textAreaRef 
+}) => { 
     const [content, setContent] = useState(noteContent);
     const trimmedContent = content.trim();
     
@@ -40,6 +48,7 @@ const Note = ({ id, noteContent, updateNote, deleteNote, loading, setNoteEditing
                         handleCancel={handleCancel}
                         setNoteState={setNoteState}
                         loading={loading}
+                        textAreaRef={textAreaRef}
                       />
                     : <DisplayState
                         content={content}
@@ -65,6 +74,12 @@ Note.propTypes = {
     deleteNote: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
     setNoteEditingState: PropTypes.func.isRequired,
+    textAreaRef: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({
+            current: PropTypes.instanceOf(Element)
+        })
+    ]).isRequired,
 };
 
 export default Note;

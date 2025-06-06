@@ -1,6 +1,6 @@
 // EditingState.js
 
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import CharacterCounter from './CharacterCounter';
 import useNoteValidation from '../hooks/useNoteValidation';
 import '../css/EditingState.css';
@@ -12,15 +12,9 @@ const EditingState = ({
                         trimmedContent,
                         handleSave,
                         handleCancel,
-                        loading
+                        loading,
+                        textAreaRef
                     }) => {
-
-    const inputRef = useRef(null);
-    
-    useEffect(() => {
-        inputRef.current?.focus();
-    }, []);
-
     const contentLength = trimmedContent.length;
     
     const {
@@ -34,7 +28,7 @@ const EditingState = ({
                 <div className="input-wrapper">
                     <textarea
                         value={content}
-                        ref={inputRef}
+                        ref={textAreaRef}
                         onChange={handleChange}
                         aria-label="Edit note content"
                     />
@@ -76,7 +70,11 @@ EditingState.propTypes = {
     trimmedContent: PropTypes.string.isRequired,
     handleSave: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
-    handleCancel: PropTypes.func.isRequired
+    handleCancel: PropTypes.func.isRequired,
+    textAreaRef: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    ]).isRequired,
 };
 
 export default EditingState;
