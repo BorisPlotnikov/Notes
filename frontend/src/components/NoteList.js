@@ -20,6 +20,7 @@ const NoteList = ({ notes, updateNote, deleteNote, loading, setNoteEditingState,
                             deleteNote={deleteNote}
                             loading={loading}
                             setNoteEditingState={setNoteEditingState}
+                            inputRefs={inputRefs}
                             textAreaRef={el => {
                                 if (el) inputRefs.current[note._id] = el;
                                 else delete inputRefs.current[note._id];

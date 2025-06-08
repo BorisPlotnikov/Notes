@@ -1,6 +1,6 @@
 // Note.js
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EditingState from './EditingState';
 import DisplayState from './DisplayState';
 import AccessibilityAlertRegion from './AccessibilityAlertRegion';
@@ -15,7 +15,7 @@ const Note = ({
     deleteNote, 
     loading, 
     setNoteEditingState, 
-    textAreaRef 
+    inputRefs 
 }) => { 
     const [content, setContent] = useState(noteContent);
     const trimmedContent = content.trim();
@@ -34,6 +34,19 @@ const Note = ({
         setNoteEditingState(id, false);
         setNoteState(STATES.NOTE.DISPLAY);
     }
+
+    useEffect(() => {
+        const el = inputRefs.current[id];
+        if (noteState === STATES.NOTE.EDITING && el) {
+            el.focus();
+            el.selectionStart = el.sectionEnd = el.value.length;
+        }
+    }, [noteState, inputRefs, id]);
+
+    const textAreaRef = el => {
+        if (el) inputRefs.current[id] = el;
+        else delete inputRefs.current[id];
+    };
 
     return (
         <div className='note' aria-busy={loading}>
@@ -73,12 +86,9 @@ Note.propTypes = {
     deleteNote: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
     setNoteEditingState: PropTypes.func.isRequired,
-    textAreaRef: PropTypes.oneOfType([
-        PropTypes.func,
-        PropTypes.shape({
-            current: PropTypes.instanceOf(Element)
-        })
-    ]).isRequired,
+    inputRefs: PropTypes.shape({
+        current: PropTypes.object.isRequired
+    }).isRequired
 };
 
 export default Note;
