@@ -15,7 +15,9 @@ const EditingState = ({
                         loading,
                         textAreaRef
                     }) => {
-    const contentLength = trimmedContent.length;
+
+    const contentLength = trimmedContent?.length || 0;
+
     
     const {
         isContentValid,
@@ -32,12 +34,10 @@ const EditingState = ({
                         onChange={handleChange}
                         aria-label="Edit note content"
                     />
-                    <div className="character-counter">
-                        <CharacterCounter 
-                            contentLength={contentLength} 
-                            isNearMaxLength={isNearMaxLength} 
-                        />
-                    </div>
+                    <CharacterCounter 
+                        contentLength={contentLength} 
+                        isNearMaxLength={isNearMaxLength} 
+                    />
                 </div>
                 
                 <div className="button-container">

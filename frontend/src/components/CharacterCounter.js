@@ -6,7 +6,7 @@ import { LENGTHS } from '../constants/constants';
 import '../css/CharacterCounter.css';
 import PropTypes from 'prop-types';
 
-const CharacterCounter = ({ contentLength = 0, isNearMaxLength = false }) => {
+const CharacterCounter = ({ contentLength, isNearMaxLength = false }) => {
 
     return (
         <div
@@ -19,7 +19,7 @@ const CharacterCounter = ({ contentLength = 0, isNearMaxLength = false }) => {
                 contentLength < LENGTHS.MIN
                 ?  `Minimum ${LENGTHS.MIN} ${pluralize('character', LENGTHS.MIN)}`
                 : contentLength >= LENGTHS.MAX
-                ? `Maximum ${LENGTHS.MAX} ${pluralize('character', LENGTHS.MAX === 1)}`
+                ? `Maximum ${LENGTHS.MAX} ${pluralize('character', LENGTHS.MAX)}`
                 : `${contentLength}/${LENGTHS.MAX}`
             }        
         </div>

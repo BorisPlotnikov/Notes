@@ -46,7 +46,6 @@ const Note = ({
                         trimmedContent={trimmedContent}
                         handleSave={handleSave}
                         handleCancel={handleCancel}
-                        setNoteState={setNoteState}
                         loading={loading}
                         textAreaRef={textAreaRef}
                       />

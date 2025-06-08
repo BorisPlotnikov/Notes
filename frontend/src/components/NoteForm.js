@@ -68,7 +68,11 @@ const NoteForm = ({ addNote, setErrorMessage, loading, inputRef }) => {
 NoteForm.propTypes = {
     addNote: PropTypes.func.isRequired,
     setErrorMessage: PropTypes.func.isRequired,
-    loading: PropTypes.bool.isRequired
+    loading: PropTypes.bool.isRequired,
+    inputRef: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    ])
 };
 
 export default NoteForm;
