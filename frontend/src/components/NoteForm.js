@@ -14,16 +14,14 @@ const NoteForm = ({ addNote, setErrorMessage, loading, inputRef }) => {
     const trimmedContent = newContent.trim();
     const contentLength = trimmedContent.length;
 
-    const handleChange = (e) => {
-        setNewContent(e.target.value);
-    }
+    const onChange = (e) => setNewContent(e.target.value);
 
     const {
         isContentValid,
         isNearMaxLength,
     } = useNoteValidation(contentLength);
 
-    const handleSubmit = async (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         
         try {
@@ -35,14 +33,14 @@ const NoteForm = ({ addNote, setErrorMessage, loading, inputRef }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className='note-form' aria-busy={loading}>
+        <form onSubmit={onSubmit} className='note-form' aria-busy={loading}>
             <label htmlFor='note-content' className='sr-only'>Add a new note</label>
             <div className="input-wrapper">
                 <input
                     id="note-content"
                     type="text"
                     value={newContent}
-                    onChange={handleChange}
+                    onChange={onChange}
                     ref = {inputRef}
                     placeholder={loading ? "Please wait..." : "Add a new note"}
                     aria-label="Enter note content"

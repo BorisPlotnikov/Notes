@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 
 const EditingState = ({
                         content,
-                        handleChange,
-                        handleSave,
-                        handleCancel,
+                        onChange,
+                        onSave,
+                        onCancel,
                         loading,
                         textAreaRef
                     }) => {
@@ -31,7 +31,7 @@ const EditingState = ({
                     <textarea
                         value={content}
                         ref={textAreaRef}
-                        onChange={handleChange}
+                        onChange={onChange}
                         aria-label="Edit note content"
                     />
                     <CharacterCounter 
@@ -43,7 +43,7 @@ const EditingState = ({
                 <div className="button-container">
                     <button
                         className="save"
-                        onClick={() => handleSave(trimmedContent)}
+                        onClick={() => onSave(trimmedContent)}
                         disabled={loading || !isContentValid}
                         aria-label={loading ? "Saving the note..." : "Save note"}
                     >
@@ -52,7 +52,7 @@ const EditingState = ({
                     
                     <button
                         className="cancel"
-                        onClick={handleCancel}
+                        onClick={onCancel}
                         disabled={loading}
                         aria-label="Cancel the editing"
                     >
@@ -66,10 +66,10 @@ const EditingState = ({
 
 EditingState.propTypes = {
     content: PropTypes.string.isRequired,
-    handleChange: PropTypes.func.isRequired,
-    handleSave: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
-    handleCancel: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
     textAreaRef: PropTypes.oneOfType([
         PropTypes.func,
         PropTypes.shape({ current: PropTypes.instanceOf(Element) })

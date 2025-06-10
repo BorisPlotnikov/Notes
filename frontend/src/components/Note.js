@@ -19,16 +19,16 @@ const Note = ({
 }) => { 
     const [content, setContent] = useState(noteContent);
     
-    const handleChange = (e) => setContent(e.target.value);
+    const onChange = (e) => setContent(e.target.value);
     const [noteState, setNoteState] = useState(STATES.NOTE.DISPLAY);
 
-    const handleSave = (trimmedContent) => {
+    const onSave = (trimmedContent) => {
         updateNote(id, trimmedContent);
         setNoteEditingState(id, false);
         setNoteState(STATES.NOTE.DISPLAY);
     };
 
-    const handleCancel = () => {
+    const onCancel = () => {
         setContent(noteContent);
         setNoteEditingState(id, false);
         setNoteState(STATES.NOTE.DISPLAY);
@@ -54,9 +54,9 @@ const Note = ({
                     noteState === STATES.NOTE.EDITING
                     ? <EditingState
                         content={content}
-                        handleChange={handleChange}
-                        handleSave={handleSave}
-                        handleCancel={handleCancel}
+                        onChange={onChange}
+                        onSave={onSave}
+                        onCancel={onCancel}
                         loading={loading}
                         textAreaRef={textAreaRef}
                       />
