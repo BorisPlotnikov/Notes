@@ -10,12 +10,12 @@ import PropTypes from 'prop-types';
 
 const NoteForm = ({ addNote, setErrorMessage, loading, inputRef }) => {
 
-    const [content, setContent] = useState("");    
-    const trimmedContent = content.trim();
+    const [newContent, setNewContent] = useState("");    
+    const trimmedContent = newContent.trim();
     const contentLength = trimmedContent.length;
 
     const handleChange = (e) => {
-        setContent(e.target.value);
+        setNewContent(e.target.value);
     }
 
     const {
@@ -28,7 +28,7 @@ const NoteForm = ({ addNote, setErrorMessage, loading, inputRef }) => {
         
         try {
             await addNote(trimmedContent);
-            setContent('');
+            setNewContent('');
         } catch (err) {
             handleError(setErrorMessage, 'Saving failed', err);
         };
@@ -41,7 +41,7 @@ const NoteForm = ({ addNote, setErrorMessage, loading, inputRef }) => {
                 <input
                     id="note-content"
                     type="text"
-                    value={content}
+                    value={newContent}
                     onChange={handleChange}
                     ref = {inputRef}
                     placeholder={loading ? "Please wait..." : "Add a new note"}

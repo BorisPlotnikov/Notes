@@ -9,13 +9,13 @@ import PropTypes from 'prop-types';
 const EditingState = ({
                         content,
                         handleChange,
-                        trimmedContent,
                         handleSave,
                         handleCancel,
                         loading,
                         textAreaRef
                     }) => {
 
+    const trimmedContent = content.trim();
     const contentLength = trimmedContent?.length || 0;
 
     
@@ -43,7 +43,7 @@ const EditingState = ({
                 <div className="button-container">
                     <button
                         className="save"
-                        onClick={handleSave}
+                        onClick={() => handleSave(trimmedContent)}
                         disabled={loading || !isContentValid}
                         aria-label={loading ? "Saving the note..." : "Save note"}
                     >
@@ -67,7 +67,6 @@ const EditingState = ({
 EditingState.propTypes = {
     content: PropTypes.string.isRequired,
     handleChange: PropTypes.func.isRequired,
-    trimmedContent: PropTypes.string.isRequired,
     handleSave: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
     handleCancel: PropTypes.func.isRequired,
