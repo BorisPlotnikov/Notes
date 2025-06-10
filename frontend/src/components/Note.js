@@ -18,7 +18,6 @@ const Note = ({
     inputRefs 
 }) => { 
     const [content, setContent] = useState(noteContent);
-    
     const onChange = (e) => setContent(e.target.value);
     const [noteState, setNoteState] = useState(STATES.NOTE.DISPLAY);
 

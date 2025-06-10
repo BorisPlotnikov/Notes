@@ -13,7 +13,6 @@ const NoteForm = ({ addNote, setErrorMessage, loading, inputRef }) => {
     const [newContent, setNewContent] = useState("");    
     const trimmedContent = newContent.trim();
     const contentLength = trimmedContent.length;
-
     const onChange = (e) => setNewContent(e.target.value);
 
     const {

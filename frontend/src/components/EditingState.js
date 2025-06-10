@@ -16,8 +16,7 @@ const EditingState = ({
                     }) => {
 
     const trimmedContent = content.trim();
-    const contentLength = trimmedContent?.length || 0;
-
+    const contentLength = trimmedContent.length;
     
     const {
         isContentValid,
