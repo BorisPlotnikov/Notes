@@ -1,7 +1,7 @@
 // NoteForm.js
 
-import React, { useState } from 'react';
-import useNoteValidation from '../hooks/useNoteValidation';
+import React from 'react';
+import useNoteContent from '../hooks/useNoteContent.js';
 import { LENGTHS } from '../constants/constants';
 import CharacterCounter from './CharacterCounter';
 import handleError from '../utils/errorHandler';
@@ -10,22 +10,22 @@ import PropTypes from 'prop-types';
 
 const NoteForm = ({ addNote, setErrorMessage, loading, inputRef }) => {
 
-    const [newContent, setNewContent] = useState("");    
-    const trimmedContent = newContent.trim();
-    const contentLength = trimmedContent.length;
-    const onChange = (e) => setNewContent(e.target.value);
-
     const {
+        content,
+        setContent,
+        trimmedContent,
+        contentLength,
         isContentValid,
         isNearMaxLength,
-    } = useNoteValidation(contentLength);
+        onChange,
+    } = useNoteContent('');
 
     const onSubmit = async (e) => {
         e.preventDefault();
         
         try {
             await addNote(trimmedContent);
-            setNewContent('');
+            setContent('');
         } catch (err) {
             handleError(setErrorMessage, 'Saving failed', err);
         };
@@ -38,7 +38,7 @@ const NoteForm = ({ addNote, setErrorMessage, loading, inputRef }) => {
                 <input
                     id="note-content"
                     type="text"
-                    value={newContent}
+                    value={content}
                     onChange={onChange}
                     ref = {inputRef}
                     placeholder={loading ? "Please wait..." : "Add a new note"}

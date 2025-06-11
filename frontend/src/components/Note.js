@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import EditingState from './EditingState';
 import DisplayState from './DisplayState';
 import AccessibilityAlertRegion from './AccessibilityAlertRegion';
+import useNoteContent from '../hooks/useNoteContent';
 import { STATES } from '../constants/constants';
 import PropTypes from 'prop-types';
 import '../css/Note.css';
@@ -17,11 +18,18 @@ const Note = ({
     setNoteEditingState, 
     inputRefs 
 }) => { 
-    const [content, setContent] = useState(noteContent);
-    const onChange = (e) => setContent(e.target.value);
+    const {
+        content,
+        setContent,
+        trimmedContent,
+        contentLength,
+        isContentValid,
+        isNearMaxLength,
+        onChange,
+    } = useNoteContent(noteContent);
     const [noteState, setNoteState] = useState(STATES.NOTE.DISPLAY);
 
-    const onSave = (trimmedContent) => {
+    const onSave = () => {
         updateNote(id, trimmedContent);
         setNoteEditingState(id, false);
         setNoteState(STATES.NOTE.DISPLAY);
@@ -52,6 +60,9 @@ const Note = ({
                 {
                     noteState === STATES.NOTE.EDITING
                     ? <EditingState
+                        contentLength={contentLength}
+                        isContentValid={isContentValid}
+                        isNearMaxLength={isNearMaxLength}
                         content={content}
                         onChange={onChange}
                         onSave={onSave}

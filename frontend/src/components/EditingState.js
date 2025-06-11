@@ -2,26 +2,20 @@
 
 import React from 'react';
 import CharacterCounter from './CharacterCounter';
-import useNoteValidation from '../hooks/useNoteValidation';
 import '../css/EditingState.css';
 import PropTypes from 'prop-types';
 
 const EditingState = ({
                         content,
+                        contentLength,
+                        isContentValid,
+                        isNearMaxLength,
                         onChange,
                         onSave,
                         onCancel,
                         loading,
                         textAreaRef
                     }) => {
-
-    const trimmedContent = content.trim();
-    const contentLength = trimmedContent.length;
-    
-    const {
-        isContentValid,
-        isNearMaxLength,
-    } = useNoteValidation(contentLength);
 
     return (
             <div className="textarea-container">
@@ -42,7 +36,7 @@ const EditingState = ({
                 <div className="button-container">
                     <button
                         className="save"
-                        onClick={() => onSave(trimmedContent)}
+                        onClick={onSave}
                         disabled={loading || !isContentValid}
                         aria-label={loading ? "Saving the note..." : "Save note"}
                     >
@@ -73,6 +67,9 @@ EditingState.propTypes = {
         PropTypes.func,
         PropTypes.shape({ current: PropTypes.instanceOf(Element) })
     ]).isRequired,
+    contentLength: PropTypes.number.isRequired,
+    isContentValid: PropTypes.bool.isRequired,
+    isNearMaxLength: PropTypes.bool.isRequired,
 };
 
 export default EditingState;
