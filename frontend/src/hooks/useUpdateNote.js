@@ -8,7 +8,7 @@ import handleError from '../utils/errorHandler';
 const useUpdateNote = (setNotes, setErrorMessage, setLoading) => {
     const { createAbortController, getSignal } = useAbortController();
 
-    const updateNote = async (id, newContent) => {
+    const updateNote = async (id, content) => {
         setLoading(true);
         createAbortController();
         const apiBaseUrl = getApiBaseUrl();
@@ -16,13 +16,13 @@ const useUpdateNote = (setNotes, setErrorMessage, setLoading) => {
         try {
             await axios.put(
                 `${apiBaseUrl}/notes/${id}`,
-                { content: newContent },
+                { content: content },
                 { signal: getSignal() }
             );
             
             setNotes((prevNotes) =>
                 prevNotes.map((note) =>
-                    note.id === id ? { ...note, content: newContent } : note
+                    note._id === id ? { ...note, content: content } : note
                 )
             );
         } catch (err) {

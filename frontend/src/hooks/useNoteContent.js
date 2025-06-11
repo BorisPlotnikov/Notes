@@ -1,10 +1,16 @@
 // hooks/useNoteContent.js
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { LENGTHS } from '../constants/constants';
 
 const useNoteContent = (initialContent = '') => {
     const [content, setContent] = useState(initialContent);
+
+    useEffect(() => {
+        // Keep internal state in sync with updated note content from props
+        setContent(initialContent);
+    }, [initialContent]);
+
     const onChange = (e) => setContent(e.target.value);
     const trimmedContent = content.trim();
     const contentLength = trimmedContent.length;
