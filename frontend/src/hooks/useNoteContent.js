@@ -1,18 +1,15 @@
 // hooks/useNoteContent.js
 
 import { useState } from 'react';
-import useNoteValidation from './useNoteValidation';
+import { LENGTHS } from '../constants/constants';
 
 const useNoteContent = (initialContent = '') => {
     const [content, setContent] = useState(initialContent);
-
     const onChange = (e) => setContent(e.target.value);
-
     const trimmedContent = content.trim();
-
     const contentLength = trimmedContent.length;
-
-    const { isContentValid, isNearMaxLength } = useNoteValidation(contentLength);
+    const isContentValid = contentLength >= LENGTHS.MIN && contentLength <= LENGTHS.MAX;
+    const isNearMaxLength = contentLength >= LENGTHS.MAX - 20;
 
     return {
         content,
