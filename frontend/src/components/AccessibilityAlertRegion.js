@@ -1,4 +1,4 @@
-// AccessibilityAlertRegion.js
+// components/AccessibilityAlertRegion.js
 
 import React from 'react';
 import '../css/AccessibilityAlertRegion.css';

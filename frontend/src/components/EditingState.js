@@ -1,4 +1,4 @@
-// EditingState.js
+// components/EditingState.js
 
 import React from 'react';
 import CharacterCounter from './CharacterCounter';

@@ -1,4 +1,4 @@
-// DisplayState.js
+// components/DisplayState.js
 
 import React from 'react';
 import { STATES } from '../constants/constants';

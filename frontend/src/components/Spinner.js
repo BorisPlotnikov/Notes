@@ -1,4 +1,4 @@
-// Spinner.js
+// components/Spinner.js
 
 import React, { useEffect, useState } from 'react';
 import '../css/Spinner.css';

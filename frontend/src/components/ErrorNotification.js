@@ -1,4 +1,4 @@
-// ErrorNotification.js
+// components/ErrorNotification.js
 
 import React from 'react';
 import '../css/ErrorNotification.css';

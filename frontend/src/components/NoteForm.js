@@ -1,4 +1,4 @@
-// NoteForm.js
+// components/NoteForm.js
 
 import React from 'react';
 import useNoteContent from '../hooks/useNoteContent.js';

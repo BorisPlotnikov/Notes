@@ -1,4 +1,4 @@
-// useFetchNotes.js
+// hooks/useFetchNotes.js
 
 import { useEffect } from 'react';
 import useAbortController from '../hooks/useAbortController';

@@ -1,4 +1,4 @@
-// useAddNote.js
+// hooks/useAddNote.js
 
 import useAbortController from '../hooks/useAbortController';
 import axios from 'axios';

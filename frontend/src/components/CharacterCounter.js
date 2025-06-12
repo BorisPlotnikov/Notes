@@ -1,4 +1,4 @@
-// CharacterCounter.js
+// components/CharacterCounter.js
 
 import React from 'react';
 import pluralize from 'pluralize';

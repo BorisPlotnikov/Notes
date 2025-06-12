@@ -1,14 +1,14 @@
 // App.js
 
 import React, { useState, useEffect, useRef } from 'react';
-import useFetchNotes from './hooks/useFetchNotes';
-import useUpdateNote from './hooks/useUpdateNote';
-import useAddNote from './hooks/useAddNote';
-import useDeleteNote from './hooks/useDeleteNote';
 import NoteForm from './components/NoteForm';
 import NoteList from './components/NoteList';
 import ErrorNotification from './components/ErrorNotification';
-import Spinner from './components/Spinner';                                               
+import Spinner from './components/Spinner';           
+import useFetchNotes from './hooks/useFetchNotes';
+import useAddNote from './hooks/useAddNote';
+import useDeleteNote from './hooks/useDeleteNote';
+import useUpdateNote from './hooks/useUpdateNote';                                    
 import './css/App.css';
 
 const App = () => {
@@ -29,7 +29,6 @@ const App = () => {
                 note._id === noteId ? { ...note, isEditing } : note
             )
         );
-
         setEditingStack(prevStack => {
             const newStack = isEditing
             ? [...prevStack.filter(id => id !== noteId), noteId]

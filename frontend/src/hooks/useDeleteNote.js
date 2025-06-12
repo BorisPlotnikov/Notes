@@ -1,4 +1,4 @@
-// useDeleteNote.js
+// hooks/useDeleteNote.js
 
 import useAbortController from '../hooks/useAbortController';
 import axios from 'axios';

@@ -1,4 +1,4 @@
-// Note.js
+// components/Note.js
 
 import React, { useState, useEffect } from 'react';
 import EditingState from './EditingState';
@@ -17,7 +17,8 @@ const Note = ({
     loading, 
     setNoteEditingState, 
     inputRefs 
-}) => { 
+}) => {
+
     const {
         content,
         setContent,
@@ -27,6 +28,7 @@ const Note = ({
         isNearMaxLength,
         onChange,
     } = useNoteContent(noteContent);
+
     const [noteState, setNoteState] = useState(STATES.NOTE.DISPLAY);
 
     const onSave = () => {
