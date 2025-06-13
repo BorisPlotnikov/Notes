@@ -1,9 +1,8 @@
-// components/NoteForm.js
-
 import React from 'react';
 import { LENGTHS } from '../constants/constants';
 import CharacterCounter from './CharacterCounter';
 import handleError from '../utils/errorHandler';
+import useNoteContent from '../hooks/useNoteContent';
 import '../css/NoteForm.css';
 import PropTypes from 'prop-types';
 
@@ -39,7 +38,7 @@ const NoteForm = ({ addNote, setErrorMessage, loading, inputRef }) => {
                     type="text"
                     value={content}
                     onChange={onChange}
-                    ref = {inputRef}
+                    ref={inputRef}
                     placeholder={loading ? "Please wait..." : "Add a new note"}
                     aria-label="Enter note content"
                     aria-describedby="character-counter"
