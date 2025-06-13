@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import NoteForm from './components/NoteForm';
 import NoteList from './components/NoteList';
 import ErrorNotification from './components/ErrorNotification';
