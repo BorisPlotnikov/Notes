@@ -1,89 +1,92 @@
-// components/Note.js
-
 import React, { useState, useEffect } from 'react';
-import EditingState from './EditingState';
-import DisplayState from './DisplayState';
-import AccessibilityAlertRegion from './AccessibilityAlertRegion';
-import useNoteContent from '../hooks/useNoteContent';
-import { STATES } from '../constants/constants';
 import PropTypes from 'prop-types';
+import CharacterCounter from './CharacterCounter';
+import AccessibilityAlertRegion from './AccessibilityAlertRegion';
 import '../css/Note.css';
 
-const Note = ({ 
-    id, 
-    noteContent, 
-    updateNote, 
-    deleteNote, 
-    loading, 
-    setNoteEditingState, 
-    inputRefs 
+const Note = ({
+    id,
+    content,
+    isEditing,
+    onEdit,
+    onCancel,
+    onSave,
+    deleteNote,
+    loading,
+    textAreaRef,
 }) => {
+    const [draft, setDraft] = useState(content);
 
-    const {
-        content,
-        setContent,
-        trimmedContent,
-        contentLength,
-        isContentValid,
-        isNearMaxLength,
-        onChange,
-    } = useNoteContent(noteContent);
-
-    const [noteState, setNoteState] = useState(STATES.NOTE.DISPLAY);
-
-    const onSave = () => {
-        updateNote(id, trimmedContent);
-        setNoteEditingState(id, false);
-        setNoteState(STATES.NOTE.DISPLAY);
-    };
-
-    const onCancel = () => {
-        setContent(noteContent);
-        setNoteEditingState(id, false);
-        setNoteState(STATES.NOTE.DISPLAY);
-    }
+    const trimmedContent = draft.trim();
+    const contentLength = draft.length;
+    const isContentValid = trimmedContent.length > 0;
+    const isNearMaxLength = contentLength >= 180;
 
     useEffect(() => {
-        const el = inputRefs.current[id];
-        if (noteState === STATES.NOTE.EDITING && el) {
-            el.focus();
-            el.selectionStart = el.sectionEnd = el.value.length;
+        if (isEditing) {
+            setDraft(content);
         }
-    }, [noteState, inputRefs, id]);
-
-    const textAreaRef = el => {
-        if (el) inputRefs.current[id] = el;
-        else delete inputRefs.current[id];
-    };
+    }, [isEditing, content]);
 
     return (
-        <div className='note' aria-busy={loading}>
-            <div aria-live="polite">
-                {
-                    noteState === STATES.NOTE.EDITING
-                    ? <EditingState
-                        contentLength={contentLength}
-                        isContentValid={isContentValid}
-                        isNearMaxLength={isNearMaxLength}
-                        content={content}
-                        onChange={onChange}
-                        onSave={onSave}
-                        onCancel={onCancel}
-                        loading={loading}
-                        textAreaRef={textAreaRef}
-                      />
-                    : <DisplayState
-                        content={content}
-                        id={id}
-                        noteState={noteState}
-                        deleteNote={deleteNote}
-                        setNoteState={setNoteState}
-                        setNoteEditingState={setNoteEditingState}
-                        loading={loading}
-                      />
-                }
-            </div>
+        <div className="note" aria-busy={loading}>
+            {isEditing ? (
+                <div className="textarea-container">
+                    <div className="input-wrapper">
+                        <textarea
+                            value={draft}
+                            ref={textAreaRef}
+                            onChange={(e) => setDraft(e.target.value)}
+                            aria-label="Edit note content"
+                        />
+                        <CharacterCounter
+                            contentLength={contentLength}
+                            isNearMaxLength={isNearMaxLength}
+                        />
+                    </div>
 
+                    <div className="button-container">
+                        <button
+                            className="save"
+                            onClick={() => onSave(trimmedContent)}
+                            disabled={loading || !isContentValid}
+                            aria-label={loading ? 'Saving the note...' : 'Save note'}
+                        >
+                            Save
+                        </button>
+                        <button
+                            className="cancel"
+                            onClick={onCancel}
+                            disabled={loading}
+                            aria-label="Cancel the editing"
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            ) : (
+                <div className="display-state">
+                    <p>{content}</p>
+                    <div className="button-container">
+                        <button
+                            className="edit"
+                            onClick={onEdit}
+                            disabled={loading}
+                            aria-label="Edit the note"
+                        >
+                            Edit
+                        </button>
+                        <button
+                            className="delete"
+                            onClick={deleteNote}
+                            disabled={loading}
+                            aria-label="Delete the note"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            )}
             <AccessibilityAlertRegion loading={loading} aria-live="assertive" />
         </div>
     );
@@ -91,14 +94,14 @@ const Note = ({
 
 Note.propTypes = {
     id: PropTypes.string.isRequired,
-    noteContent: PropTypes.string.isRequired,
-    updateNote: PropTypes.func.isRequired,
+    content: PropTypes.string.isRequired,
+    isEditing: PropTypes.bool.isRequired,
+    onEdit: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
     deleteNote: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
-    setNoteEditingState: PropTypes.func.isRequired,
-    inputRefs: PropTypes.shape({
-        current: PropTypes.object.isRequired
-    }).isRequired
+    textAreaRef: PropTypes.func.isRequired,
 };
 
 export default Note;

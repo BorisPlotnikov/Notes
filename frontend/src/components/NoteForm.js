@@ -1,7 +1,6 @@
 // components/NoteForm.js
 
 import React from 'react';
-import useNoteContent from '../hooks/useNoteContent.js';
 import { LENGTHS } from '../constants/constants';
 import CharacterCounter from './CharacterCounter';
 import handleError from '../utils/errorHandler';
