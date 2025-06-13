@@ -1,5 +1,3 @@
-// App.js
-
 import React, { useState, useEffect, useRef } from 'react';
 import NoteForm from './components/NoteForm';
 import NoteList from './components/NoteList';
@@ -15,7 +13,8 @@ const App = () => {
     const [notes, setNotes] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
     const [loading, setLoading] = useState(false);
-    const inputRefs = useRef({});
+    const [editingNoteIds, setEditingNoteIds] = useState(new Set());
+
     const inputRef = useRef(null);
 
     const { addNote } = useAddNote(setNotes, setErrorMessage, setLoading);
@@ -39,7 +38,10 @@ const App = () => {
                 updateNote={updateNote}
                 deleteNote={deleteNote}
                 loading={loading}
+                editingNoteIds={editingNoteIds}
+                setEditingNoteIds={setEditingNoteIds}
             />
+            
             {loading && <Spinner />}
             {errorMessage && <ErrorNotification message={errorMessage} />}
         </div>
