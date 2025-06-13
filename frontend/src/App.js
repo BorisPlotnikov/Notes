@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import NoteForm from './components/NoteForm';
 import NoteList from './components/NoteList';
 import ErrorNotification from './components/ErrorNotification';
@@ -16,12 +16,25 @@ const App = () => {
     const [editingNoteIds, setEditingNoteIds] = useState(new Set());
 
     const inputRef = useRef(null);
+    const noteInputRefs = useRef({});
 
     const { addNote } = useAddNote(setNotes, setErrorMessage, setLoading);
     const { updateNote } = useUpdateNote(setNotes, setErrorMessage, setLoading);
     const { deleteNote } = useDeleteNote(setNotes, setErrorMessage, setLoading);
 
     useFetchNotes(setNotes, setErrorMessage, setLoading);
+
+    useEffect (() => {
+        if (editingNoteIds.size === 0) {
+            // Focus main input if nothing is being edited
+            inputRef.current?.focus();
+        } else {
+            //Focus the last edited note (LIFO)
+            const lastEditedId = Array.from(editingNoteIds).at(-1);
+            const lastTextarea = noteInputRefs.current[lastEditedId];
+            lastTextarea?.focus();
+        }
+    }, [editingNoteIds]);
 
     return (
         <div className='app'>
@@ -40,6 +53,7 @@ const App = () => {
                 loading={loading}
                 editingNoteIds={editingNoteIds}
                 setEditingNoteIds={setEditingNoteIds}
+                noteInputRefs={noteInputRefs}
             />
             
             {loading && <Spinner />}

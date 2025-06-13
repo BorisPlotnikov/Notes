@@ -1,10 +1,17 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Note from './Note';
 import '../css/NoteList.css';
 
-const NoteList = ({ notes, updateNote, deleteNote, loading, editingNoteIds, setEditingNoteIds }) => {
-    const inputRefs = useRef({});
+const NoteList = ({ 
+    notes, 
+    updateNote, 
+    deleteNote, 
+    loading, 
+    editingNoteIds, 
+    setEditingNoteIds,
+    noteInputRefs,
+}) => {
 
     const handleEdit = (id) => {
         setEditingNoteIds(prev => new Set(prev).add(id));
@@ -38,8 +45,8 @@ const NoteList = ({ notes, updateNote, deleteNote, loading, editingNoteIds, setE
                         deleteNote={() => deleteNote(note._id)}
                         loading={loading}
                         textAreaRef={(el) => {
-                            if (el) inputRefs.current[note._id] = el;
-                            else delete inputRefs.current[note._id];
+                            if (el) noteInputRefs.current[note._id] = el;
+                            else delete noteInputRefs.current[note._id];
                         }}
                     />
                 ))
@@ -62,6 +69,7 @@ NoteList.propTypes = {
     loading: PropTypes.bool.isRequired,
     editingNoteIds: PropTypes.instanceOf(Set).isRequired,
     setEditingNoteIds: PropTypes.func.isRequired,
+    noteInputRefs: PropTypes.shape({ current: PropTypes.object }).isRequired,
 };
 
 export default NoteList;
