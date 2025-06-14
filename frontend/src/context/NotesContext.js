@@ -1,3 +1,5 @@
+// context/NotesContext.js
+
 import { createContext, useContext } from 'react';
 
 const NotesContext = createContext(null);

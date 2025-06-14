@@ -1,17 +1,20 @@
+// components/NoteList
+
 import React from 'react';
-import PropTypes from 'prop-types';
 import Note from './Note';
+import { useNotes } from '../context/NotesContext';
 import '../css/NoteList.css';
 
-const NoteList = ({ 
-    notes, 
-    updateNote, 
-    deleteNote, 
-    loading, 
-    editingNoteIds, 
-    setEditingNoteIds,
-    noteInputRefs,
-}) => {
+const NoteList = () => {
+    const {
+        notes,
+        updateNote,
+        deleteNote,
+        loading,
+        editingNoteIds,
+        setEditingNoteIds,
+        noteInputRefs,
+    } = useNotes();
 
     const handleEdit = (id) => {
         setEditingNoteIds(prev => new Set(prev).add(id));
@@ -54,21 +57,6 @@ const NoteList = ({
             )}
         </div>
     );
-};
-
-NoteList.propTypes = {
-    notes: PropTypes.arrayOf(
-        PropTypes.shape({
-            _id: PropTypes.string.isRequired,
-            content: PropTypes.string.isRequired,
-        })
-    ).isRequired,
-    updateNote: PropTypes.func.isRequired,
-    deleteNote: PropTypes.func.isRequired,
-    loading: PropTypes.bool.isRequired,
-    editingNoteIds: PropTypes.instanceOf(Set).isRequired,
-    setEditingNoteIds: PropTypes.func.isRequired,
-    noteInputRefs: PropTypes.shape({ current: PropTypes.object }).isRequired,
 };
 
 export default NoteList;

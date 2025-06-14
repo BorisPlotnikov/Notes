@@ -1,12 +1,20 @@
+// components/NoteForm.js
+
 import React from 'react';
 import { LENGTHS } from '../constants/constants';
 import CharacterCounter from './CharacterCounter';
 import handleError from '../utils/errorHandler';
 import useNoteContent from '../hooks/useNoteContent';
+import { useNotes } from '../context/NotesContext';
 import '../css/NoteForm.css';
-import PropTypes from 'prop-types';
 
-const NoteForm = ({ addNote, setErrorMessage, loading, inputRef }) => {
+const NoteForm = () => {
+    const {
+        addNote,
+        setErrorMessage,
+        loading,
+        inputRef
+    } = useNotes();
 
     const {
         content,
@@ -19,8 +27,7 @@ const NoteForm = ({ addNote, setErrorMessage, loading, inputRef }) => {
     } = useNoteContent('');
 
     const onSubmit = async (e) => {
-        e.preventDefault();
-        
+        e.preventDefault();       
         try {
             await addNote(trimmedContent);
             setContent('');
@@ -58,16 +65,6 @@ const NoteForm = ({ addNote, setErrorMessage, loading, inputRef }) => {
             </button> 
         </form>
     );
-};
-
-NoteForm.propTypes = {
-    addNote: PropTypes.func.isRequired,
-    setErrorMessage: PropTypes.func.isRequired,
-    loading: PropTypes.bool.isRequired,
-    inputRef: PropTypes.oneOfType([
-        PropTypes.func,
-        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
-    ])
 };
 
 export default NoteForm;

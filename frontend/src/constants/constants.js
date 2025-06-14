@@ -1,4 +1,4 @@
-// constants.js
+// constants/constants.js
 
 const LENGTHS = {
     MIN: 1,
