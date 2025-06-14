@@ -31,6 +31,7 @@ const NoteForm = () => {
         try {
             await addNote(trimmedContent);
             setContent('');
+            inputRef.current?.focus();
         } catch (err) {
             handleError(setErrorMessage, 'Saving failed', err);
         };
