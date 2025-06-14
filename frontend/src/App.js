@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import NoteForm from './components/NoteForm';
 import NoteList from './components/NoteList';
 import ErrorNotification from './components/ErrorNotification';
@@ -33,31 +33,41 @@ const App = () => {
             const lastTextarea = noteInputRefs.current[lastEditedId];
             if (lastTextarea) {
                 lastTextarea?.focus();
-
                 const length = lastTextarea.value.length;
                 lastTextarea.setSelectionRange(length, length);
             }
         }
     }, [editingNoteIds, notes.length]);
 
+    const contextValue = useMemo(() => ({
+        notes,
+        addNote,
+        updateNote,
+        deleteNote,
+        loading,
+        errorMessage,
+        setErrorMessage,
+        editingNoteIds,
+        setEditingNoteIds,
+        inputRef,
+        noteInputRefs,
+    }), [
+        notes,
+        addNote,
+        updateNote,
+        deleteNote,
+        loading,
+        errorMessage,
+        editingNoteIds,
+        setEditingNoteIds
+    ]);
+
     return (
-        <NotesContext.Provider value={{
-            notes,
-            addNote,
-            updateNote,
-            deleteNote,
-            loading,
-            errorMessage,
-            setErrorMessage,
-            editingNoteIds,
-            setEditingNoteIds,
-            inputRef,
-            noteInputRefs,
-        }}>
+        <NotesContext.Provider value={contextValue}>
             <div className='app'>
                 <h1>Notes</h1>
                 <NoteForm />
-                <NoteList/>
+                <NoteList />
                 {loading && <Spinner />}
                 {errorMessage && <ErrorNotification message={errorMessage} />}
             </div>

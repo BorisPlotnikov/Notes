@@ -16,13 +16,13 @@ const useUpdateNote = (setNotes, setErrorMessage, setLoading) => {
         try {
             await axios.put(
                 `${apiBaseUrl}/notes/${id}`,
-                { content: content },
+                { content },
                 { signal: getSignal() }
             );
             
             setNotes((prevNotes) =>
                 prevNotes.map((note) =>
-                    note._id === id ? { ...note, content: content } : note
+                    note._id === id ? { ...note, content } : note
                 )
             );
         } catch (err) {
