@@ -38,7 +38,7 @@ const App = () => {
                 lastTextarea.setSelectionRange(length, length);
             }
         }
-    }, [editingNoteIds]);
+    }, [editingNoteIds, notes.length]);
 
     return (
         <NotesContext.Provider value={{
