@@ -8,6 +8,7 @@ import { useNotes } from '../context/NotesContext';
 import '../css/Note.css';
 
 const Note = ({
+    id,
     content,
     isEditing,
     onEdit,
@@ -79,7 +80,7 @@ const Note = ({
                         </button>
                         <button
                             className="delete"
-                            onClick={deleteNote}
+                            onClick={() => deleteNote(id)}
                             disabled={loading}
                             aria-label="Delete the note"
                         >
@@ -94,6 +95,7 @@ const Note = ({
 };
 
 Note.propTypes = {
+    id: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     isEditing: PropTypes.bool.isRequired,
     onEdit: PropTypes.func.isRequired,

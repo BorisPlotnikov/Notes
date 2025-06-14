@@ -39,6 +39,7 @@ const NoteList = () => {
                 notes.map(note => (
                     <Note
                         key={note._id}
+                        id={note._id}
                         content={note.content}
                         isEditing={editingNoteIds.has(note._id)}
                         onEdit={() => handleEdit(note._id)}
