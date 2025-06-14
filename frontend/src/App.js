@@ -6,7 +6,8 @@ import Spinner from './components/Spinner';
 import useFetchNotes from './hooks/useFetchNotes';
 import useAddNote from './hooks/useAddNote';
 import useDeleteNote from './hooks/useDeleteNote';
-import useUpdateNote from './hooks/useUpdateNote';                                    
+import useUpdateNote from './hooks/useUpdateNote';
+import NotesContext from './context/NotesContext';                                   
 import './css/App.css';
 
 const App = () => {
@@ -40,28 +41,27 @@ const App = () => {
     }, [editingNoteIds]);
 
     return (
-        <div className='app'>
-            <h1>Notes</h1>
-            <NoteForm
-                addNote={addNote}
-                setErrorMessage={setErrorMessage}
-                loading={loading}
-                inputRef={inputRef}
-            />
-
-            <NoteList
-                notes={notes}
-                updateNote={updateNote}
-                deleteNote={deleteNote}
-                loading={loading}
-                editingNoteIds={editingNoteIds}
-                setEditingNoteIds={setEditingNoteIds}
-                noteInputRefs={noteInputRefs}
-            />
-            
-            {loading && <Spinner />}
-            {errorMessage && <ErrorNotification message={errorMessage} />}
-        </div>
+        <NotesContext.Provider value={{
+            notes,
+            addNote,
+            updateNote,
+            deleteNote,
+            loading,
+            errorMessage,
+            setErrorMessage,
+            editingNoteIds,
+            setEditingNoteIds,
+            inputRef,
+            noteInputRefs,
+        }}>
+            <div className='app'>
+                <h1>Notes</h1>
+                <NoteForm />
+                <NoteList/>
+                {loading && <Spinner />}
+                {errorMessage && <ErrorNotification message={errorMessage} />}
+            </div>
+        </NotesContext.Provider>
     );
 };
 
