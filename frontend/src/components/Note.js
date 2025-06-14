@@ -5,7 +5,6 @@ import AccessibilityAlertRegion from './AccessibilityAlertRegion';
 import '../css/Note.css';
 
 const Note = ({
-    id,
     content,
     isEditing,
     onEdit,
@@ -93,7 +92,6 @@ const Note = ({
 };
 
 Note.propTypes = {
-    id: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     isEditing: PropTypes.bool.isRequired,
     onEdit: PropTypes.func.isRequired,
