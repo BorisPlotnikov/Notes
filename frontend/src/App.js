@@ -26,13 +26,16 @@ const App = () => {
 
     useEffect (() => {
         if (editingNoteIds.size === 0) {
-            // Focus main input if nothing is being edited
             inputRef.current?.focus();
         } else {
-            //Focus the last edited note (LIFO)
             const lastEditedId = Array.from(editingNoteIds).at(-1);
             const lastTextarea = noteInputRefs.current[lastEditedId];
-            lastTextarea?.focus();
+            if (lastTextarea) {
+                lastTextarea?.focus();
+
+                const length = lastTextarea.value.length;
+                lastTextarea.setSelectionRange(length, length);
+            }
         }
     }, [editingNoteIds]);
 
