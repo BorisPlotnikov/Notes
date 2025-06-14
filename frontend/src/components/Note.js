@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CharacterCounter from './CharacterCounter';
 import AccessibilityAlertRegion from './AccessibilityAlertRegion';
+import { useNotes } from '../context/NotesContext';
 import '../css/Note.css';
 
 const Note = ({
@@ -12,10 +13,9 @@ const Note = ({
     onEdit,
     onCancel,
     onSave,
-    deleteNote,
-    loading,
     textAreaRef,
 }) => {
+    const { loading, deleteNote } = useNotes();
     const [draft, setDraft] = useState(content);
 
     const trimmedContent = draft.trim();
@@ -99,8 +99,6 @@ Note.propTypes = {
     onEdit: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
-    deleteNote: PropTypes.func.isRequired,
-    loading: PropTypes.bool.isRequired,
     textAreaRef: PropTypes.func.isRequired,
 };
 
