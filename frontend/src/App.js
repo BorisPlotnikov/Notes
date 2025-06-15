@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+// App.js
+
+import React, { useState, useEffect, useRef } from 'react';
 import NoteForm from './components/NoteForm';
 import NoteList from './components/NoteList';
 import ErrorNotification from './components/ErrorNotification';
@@ -14,22 +16,22 @@ const App = () => {
     const [notes, setNotes] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [editingNoteIds, setEditingNoteIds] = useState(new Set());
+    const [editingNoteIds, setEditingNoteIds] = useState([]);
 
     const inputRef = useRef(null);
     const noteInputRefs = useRef({});
+
+    useFetchNotes(setNotes, setErrorMessage, setLoading);
 
     const { addNote } = useAddNote(setNotes, setErrorMessage, setLoading);
     const { updateNote } = useUpdateNote(setNotes, setErrorMessage, setLoading);
     const { deleteNote } = useDeleteNote(setNotes, setErrorMessage, setLoading);
 
-    useFetchNotes(setNotes, setErrorMessage, setLoading);
-
-    useEffect (() => {
-        if (editingNoteIds.size === 0) {
+    useEffect(() => {
+        if (editingNoteIds.length === 0) {
             inputRef.current?.focus();
         } else {
-            const lastEditedId = Array.from(editingNoteIds).at(-1);
+            const lastEditedId = editingNoteIds.at(-1);
             const lastTextarea = noteInputRefs.current[lastEditedId];
             if (lastTextarea) {
                 lastTextarea?.focus();
@@ -39,7 +41,13 @@ const App = () => {
         }
     }, [editingNoteIds, notes.length]);
 
-    const contextValue = useMemo(() => ({
+    useEffect(() => {
+        if (notes.length === 0) {
+            noteInputRefs.current = {};
+        }
+    }, [notes.length]);    
+
+    const contextValue = {
         notes,
         addNote,
         updateNote,
@@ -51,16 +59,7 @@ const App = () => {
         setEditingNoteIds,
         inputRef,
         noteInputRefs,
-    }), [
-        notes,
-        addNote,
-        updateNote,
-        deleteNote,
-        loading,
-        errorMessage,
-        editingNoteIds,
-        setEditingNoteIds
-    ]);
+    };
 
     return (
         <NotesContext.Provider value={contextValue}>
@@ -76,3 +75,4 @@ const App = () => {
 };
 
 export default App;
+
