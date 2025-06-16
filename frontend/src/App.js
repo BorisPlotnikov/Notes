@@ -16,7 +16,7 @@ const App = () => {
     const [notes, setNotes] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [editingNoteIds, setEditingNoteIds] = useState([]);
+    const [editingIds, setEditingIds] = useState([]);
 
     const inputRef = useRef(null);
     const noteInputRefs = useRef({});
@@ -28,10 +28,10 @@ const App = () => {
     const { deleteNote } = useDeleteNote(setNotes, setErrorMessage, setLoading);
 
     useEffect(() => {
-        if (editingNoteIds.length === 0) {
+        if (editingIds.length === 0) {
             inputRef.current?.focus();
         } else {
-            const lastEditedId = editingNoteIds.at(-1);
+            const lastEditedId = editingIds.at(-1);
             const lastTextarea = noteInputRefs.current[lastEditedId];
             if (lastTextarea) {
                 lastTextarea.focus();
@@ -39,7 +39,7 @@ const App = () => {
                 lastTextarea.setSelectionRange(length, length);
             }
         }
-    }, [editingNoteIds, notes.length]);
+    }, [editingIds, notes.length]);
 
     useEffect(() => {
         if (notes.length === 0) {
@@ -55,8 +55,8 @@ const App = () => {
         loading,
         errorMessage,
         setErrorMessage,
-        editingNoteIds,
-        setEditingNoteIds,
+        editingIds,
+        setEditingIds,
         inputRef,
         noteInputRefs,
     };
