@@ -34,7 +34,7 @@ const App = () => {
             const lastEditedId = editingNoteIds.at(-1);
             const lastTextarea = noteInputRefs.current[lastEditedId];
             if (lastTextarea) {
-                lastTextarea?.focus();
+                lastTextarea.focus();
                 const length = lastTextarea.value.length;
                 lastTextarea.setSelectionRange(length, length);
             }
