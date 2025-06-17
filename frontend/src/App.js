@@ -28,24 +28,24 @@ const App = () => {
     const { deleteNote } = useDeleteNote(setNotes, setErrorMessage, setLoading);
 
     useEffect(() => {
-        if (editingIds.length === 0) {
-            inputRef.current?.focus();
+        if (editingIds.length === 0) { // If no notes are opened for editing...
+            inputRef.current?.focus(); // focus the main input
         } else {
-            const lastEditedId = editingIds.at(-1);
-            const lastTextarea = noteInputRefs.current[lastEditedId];
-            if (lastTextarea) {
-                lastTextarea.focus();
-                const length = lastTextarea.value.length;
-                lastTextarea.setSelectionRange(length, length);
+            const lastEditedId = editingIds.at(-1); // Id of the last note opened for editing
+            const lastTextarea = noteInputRefs.current[lastEditedId]; // textarea of the last note open for editing
+            if (lastTextarea) { // If a textarea of the last note open for editing is identified
+                lastTextarea.focus(); // focus the text area
+                const length = lastTextarea.value.length; //  Determine number of characters typed inside the text area
+                lastTextarea.setSelectionRange(length, length); // Select characters from last to last
             }
         }
-    }, [editingIds, notes.length]);
+    }, [editingIds, notes.length]); // Run this code every time a total number of notes or a number of notes open for editing is changing.
 
     useEffect(() => {
-        if (notes.length === 0) {
-            noteInputRefs.current = {};
+        if (notes.length === 0) { // If no notes
+            noteInputRefs.current = {}; // Clear stored indexs of the notes open for editing
         }
-    }, [notes.length]);    
+    }, [notes.length]); // Repeat everytime when total number of notes is changing
 
     const contextValue = {
         notes,

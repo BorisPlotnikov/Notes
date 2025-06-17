@@ -16,17 +16,22 @@ const NoteList = () => {
         noteInputRefs,
     } = useNotes();
 
-    const handleEdit = (id) => {
+    const enterEditMode = (id) => {
         setEditingIds(prev =>(prev.includes(id) ? prev: [...prev, id]));
     };
 
-    const handleCancel = (noteId) => {
+    const exitEditMode = (noteId) => {
         setEditingIds(prev => prev.filter(id => id !== noteId));
+        delete noteInputRefs.current[noteId];
     };
 
     const handleSave = (id, newContent) => {
         updateNote(id, newContent);
-        handleCancel(id);
+        exitEditMode(id);
+    };
+
+    const handleCancel = (id) => {
+        exitEditMode(id);
     };
 
     return (
@@ -38,7 +43,7 @@ const NoteList = () => {
                         id={note._id}
                         content={note.content}
                         isEditing={editingIds.includes(note._id)}
-                        onEdit={() => handleEdit(note._id)}
+                        onEdit={() => enterEditMode(note._id)}
                         onCancel={() => handleCancel(note._id)}
                         onSave={(newContent) => handleSave(note._id, newContent)}
                         deleteNote={() => deleteNote(note._id)}
