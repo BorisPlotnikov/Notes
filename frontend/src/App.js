@@ -62,7 +62,7 @@ const App = () => {
                 <NoteForm />
                 <NoteList />
                 {loading && <Spinner />}
-                {errorMessage && <ErrorNotification message={errorMessage} />}
+                {errorMessage && <ErrorNotification />}
             </div>
         </NotesContext.Provider>
     );

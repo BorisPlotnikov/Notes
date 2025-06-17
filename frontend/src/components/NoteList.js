@@ -30,10 +30,6 @@ const NoteList = () => {
         exitEditMode(id);
     };
 
-    const handleCancel = (id) => {
-        exitEditMode(id);
-    };
-
     return (
         <div className="note-list" aria-live="polite">
             {notes.length > 0 ? (
@@ -44,7 +40,7 @@ const NoteList = () => {
                         content={note.content}
                         isEditing={editingIds.includes(note._id)}
                         onEdit={() => enterEditMode(note._id)}
-                        onCancel={() => handleCancel(note._id)}
+                        onCancel={() => exitEditMode(note._id)}
                         onSave={(newContent) => handleSave(note._id, newContent)}
                         deleteNote={() => deleteNote(note._id)}
                         loading={loading}
