@@ -41,12 +41,6 @@ const App = () => {
         }
     }, [editingIds, notes.length]); // Run this code every time a total number of notes or a number of notes open for editing is changing.
 
-    useEffect(() => {
-        if (notes.length === 0) { // If no notes
-            noteInputRefs.current = {}; // Clear stored indexs of the notes open for editing
-        }
-    }, [notes.length]); // Repeat everytime when total number of notes is changing
-
     const contextValue = {
         notes,
         addNote,
