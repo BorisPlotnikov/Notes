@@ -12,9 +12,19 @@ const useFetchNotes = (setNotes, processError, setLoading) => {
         const fetchNotes = async () => {
             setLoading(true);
             createAbortController();
-            const apiBaseUrl = getApiBaseUrl();
+            const apiBaseUrl = (() => {
+                try {
+                    return getApiBaseUrl();
+                } catch (error) {
+                    processError(error, 'Loading notes failed');
+                    return null;
+                }
+            })();
+
+            if (!apiBaseUrl) return;
 
             try {
+                const apiBaseUrl = getApiBaseUrl();
                 const response = await axios.get(
                     `${apiBaseUrl}/notes`,
                     { signal: getSignal() }

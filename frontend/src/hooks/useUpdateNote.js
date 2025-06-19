@@ -10,7 +10,16 @@ const useUpdateNote = (setNotes, processError, setLoading) => {
     const updateNote = async (id, content) => {
         setLoading(true);
         createAbortController();
-        const apiBaseUrl = getApiBaseUrl();
+        const apiBaseUrl = (() => {
+            try {
+                return getApiBaseUrl();
+            } catch (error) {
+                processError(error, 'Loading notes failed');
+                return null;
+            }
+        })();
+
+        if (!apiBaseUrl) return;
         
         try {
             await axios.put(

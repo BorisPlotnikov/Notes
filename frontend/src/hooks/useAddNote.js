@@ -10,7 +10,14 @@ const useAddNote = (setNotes, processError, setLoading) => {
     const addNote = async (content) => {
         setLoading(true);
         createAbortController();
-        const apiBaseUrl = getApiBaseUrl();
+        const apiBaseUrl = (() => {
+            try {
+                return getApiBaseUrl();
+            } catch (error) {
+                processError(error, 'Saving a note failed');
+                return null;
+            }
+        })();
 
         try {
             const newNote = { content };

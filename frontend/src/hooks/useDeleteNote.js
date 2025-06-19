@@ -11,7 +11,17 @@ const useDeleteNote = (setNotes, processError, setLoading) => {
 
         setLoading(true);
         createAbortController();
-        const apiBaseUrl = getApiBaseUrl();
+        
+        const apiBaseUrl = (() => {
+            try {
+                return getApiBaseUrl();
+            } catch (error) {
+                processError(error, 'Deleting a note failed');
+                return null;
+            }
+        })();
+
+        if (!apiBaseUrl) return;
 
         let backup = [];
 
