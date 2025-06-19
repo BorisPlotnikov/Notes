@@ -1,11 +1,34 @@
 // hooks/useApiRequest.js
 
+import { useRef, useEffect } from 'react';
 import axios from 'axios';
 import { getApiBaseUrl } from '../utils/apiConfig';
-import useAbortController from './useAbortController';
 
 const useApiRequest = (processError, setLoading) => {
-    const { createAbortController, getSignal } = useAbortController();
+    const controllerRef = useRef(null);
+
+    const createAbortController = () => {
+        if (controllerRef.current) {
+            controllerRef.current.abort();
+        }
+        controllerRef.current = new AbortController();
+    };
+
+    const getSignal = () => {
+        if (!controllerRef.current) {
+            createAbortController();
+        }
+        return controllerRef.current.signal;
+    };
+
+    useEffect(() => {
+        return () => {
+            if (controllerRef.current) {
+                controllerRef.current.abort();
+                controllerRef.current = null;
+            }
+        };
+    }, []);
 
     const sendRequest = async (method, path, data = null) => {
         setLoading(true);
@@ -21,7 +44,11 @@ const useApiRequest = (processError, setLoading) => {
             });
             return response.data;
         } catch (error) {
-            processError(error, `${method.toUpperCase()} ${path} failed`);
+            // Avoid logging canceled requests as errors
+            const isCanceled = axios.isCancel?.(error) || error?.name === 'CanceledError';
+            if (!isCanceled) {
+                processError(error, `${method.toUpperCase()} ${path} failed`);
+            }
             throw error;
         } finally {
             setLoading(false);
