@@ -4,9 +4,8 @@ import { useEffect } from 'react';
 import useAbortController from '../hooks/useAbortController';
 import axios from 'axios';
 import { getApiBaseUrl } from '../utils/apiConfig';
-import handleError from '../utils/errorHandler';
 
-const useFetchNotes = (setNotes, setErrorMessage, setLoading) => {
+const useFetchNotes = (setNotes, processError, setLoading) => {
     const { createAbortController, getSignal } = useAbortController();
 
     useEffect(() => {
@@ -27,11 +26,11 @@ const useFetchNotes = (setNotes, setErrorMessage, setLoading) => {
                         isEditing: false
                     })));
                 } else {
-                    handleError(setErrorMessage, 'Unexpected data format');
+                    processError('Unexpected data format');
                 }                
-            } catch (err) {
-                if (axios.isCancel(err)) return;
-                handleError(setErrorMessage, 'Downloading failed', err);
+            } catch (error) {
+                if (axios.isCancel(error)) return;
+                processError(error, 'Downloading failed');
             } finally {
                 setLoading(false);
             }

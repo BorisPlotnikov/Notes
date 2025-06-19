@@ -3,9 +3,8 @@
 import useAbortController from '../hooks/useAbortController';
 import axios from 'axios';
 import { getApiBaseUrl } from '../utils/apiConfig';
-import handleError from '../utils/errorHandler';
 
-const useAddNote = (setNotes, setErrorMessage, setLoading) => {
+const useAddNote = (setNotes, processError, setLoading) => {
     const { createAbortController, getSignal } = useAbortController();
 
     const addNote = async (content) => {
@@ -21,11 +20,10 @@ const useAddNote = (setNotes, setErrorMessage, setLoading) => {
                 { signal: getSignal() }
             );
             setNotes((prevNotes) => [...prevNotes, response.data]);
-        } catch (err) {
-            handleError(
-                setErrorMessage,
-                axios.isCancel(err) ? 'Request canceled' : 'Saving failed',
-                err
+        } catch (error) {
+            processError(
+                error,
+                axios.isCancel(error) ? 'Request canceled' : 'Saving failed'
             );
         } finally {
             setLoading(false);

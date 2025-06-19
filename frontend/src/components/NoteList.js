@@ -9,8 +9,6 @@ const NoteList = () => {
     const {
         notes,
         updateNote,
-        deleteNote,
-        loading,
         editingIds,
         setEditingIds,
         noteInputRefs,
@@ -42,8 +40,6 @@ const NoteList = () => {
                         onEdit={() => enterEditMode(note._id)}
                         onCancel={() => exitEditMode(note._id)}
                         onSave={(newContent) => handleSave(note._id, newContent)}
-                        deleteNote={() => deleteNote(note._id)}
-                        loading={loading}
                         textAreaRef={(el) => {
                             if (el) noteInputRefs.current[note._id] = el;
                             else delete noteInputRefs.current[note._id];

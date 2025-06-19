@@ -3,29 +3,30 @@
 import React, { useState, useEffect, useRef } from 'react';
 import NoteForm from './components/NoteForm';
 import NoteList from './components/NoteList';
+import NotesContext from './context/NotesContext';   
 import ErrorNotification from './components/ErrorNotification';
 import Spinner from './components/Spinner';           
 import useFetchNotes from './hooks/useFetchNotes';
 import useAddNote from './hooks/useAddNote';
 import useDeleteNote from './hooks/useDeleteNote';
 import useUpdateNote from './hooks/useUpdateNote';
-import NotesContext from './context/NotesContext';                                   
+import useErrorHandler from './hooks/useErrorHandler';                           
 import './css/App.css';
 
 const App = () => {
     const [notes, setNotes] = useState([]);
-    const [errorMessage, setErrorMessage] = useState(null);
+    const { errorMessage, processError } = useErrorHandler();
     const [loading, setLoading] = useState(false);
     const [editingIds, setEditingIds] = useState([]);
 
     const inputRef = useRef(null);
     const noteInputRefs = useRef({});
 
-    useFetchNotes(setNotes, setErrorMessage, setLoading);
+    useFetchNotes(setNotes, processError, setLoading);
 
-    const { addNote } = useAddNote(setNotes, setErrorMessage, setLoading);
-    const { updateNote } = useUpdateNote(setNotes, setErrorMessage, setLoading);
-    const { deleteNote } = useDeleteNote(setNotes, setErrorMessage, setLoading);
+    const { addNote } = useAddNote(setNotes, processError, setLoading);
+    const { updateNote } = useUpdateNote(setNotes, processError, setLoading);
+    const { deleteNote } = useDeleteNote(setNotes, processError, setLoading);
 
     useEffect(() => {
         if (editingIds.length === 0) {
@@ -48,7 +49,7 @@ const App = () => {
         deleteNote,
         loading,
         errorMessage,
-        setErrorMessage,
+        processError,
         editingIds,
         setEditingIds,
         inputRef,

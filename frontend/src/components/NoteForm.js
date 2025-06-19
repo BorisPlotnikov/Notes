@@ -3,7 +3,6 @@
 import React from 'react';
 import { LENGTHS } from '../constants/constants';
 import CharacterCounter from './CharacterCounter';
-import handleError from '../utils/errorHandler';
 import useNoteContent from '../hooks/useNoteContent';
 import { useNotes } from '../context/NotesContext';
 import '../css/NoteForm.css';
@@ -11,9 +10,9 @@ import '../css/NoteForm.css';
 const NoteForm = () => {
     const {
         addNote,
-        setErrorMessage,
         loading,
-        inputRef
+        inputRef,
+        processError,
     } = useNotes();
 
     const {
@@ -31,8 +30,8 @@ const NoteForm = () => {
         try {
             await addNote(trimmedContent);
             setContent('');
-        } catch (err) {
-            handleError(setErrorMessage, 'Saving failed', err);
+        } catch (error) {
+            processError(error, 'Saving failed.');
         };
     };
 

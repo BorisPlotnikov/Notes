@@ -3,9 +3,8 @@
 import useAbortController from '../hooks/useAbortController';
 import axios from 'axios';
 import { getApiBaseUrl } from '../utils/apiConfig';
-import handleError from '../utils/errorHandler';
 
-const useUpdateNote = (setNotes, setErrorMessage, setLoading) => {
+const useUpdateNote = (setNotes, processError, setLoading) => {
     const { createAbortController, getSignal } = useAbortController();
 
     const updateNote = async (id, content) => {
@@ -25,11 +24,10 @@ const useUpdateNote = (setNotes, setErrorMessage, setLoading) => {
                     note._id === id ? { ...note, content } : note
                 )
             );
-        } catch (err) {
-            handleError(
-                setErrorMessage,
-                axios.isCancel(err) ? 'Request canceled' : 'Updating failed',
-                err
+        } catch (error) {
+            processError(
+                error,
+                axios.isCancel(error) ? 'Request canceled' : 'Updating failed'
             );
         } finally {
             setLoading(false);

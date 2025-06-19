@@ -8,7 +8,7 @@ const parseError = (error = 'Unknown error', log = 'An operation failed.') => {
         const statusMessages = {
             400: 'Bad Request. Please check your input.',
             401: 'Unauthorized. Please log in.',
-            404: 'Reasource not found.',
+            404: 'Resource not found.',
             408: 'Request timed out. Please check your network connection and try again.',
             500: 'Internal Server Error. Please try again later.',
         };

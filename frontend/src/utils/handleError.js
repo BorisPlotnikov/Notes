@@ -2,7 +2,7 @@
 
 import parseError from './parseError';
 
-const handleError = (error, log = 'An error occured', setErrorMessage) => {
+const handleError = (error, log = 'An error occurred', setErrorMessage) => {
     const  { userMessage, logMessage, stack } = parseError(error, log);
 
     console.error(logMessage);
