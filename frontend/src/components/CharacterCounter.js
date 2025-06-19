@@ -2,7 +2,9 @@
 
 import React from 'react';
 import pluralize from 'pluralize';
+
 import { LENGTHS } from '../constants/constants';
+
 import '../css/CharacterCounter.css';
 import PropTypes from 'prop-types';
 
@@ -27,7 +29,8 @@ const CharacterCounter = ({ contentLength, isNearMaxLength = false }) => {
 };
 
 CharacterCounter.propTypes = {
-    contentLength: PropTypes.number.isRequired
+    contentLength: PropTypes.number.isRequired,
+    isNearMaxLength: PropTypes.bool.isRequired
 };
 
 export default CharacterCounter;

@@ -2,9 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+
+import { useNotes } from '../context/NotesContext';
+
 import CharacterCounter from './CharacterCounter';
 import AccessibilityAlertRegion from './AccessibilityAlertRegion';
-import { useNotes } from '../context/NotesContext';
 import '../css/Note.css';
 
 const Note = ({

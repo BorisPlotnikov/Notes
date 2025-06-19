@@ -1,6 +1,6 @@
 # react-notes
 
-This is a basic React app to create and save notes with separate front- & back-end.
+This is a simple React notes editor, designed with separate front- & back-end. Although this is a small app, I chose to organize the code modularly to practice scalable React architecture and improve code reusability.
 
 How to set up the .env file:
 Locate the .env.Example file

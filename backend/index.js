@@ -3,9 +3,10 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+
 import errorHandler from './middleware/errorHandler.js';
 import apiConfig from './utils/apiConfig.js';
-import mongoose from 'mongoose';
 import notesRouter from './routes/notes.js';
 
 dotenv.config();

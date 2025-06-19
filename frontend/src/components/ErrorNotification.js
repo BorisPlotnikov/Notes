@@ -1,6 +1,7 @@
 // components/ErrorNotification.js
 
 import React from 'react';
+
 import { useNotes } from '../context/NotesContext';
 import '../css/ErrorNotification.css';
 

@@ -1,17 +1,18 @@
 // App.js
 
-import React, { useState, useEffect, useRef } from 'react';
-import NoteForm from './components/NoteForm';
-import NoteList from './components/NoteList';
-import NotesContext from './context/NotesContext';   
-import ErrorNotification from './components/ErrorNotification';
-import Spinner from './components/Spinner';           
+import React, { useState, useEffect, useRef } from 'react';                     
+import './css/App.css';
+
+import NotesContext from './context/NotesContext';
+import useErrorHandler from './hooks/useErrorHandler';           
 import useFetchNotes from './hooks/useFetchNotes';
 import useAddNote from './hooks/useAddNote';
-import useDeleteNote from './hooks/useDeleteNote';
 import useUpdateNote from './hooks/useUpdateNote';
-import useErrorHandler from './hooks/useErrorHandler';                           
-import './css/App.css';
+import useDeleteNote from './hooks/useDeleteNote';
+import Spinner from './components/Spinner';
+import ErrorNotification from './components/ErrorNotification';
+import NoteList from './components/NoteList';
+import NoteForm from './components/NoteForm';
 
 const App = () => {
     const [notes, setNotes] = useState([]);

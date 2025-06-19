@@ -1,8 +1,10 @@
 // components/NoteList
 
 import React from 'react';
-import Note from './Note';
+
 import { useNotes } from '../context/NotesContext';
+
+import Note from './Note';
 import '../css/NoteList.css';
 
 const NoteList = () => {

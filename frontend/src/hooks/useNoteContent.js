@@ -1,6 +1,7 @@
 // hooks/useNoteContent.js
 
 import { useState, useEffect } from 'react';
+
 import { LENGTHS } from '../constants/constants';
 
 const useNoteContent = (initialContent = '') => {

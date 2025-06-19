@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+
 import handleError from '../utils/handleError';
 
 const useErrorHandler = (timeout = 5000) => {

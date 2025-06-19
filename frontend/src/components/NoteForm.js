@@ -1,10 +1,12 @@
 // components/NoteForm.js
 
 import React from 'react';
+
 import { LENGTHS } from '../constants/constants';
-import CharacterCounter from './CharacterCounter';
 import useNoteContent from '../hooks/useNoteContent';
 import { useNotes } from '../context/NotesContext';
+
+import CharacterCounter from './CharacterCounter';
 import '../css/NoteForm.css';
 
 const NoteForm = () => {

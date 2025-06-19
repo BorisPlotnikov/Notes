@@ -1,6 +1,7 @@
 // hooks/useFetchNotes.js
 
 import { useEffect } from 'react';
+
 import useApiRequest from './useApiRequest';
 
 const useFetchNotes = (setNotes, processError, setLoading) => {

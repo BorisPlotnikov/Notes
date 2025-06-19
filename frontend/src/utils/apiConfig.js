@@ -9,7 +9,7 @@ const getApiBaseUrl =  () => {
 
     try {
         new URL(apiBaseUrl);
-    } catch (error) {
+    } catch {
         throw new Error(`Invalid API base URL: ${apiBaseUrl}`);
     }
 

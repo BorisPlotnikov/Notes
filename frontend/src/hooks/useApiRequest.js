@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from 'react';
 import axios from 'axios';
+
 import { getApiBaseUrl } from '../utils/apiConfig';
 
 const useApiRequest = (processError, setLoading) => {
@@ -44,7 +45,6 @@ const useApiRequest = (processError, setLoading) => {
             });
             return response.data;
         } catch (error) {
-            // Avoid logging canceled requests as errors
             const isCanceled = axios.isCancel?.(error) || error?.name === 'CanceledError';
             if (!isCanceled) {
                 processError(error, `${method.toUpperCase()} ${path} failed`);

@@ -1,6 +1,7 @@
 // routes/notes.js
 
 import express from 'express';
+
 import getNotes from './handlers/getNotes.js';
 import createNote from './handlers/createNote.js';
 import updateNote from './handlers/updateNote.js';
