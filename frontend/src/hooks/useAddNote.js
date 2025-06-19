@@ -1,42 +1,18 @@
 // hooks/useAddNote.js
 
-import useAbortController from '../hooks/useAbortController';
-import axios from 'axios';
-import { getApiBaseUrl } from '../utils/apiConfig';
+import useApiRequest from './useApiRequest';
 
 const useAddNote = (setNotes, processError, setLoading) => {
-    const { createAbortController, getSignal } = useAbortController();
+    const { sendRequest } = useApiRequest(processError, setLoading);
 
     const addNote = async (content) => {
-        setLoading(true);
-        createAbortController();
-        const apiBaseUrl = (() => {
             try {
-                return getApiBaseUrl();
-            } catch (error) {
-                processError(error, 'Saving a note failed');
-                return null;
+                const newNote = await sendRequest('post', '/notes', { content });
+                setNotes(prev => [...prev, newNote]);
+            } catch {
+                 // Error already handled in sendRequest
             }
-        })();
-
-        try {
-            const newNote = { content };
-            const response = await axios.post(
-                `${apiBaseUrl}/notes`,
-                newNote,
-                { signal: getSignal() }
-            );
-            setNotes((prevNotes) => [...prevNotes, response.data]);
-        } catch (error) {
-            processError(
-                error,
-                axios.isCancel(error) ? 'Request canceled' : 'Saving failed'
-            );
-        } finally {
-            setLoading(false);
-        }
-    };
-
+        };
     return { addNote };
 };
 

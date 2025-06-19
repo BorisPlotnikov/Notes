@@ -1,28 +1,11 @@
 // hooks/useDeleteNote.js
 
-import useAbortController from '../hooks/useAbortController';
-import axios from 'axios';
-import { getApiBaseUrl } from '../utils/apiConfig';
+import useApiRequest from './useApiRequest';
 
-const useDeleteNote = (setNotes, processError, setLoading) => {   
-    const { createAbortController, getSignal } = useAbortController();
+const useDeleteNote = (setNotes, processError, setLoading) => {
+    const { sendRequest } = useApiRequest(processError, setLoading);
 
     const deleteNote = async (id) => {
-
-        setLoading(true);
-        createAbortController();
-        
-        const apiBaseUrl = (() => {
-            try {
-                return getApiBaseUrl();
-            } catch (error) {
-                processError(error, 'Deleting a note failed');
-                return null;
-            }
-        })();
-
-        if (!apiBaseUrl) return;
-
         let backup = [];
 
         setNotes(prevNotes => {
@@ -31,23 +14,13 @@ const useDeleteNote = (setNotes, processError, setLoading) => {
         });
 
         try {
-            await axios.delete(
-                `${apiBaseUrl}/notes/${id}`,
-                { signal: getSignal() }
-            );
-        } catch (error) {
-            processError(
-                error,
-                axios.isCancel(error) ? 'Request canceled' : 'Deleting failed'
-            );
-            setNotes(backup);
-        } finally {
-            setLoading(false);
+            await sendRequest('delete', `/notes/${id}`);
+        } catch {
+            setNotes(backup); // rollback UI on failure
         }
     };
 
-    return { deleteNote }
+    return { deleteNote };
 };
 
 export default useDeleteNote;
-
