@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 
 import useApiRequest from './useApiRequest';
 
-const useFetchNotes = (setNotes, processError, setLoading) => {
-    const { sendRequest } = useApiRequest(processError, setLoading);
+const useFetchNotes = (setNotes, handleError, setLoading) => {
+    const { sendRequest } = useApiRequest(handleError, setLoading);
 
     useEffect(() => {
         const fetchNotes = async () => {
@@ -17,7 +17,7 @@ const useFetchNotes = (setNotes, processError, setLoading) => {
                         isEditing: false
                     })));
                 } else {
-                    processError('Unexpected data format');
+                    handleError('Unexpected data format');
                 }
             } catch {
                 // Error already handled by sendRequest

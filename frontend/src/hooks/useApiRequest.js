@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import { getApiBaseUrl } from '../utils/apiConfig';
 
-const useApiRequest = (processError, setLoading) => {
+const useApiRequest = (handleError, setLoading) => {
     const controllerRef = useRef(null);
 
     const createAbortController = () => {
@@ -47,7 +47,7 @@ const useApiRequest = (processError, setLoading) => {
         } catch (error) {
             const isCanceled = axios.isCancel?.(error) || error?.name === 'CanceledError';
             if (!isCanceled) {
-                processError(error, `${method.toUpperCase()} ${path} failed`);
+                handleError(error, `${method.toUpperCase()} ${path} failed`);
             }
             throw error;
         } finally {

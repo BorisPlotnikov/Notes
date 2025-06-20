@@ -14,7 +14,7 @@ const NoteForm = () => {
         addNote,
         loading,
         inputRef,
-        processError,
+        handleError,
     } = useNotes();
 
     const {
@@ -33,7 +33,7 @@ const NoteForm = () => {
             await addNote(trimmedContent);
             setContent('');
         } catch (error) {
-            processError(error, 'Saving failed.');
+            handleError(error, 'Saving failed.');
         };
     };
 

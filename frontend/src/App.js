@@ -15,19 +15,18 @@ import NoteList from './components/NoteList';
 import NoteForm from './components/NoteForm';
 
 const App = () => {
-    const [notes, setNotes] = useState([]);
-    const { errorMessage, processError } = useErrorHandler();
+    const { errorMessage, handleError } = useErrorHandler();
     const [loading, setLoading] = useState(false);
     const [editingIds, setEditingIds] = useState([]);
+    const [notes, setNotes] = useState([]);
 
     const inputRef = useRef(null);
     const noteInputRefs = useRef({});
 
-    useFetchNotes(setNotes, processError, setLoading);
-
-    const { addNote } = useAddNote(setNotes, processError, setLoading);
-    const { updateNote } = useUpdateNote(setNotes, processError, setLoading);
-    const { deleteNote } = useDeleteNote(setNotes, processError, setLoading);
+    useFetchNotes(setNotes, handleError, setLoading);
+    const { addNote } = useAddNote(setNotes, handleError, setLoading);
+    const { updateNote } = useUpdateNote(setNotes, handleError, setLoading);
+    const { deleteNote } = useDeleteNote(setNotes, handleError, setLoading);
 
     useEffect(() => {
         if (editingIds.length === 0) {
@@ -50,7 +49,7 @@ const App = () => {
         deleteNote,
         loading,
         errorMessage,
-        processError,
+        handleError,
         editingIds,
         setEditingIds,
         inputRef,

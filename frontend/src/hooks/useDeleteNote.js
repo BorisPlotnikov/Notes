@@ -2,8 +2,8 @@
 
 import useApiRequest from './useApiRequest';
 
-const useDeleteNote = (setNotes, processError, setLoading) => {
-    const { sendRequest } = useApiRequest(processError, setLoading);
+const useDeleteNote = (setNotes, handleError, setLoading) => {
+    const { sendRequest } = useApiRequest(handleError, setLoading);
 
     const deleteNote = async (id) => {
         let backup = [];

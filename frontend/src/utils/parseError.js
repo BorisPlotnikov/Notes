@@ -1,8 +1,7 @@
 // utils/parseError.js
 
-const parseError = (error = 'Unknown error', log = 'An operation failed.') => {
+const parseError = (error = 'Unknown error', logMessage = 'An operation failed.') => {
     let userMessage = 'An unexpected error occurred';
-    let logMessage = log;
 
     const checkStatus = (statusCode) => {
         const statusMessages = {

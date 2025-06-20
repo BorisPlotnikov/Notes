@@ -2,8 +2,8 @@
 
 import parseError from './parseError';
 
-const handleError = (error, log = 'An error occurred', setErrorMessage) => {
-    const  { userMessage, logMessage, stack } = parseError(error, log);
+const processError = (error, debugMessage = 'An error occurred', setErrorMessage) => {
+    const  { userMessage, logMessage, stack } = parseError(error, debugMessage);
 
     console.error(logMessage);
     if (stack) console.error(stack);
@@ -13,4 +13,4 @@ const handleError = (error, log = 'An error occurred', setErrorMessage) => {
     }
 };
 
-export default handleError;
+export default processError;

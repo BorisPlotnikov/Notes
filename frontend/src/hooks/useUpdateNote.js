@@ -2,8 +2,8 @@
 
 import useApiRequest from './useApiRequest';
 
-const useUpdateNote = (setNotes, processError, setLoading) => {
-    const { sendRequest } = useApiRequest(processError, setLoading);
+const useUpdateNote = (setNotes, handleError, setLoading) => {
+    const { sendRequest } = useApiRequest(handleError, setLoading);
 
     const updateNote = async (id, content) => {
         try {
