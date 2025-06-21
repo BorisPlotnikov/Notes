@@ -6,8 +6,8 @@ export {
     STATUS_MESSAGES,
     NETWORK_ERROR_MESSAGES,
     EMPTY_STATE_MESSAGES,
-    CONTEXT_ERRORS,
-    CONFIG_ERRORS,
+    CONTEXT_ERROR_MESSAGES,
+    CONFIG_ERROR_MESSAGES,
 } from './messages';
 
 export * from './routes';

@@ -2,6 +2,8 @@
 
 import { useEffect } from 'react';
 
+import { DATA_ERROR_MESSAGES } from '../constants';
+
 import useApiRequest from './useApiRequest';
 
 const useFetchNotes = (setLoading, handleError, setNotes) => {
@@ -17,7 +19,7 @@ const useFetchNotes = (setLoading, handleError, setNotes) => {
                         isEditing: false
                     })));
                 } else {
-                    handleError('Unexpected data format');
+                    handleError(DATA_ERROR_MESSAGES.UNEXPECTED_FORMAT);
                 }
             } catch {
                 // Error already handled by sendRequest

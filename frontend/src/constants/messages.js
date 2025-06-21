@@ -26,11 +26,15 @@ export const EMPTY_STATE_MESSAGES = {
     NO_NOTES: 'No notes available. Add a note to get started.',
 };
 
-export const CONTEXT_ERRORS = {
+export const CONTEXT_ERROR_MESSAGES = {
     NOTES: 'useNotes must be used within a NotesProvider'
 };
 
-export const CONFIG_ERRORS = {
+export const DATA_ERROR_MESSAGES = {
+    UNEXPEXTED_FORMAT: 'Unexpected data format',
+};
+
+export const CONFIG_ERROR_MESSAGES = {
     MISSING_API_BASE_URL: 
     'API base URL is not defined in the environment variables. ' + 
     'Please set "REACT_APP_API_BASE_URL" in your .env file',
