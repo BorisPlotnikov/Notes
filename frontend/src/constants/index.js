@@ -1,10 +1,13 @@
 // constants/index.js
 
 export {
-    DEFAULT_USER_ERROR_MESSAGE,
-    DEFAULT_LOG_ERROR_MESSAGE,
+    DEFAULT_ERROR_MESSAGES,
+    HTTP_STATUS_MESSAGES,
     STATUS_MESSAGES,
-    NETWORK_ERROR_MESSAGE
+    NETWORK_ERROR_MESSAGES,
+    EMPTY_STATE_MESSAGES,
+    CONTEXT_ERRORS,
+    CONFIG_ERRORS,
 } from './messages';
 
 export * from './routes';

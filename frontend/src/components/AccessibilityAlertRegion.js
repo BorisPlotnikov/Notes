@@ -2,6 +2,7 @@
 
 import React from 'react';
 import '../css/AccessibilityAlertRegion.css';
+import { STATUS_MESSAGES } from '../constants';
 import PropTypes from 'prop-types';
 
 const AccessibilityAlertRegion = ({ loading }) => {
@@ -11,7 +12,7 @@ const AccessibilityAlertRegion = ({ loading }) => {
             aria-live="polite"
             aria-relevant="additions text"
         >
-            {loading ? 'Loading...' : 'Changes saved successfully.'}
+            {loading ? STATUS_MESSAGES.LOADING : STATUS_MESSAGES.SAVING}
         </div>
     );
 };

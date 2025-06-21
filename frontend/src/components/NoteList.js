@@ -1,6 +1,7 @@
 // components/NoteList
 
 import React from 'react';
+import { EMPTY_STATE_MESSAGES } from '../constants';
 
 import { useNotes } from '../context/NotesContext';
 
@@ -49,7 +50,7 @@ const NoteList = () => {
                     />
                 ))
             ) : (
-                <p>No notes available. Add a note to get started.</p>
+                <p>{ EMPTY_STATE_MESSAGES.NO_NOTES }</p>
             )}
         </div>
     );

@@ -1,17 +1,16 @@
 // utils/parseError.js
 
 import {
-    DEFAULT_USER_ERROR_MESSAGE,
-    DEFAULT_LOG_ERROR_MESSAGE,
-    STATUS_MESSAGES,
-    NETWORK_ERROR_MESSAGE
-} from '../constants/messages';
+    DEFAULT_ERROR_MESSAGES,
+    HTTP_STATUS_MESSAGES,
+    NETWORK_ERROR_MESSAGES,
+} from '../constants';
 
-const parseError = (error = DEFAULT_USER_ERROR_MESSAGE, logMessage = DEFAULT_LOG_ERROR_MESSAGE) => {
-    let userMessage = DEFAULT_USER_ERROR_MESSAGE;
+const parseError = (error = DEFAULT_ERROR_MESSAGES.USER, logMessage = DEFAULT_ERROR_MESSAGES.LOG) => {
+    let userMessage = DEFAULT_ERROR_MESSAGES.USER;
 
     const checkStatus = (statusCode) => {
-        return STATUS_MESSAGES[statusCode] || DEFAULT_USER_ERROR_MESSAGE;
+        return HTTP_STATUS_MESSAGES[statusCode] || DEFAULT_ERROR_MESSAGES.USER;
     };
 
     const checks = [
@@ -29,7 +28,7 @@ const parseError = (error = DEFAULT_USER_ERROR_MESSAGE, logMessage = DEFAULT_LOG
         },
         {
             check: () => error?.request,
-            getUserMessage: () => NETWORK_ERROR_MESSAGE
+            getUserMessage: () => NETWORK_ERROR_MESSAGES.NO_RESPONSE
         },
     ];
 
