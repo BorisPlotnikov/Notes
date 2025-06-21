@@ -3,7 +3,7 @@
 import React from 'react';
 import pluralize from 'pluralize';
 
-import { LENGTHS } from '../constants/constants';
+import { LENGTHS } from '../constants';
 
 import '../css/CharacterCounter.css';
 import PropTypes from 'prop-types';

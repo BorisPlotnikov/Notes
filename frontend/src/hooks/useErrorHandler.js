@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { DEFAULT_ERROR_TIMEOUT } from '../constants/constants';
+import { DEFAULT_ERROR_TIMEOUT } from '../constants';
 
 import processError from '../utils/errorHandler';
 

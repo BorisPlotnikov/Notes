@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 
-import { LENGTHS } from '../constants/constants';
+import { LENGTHS } from '../constants';
 
 const useNoteContent = (initialContent = '') => {
     const [content, setContent] = useState(initialContent);

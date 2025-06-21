@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { LENGTHS } from '../constants/constants';
+import { LENGTHS } from '../constants';
 import useNoteContent from '../hooks/useNoteContent';
 import { useNotes } from '../context/NotesContext';
 
