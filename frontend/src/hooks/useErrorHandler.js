@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { DEFAULT_ERROR_TIMEOUT } from '../constants/constants';
 
 import processError from '../utils/errorHandler';
 
-const useErrorHandler = (timeout = 5000) => {
+const useErrorHandler = (timeout = DEFAULT_ERROR_TIMEOUT) => {
     const [errorMessage, setErrorMessage] = useState(null);
 
     useEffect(() => {

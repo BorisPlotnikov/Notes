@@ -2,7 +2,7 @@
 
 import useApiRequest from './useApiRequest';
 
-const useDeleteNote = (setNotes, handleError, setLoading) => {
+const useDeleteNote = (setLoading, handleError, setNotes) => {
     const { sendRequest } = useApiRequest(handleError, setLoading);
 
     const deleteNote = async (id) => {

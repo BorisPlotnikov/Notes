@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import useApiRequest from './useApiRequest';
 
-const useFetchNotes = (setNotes, handleError, setLoading) => {
+const useFetchNotes = (setLoading, handleError, setNotes) => {
     const { sendRequest } = useApiRequest(handleError, setLoading);
 
     useEffect(() => {
