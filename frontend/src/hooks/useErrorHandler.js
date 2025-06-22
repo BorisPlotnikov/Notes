@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { DEFAULT_ERROR_TIMEOUT, DEFAULT_ERROR_MESSAGES } from '../constants';
+import { DEFAULT_ERROR_TIMEOUT, ERROR_MESSAGES } from '../constants';
 
 import processError from '../utils/errorHandler';
 
@@ -16,7 +16,7 @@ const useErrorHandler = (timeout = DEFAULT_ERROR_TIMEOUT) => {
         }
     }, [errorMessage, timeout]);
 
-    const handleError = (error, debugMessage = DEFAULT_ERROR_MESSAGES.LOG) => {
+    const handleError = (error, debugMessage = ERROR_MESSAGES.DEFAULT.LOG) => {
         // Ignore cancellations silently
         if (axios.isCancel?.(error)) return;
         processError(error, debugMessage, setErrorMessage);
