@@ -15,7 +15,6 @@ export const HTTP_STATUS_MESSAGES = {
 
 export const STATUS_MESSAGES = {
     LOADING: 'Loading...',
-    SAVED: 'Changes saved successfully.',
 };
 
 export const NETWORK_ERROR_MESSAGES = {

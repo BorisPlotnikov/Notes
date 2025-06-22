@@ -12,7 +12,7 @@ const AccessibilityAlertRegion = ({ loading }) => {
             aria-live="polite"
             aria-relevant="additions text"
         >
-            {loading ? STATUS_MESSAGES.LOADING : STATUS_MESSAGES.SAVING}
+            {loading && STATUS_MESSAGES.LOADING}
         </div>
     );
 };
