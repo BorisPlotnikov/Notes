@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-import { ERROR_MESSAGES } from '../constants';
+import { ERROR_MESSAGES, API_ROUTES } from '../constants';
 
 import useApiRequest from './useApiRequest';
 
@@ -12,7 +12,7 @@ const useFetchNotes = (setLoading, handleError, setNotes) => {
     useEffect(() => {
         const fetchNotes = async () => {
             try {
-                const data = await sendRequest('get', '/notes');
+                const data = await sendRequest('get', API_ROUTES.NOTES);
                 if (Array.isArray(data)) {
                     setNotes(data.map(note => ({
                         ...note,

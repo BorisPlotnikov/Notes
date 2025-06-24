@@ -6,6 +6,6 @@ export {
     EMPTY_STATE_MESSAGES,
 } from './messages';
 
-export * from './routes';
+export { default as API_ROUTES } from './apiRoutes';
 export { DEFAULT_ERROR_TIMEOUT } from './timeouts';
 export { LENGTHS } from './validation';

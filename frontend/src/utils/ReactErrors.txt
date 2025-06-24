@@ -1,0 +1,67 @@
+
+Errors:
+
+Source
+Code bugs
+Async failures
+User input
+External APIs
+React render tree
+
+
+Goals:
+
+Catch crashes and show friendly fallback UI
+Handle API/network errors and show user-friendly messages
+Validate and protect input
+Log issues for yourself or your monitoring tools
+Keep user data safe, unsaved work recoverable, etc.
+
+RECOMMENDED STACK
+
+1. ErrorBoundary	<ErrorBoundary /> class	Catches crashes in rendering tree
+2. parseError	parseError(error)	Converts random error formats into consistent messages
+3. errorHandler	errorHandler(error)	Optional	Logs, reports, or dispatches error — useful if centralized
+4. useErrorHandler	React hook If using functional components	Helps catch async errors in React-like boundaries
+5. Form error handling	Local validation (e.g. title.trim() !== "")	Prevents bad user input before it hits backend
+
+Here’s what each does:
+1. ErrorBoundary - Catches React render-time crashes.
+
+2. parseError(error) - Helps you make sense of all types of errors (HTTP, JS, network, etc.)
+
+3. errorHandler(error) Optional. A small wrapper that:
+Uses parseError
+Logs to console, Sentry, etc.
+Optionally shows a toast
+
+4. useErrorHandler - A hook for catching errors in React functional components, especially useful for async effects.
+
+5. Input/form validation - Simple client-side logic before sending to server
+
+
+Concept	You Should Know
+try/catch	Use for anything async (API calls, file I/O)
+throw	You can throw custom errors (throw new Error("Bad input"))
+JavaScript Errors	Built-in Error, TypeError, network errors, etc.
+React render errors	Only caught with Error Boundaries
+Event handler errors	Must catch manually
+useEffect errors	Must handle manually — async logic doesn't get caught by default
+
+
+Final Guidance for Your App
+If you're building a real-world notes editor, aim for this stack:
+
+Minimum:
+parseError
+ErrorBoundary
+Validation in forms
+
+Recommended:
+errorHandler(error, context) — centralized error reporter
+useErrorHandler() — for async code in functional components
+Show user feedback (toast, inline, modal) when error happens
+
+
+
+

@@ -1,6 +1,6 @@
 // utils/parseError.js
 
-import { ERROR_MESSAGES } from '../constants';
+import { ERROR_MESSAGES } from '../constants'; // Access to error messages
 
 const parseError = (
     error = ERROR_MESSAGES.DEFAULT.USER,

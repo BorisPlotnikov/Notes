@@ -1,6 +1,7 @@
 // hooks/useDeleteNote.js
 
 import useApiRequest from './useApiRequest';
+import { API_ROUTES } from '../constants';
 
 const useDeleteNote = (setLoading, handleError, setNotes) => {
     const { sendRequest } = useApiRequest(handleError, setLoading);
@@ -14,7 +15,7 @@ const useDeleteNote = (setLoading, handleError, setNotes) => {
         });
 
         try {
-            await sendRequest('delete', `/notes/${id}`);
+            await sendRequest('delete', API_ROUTES.NOTE_BY_ID(id));
         } catch {
             setNotes(backup); // rollback UI on failure
         }
