@@ -1,6 +1,7 @@
 // components/NoteList
 
 import React from 'react';
+import ErrorBoundary from './ErrorBoundary';
 import { EMPTY_STATE_MESSAGES } from '../constants';
 
 import { useNotes } from '../context/NotesContext';
@@ -35,19 +36,21 @@ const NoteList = () => {
         <div className="note-list" aria-live="polite">
             {notes.length > 0 ? (
                 notes.map(note => (
-                    <Note
-                        key={note._id}
-                        id={note._id}
-                        content={note.content}
-                        isEditing={editingIds.includes(note._id)}
-                        onEdit={() => enterEditMode(note._id)}
-                        onCancel={() => exitEditMode(note._id)}
-                        onSave={(newContent) => handleSave(note._id, newContent)}
-                        textAreaRef={(el) => {
-                            if (el) noteInputRefs.current[note._id] = el;
-                            else delete noteInputRefs.current[note._id];
-                        }}
-                    />
+                    <ErrorBoundary key={note._id}>
+                        <Note
+                            key={note._id}
+                            id={note._id}
+                            content={note.content}
+                            isEditing={editingIds.includes(note._id)}
+                            onEdit={() => enterEditMode(note._id)}
+                            onCancel={() => exitEditMode(note._id)}
+                            onSave={(newContent) => handleSave(note._id, newContent)}
+                            textAreaRef={(el) => {
+                                if (el) noteInputRefs.current[note._id] = el;
+                                else delete noteInputRefs.current[note._id];
+                            }}
+                        />
+                    </ErrorBoundary>
                 ))
             ) : (
                 <p>{ EMPTY_STATE_MESSAGES.NO_NOTES }</p>

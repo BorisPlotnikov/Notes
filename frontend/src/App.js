@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect, useRef } from 'react';                     
 import './css/App.css';
-
+import ErrorBoundary from './components/ErrorBoundary';
 import NotesContext from './context/NotesContext';
-import useErrorHandler from './hooks/useErrorHandler';           
+import useErrorHandler from './hooks/useErrorHandler';          
 import useFetchNotes from './hooks/useFetchNotes';
 import useAddNote from './hooks/useAddNote';
 import useUpdateNote from './hooks/useUpdateNote';
@@ -60,8 +60,12 @@ const App = () => {
         <NotesContext.Provider value={contextValue}>
             <div className='app'>
                 <h1>Notes</h1>
-                <NoteForm />
-                <NoteList />
+                <ErrorBoundary>
+                    <NoteForm />
+                </ErrorBoundary>
+                <ErrorBoundary>
+                    <NoteList />
+                </ErrorBoundary>
                 {loading && <Spinner />}
                 {errorMessage && <ErrorNotification />}
             </div>
