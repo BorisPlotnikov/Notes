@@ -19,24 +19,20 @@ Keep user data safe, unsaved work recoverable, etc.
 
 RECOMMENDED STACK
 
-1. ErrorBoundary	<ErrorBoundary /> class	Catches crashes in rendering tree
-2. parseError	parseError(error)	Converts random error formats into consistent messages
+1. ErrorBoundary	<ErrorBoundary /> class	catches crashes in rendering tree
+2. parseError	parseError(error) converts random error formats into consistent messages
 3. errorHandler	errorHandler(error)	Optional	Logs, reports, or dispatches error — useful if centralized
 4. useErrorHandler	React hook If using functional components	Helps catch async errors in React-like boundaries
 5. Form error handling	Local validation (e.g. title.trim() !== "")	Prevents bad user input before it hits backend
 
 Here’s what each does:
 1. ErrorBoundary - Catches React render-time crashes.
-
 2. parseError(error) - Helps you make sense of all types of errors (HTTP, JS, network, etc.)
-
 3. errorHandler(error) Optional. A small wrapper that:
-Uses parseError
-Logs to console, Sentry, etc.
-Optionally shows a toast
-
+    Uses parseError
+    Logs to console, Sentry, etc.
+    Optionally shows a toast
 4. useErrorHandler - A hook for catching errors in React functional components, especially useful for async effects.
-
 5. Input/form validation - Simple client-side logic before sending to server
 
 
