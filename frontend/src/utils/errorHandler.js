@@ -1,17 +1,17 @@
 // utils/handleError.js
 
-import parseError from './parseError';
-import { ERROR_MESSAGES } from '../constants'
+import axios from 'axios';
+import parseError from './parseError.js';
 
-const processError = (error, debugMessage = ERROR_MESSAGES.DEFAULT.LOG, setErrorMessage) => {
-    const  { userMessage, logMessage, stack } = parseError(error, debugMessage);
+function errorHandler(error) {
+    if (axios.isCancel?.(error)) return;
+    const { userMessage = 'Something went wrong.', ...errorDetails } = parseError(error || {});
 
-    console.error(logMessage);
-    if (stack) console.error(stack);
-
-    if (typeof setErrorMessage === 'function') {
-        setErrorMessage(userMessage);
+    alert(userMessage);
+    
+    if (process.env.NODE_ENV === 'development') {
+        console.error('Dev Error Details:', errorDetails);
     }
-};
+}
 
-export default processError;
+export default errorHandler;

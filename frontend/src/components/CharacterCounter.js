@@ -19,7 +19,7 @@ const CharacterCounter = ({ contentLength, isNearMaxLength = false }) => {
         >
             {
                 contentLength < LENGTHS.MIN
-                ?  `Minimum ${LENGTHS.MIN} ${pluralize('character', LENGTHS.MIN)}`
+                ? `Minimum ${LENGTHS.MIN} ${pluralize('character', LENGTHS.MIN)}`
                 : contentLength >= LENGTHS.MAX
                 ? `Maximum ${LENGTHS.MAX} ${pluralize('character', LENGTHS.MAX)}`
                 : `${contentLength}/${LENGTHS.MAX}`

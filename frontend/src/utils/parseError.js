@@ -1,6 +1,8 @@
 // utils/parseError.js
 
-const defaultUserErrorMessage = 'An unexpected error occurred. Please try again.';
+import safeStringify from 'fast-safe-stringify';
+
+const defaultUserMessage = 'An unexpected error occurred. Please try again.';
 
 const getStack = (error) =>
     parseError.stackTraceEnabled && error?.stack ? error.stack : null;
@@ -8,7 +10,7 @@ const getStack = (error) =>
 function stringifyError(error) {
     try {
         if (typeof error === 'object' || typeof error === 'function') {
-            return JSON.stringify(error);
+            return safeStringify(error, null, 2);
         }
         return String(error);
     } catch {
@@ -18,19 +20,19 @@ function stringifyError(error) {
 
 function parseNullError() {
     return {
-        devErrorMessage: 'No error provided to parseError.',
+        developerMessage: 'No error provided to parseError.',
         code: 'INVALID_ERROR_OBJECT'
     };
 }
 
 function parseAxiosError(error) {
     const result = {
-        userErrorMessage:
+        userMessage:
             typeof error.response?.data?.message === 'string'
                 ? error.response.data.message
-                : defaultUserErrorMessage,
+                : defaultUserMessage,
 
-        devErrorMessage:
+        developerMessage:
             error.message || 'Axios/HTTP error occurred.',
 
         code:
@@ -52,7 +54,7 @@ function parseAxiosError(error) {
 
 function parseJsError(error) {
     return {
-        devErrorMessage:
+        developerMessage:
             typeof error.message === 'string'
                 ? error.message
                 : 'Unknown JavaScript error: no message provided.',
@@ -66,24 +68,25 @@ function parseJsError(error) {
 
 function parseStringError(error) {
     return {
-        devErrorMessage: error,
+        developerMessage: error,
         code: 'STRING_ERROR'
     };
 }
 
 function parseUnknownError(error) {
     return {
-        devErrorMessage: stringifyError(error),
+        developerMessage: stringifyError(error),
         code: 'UNKNOWN_ERROR_TYPE'
     };
 }
 
 const parseError = (error) => {
     const defaultValues = {
-        name: 'PARSED_ERROR',
-        userErrorMessage: defaultUserErrorMessage,
-        devErrorMessage: 'Unknown error',
-        code: 'UNKNOWN_ERROR'
+        name: error?.name || 'PARSED_ERROR',
+        userMessage: defaultUserMessage,
+        developerMessage: 'Unknown error',
+        code: 'UNKNOWN_ERROR',
+        raw: error
     };
 
     const stack = getStack(error);

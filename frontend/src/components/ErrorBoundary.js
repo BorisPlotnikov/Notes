@@ -1,6 +1,7 @@
 // components/ErrorBoundary.jsx
 
 import React from 'react';
+import errorHandler from '../utils/errorHandler';
 
 class ErrorBoundary extends React.Component {
     constructor(props) {
@@ -12,7 +13,8 @@ class ErrorBoundary extends React.Component {
         return { hasError: true, error };
     }
     componentDidCatch(error, errorInfo) {
-        console.error('ErrorBoundary caught an error', error, errorInfo);
+        // console.error('ErrorBoundary caught an error', error, errorInfo);
+        errorHandler(error);
     }
 
     render() {
