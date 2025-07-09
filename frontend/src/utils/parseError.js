@@ -18,6 +18,17 @@ function stringifyError(error) {
     }
 }
 
+function mergeErrorData(defaults, parsed) {
+    return {
+        ...defaults,
+        ...parsed,
+        raw: {
+            error: parsed.raw?.error ?? defaults.raw?.error ?? null,
+            errorInfo: parsed.raw?.errorInfo ?? defaults.raw?.errorInfo ?? null
+        }
+    };
+}
+
 function parseNullError() {
     return {
         developerMessage: 'No error provided to parseError.',
@@ -80,23 +91,31 @@ function parseUnknownError(error) {
     };
 }
 
-const parseError = (error) => {
+function parseBoundaryError(error, errorInfo) {
+    return {
+        name: error?.name || 'BOUNDARY_ERROR',
+        developerMessage: error?.message || 'Unknown error in component.',
+        code: 'REACT_COMPONENT_ERROR',
+        componentStack: errorInfo?.componentStack?.trim() || null
+    };
+}
+
+const parseError = (error, errorInfo = null) => {
     const defaultValues = {
         name: error?.name || 'PARSED_ERROR',
         userMessage: defaultUserMessage,
         developerMessage: 'Unknown error',
         code: 'UNKNOWN_ERROR',
-        raw: error
+        stack: getStack(error),
+        raw: { error, errorInfo: errorInfo || null }
     };
 
-    const stack = getStack(error);
-
-    if (!error) return { ...defaultValues, ...parseNullError(), stack };
-    if (error.isAxiosError) return { ...defaultValues, ...parseAxiosError(error), stack };
-    if (error instanceof Error) return { ...defaultValues, ...parseJsError(error), stack };
-    if (typeof error === 'string') return { ...defaultValues, ...parseStringError(error), stack };
-
-    return { ...defaultValues, ...parseUnknownError(error), stack };
+    if (errorInfo) return mergeErrorData(defaultValues, parseBoundaryError(error, errorInfo));
+    if (!error) return mergeErrorData(defaultValues, parseNullError());
+    if (error.isAxiosError) return mergeErrorData(defaultValues, parseAxiosError(error));
+    if (error instanceof Error) return mergeErrorData(defaultValues, parseJsError(error));
+    if (typeof error === 'string') return mergeErrorData(defaultValues, parseStringError(error));
+    return mergeErrorData(defaultValues, parseUnknownError(error));
 };
 
 parseError.stackTraceEnabled = process.env.NODE_ENV === 'development';
