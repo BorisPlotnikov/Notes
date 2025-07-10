@@ -32,7 +32,8 @@ function mergeErrorData(defaults, parsed) {
 function parseNullError() {
     return {
         developerMessage: 'No error provided to parseError.',
-        code: 'INVALID_ERROR_OBJECT'
+        code: 'INVALID_ERROR_OBJECT',
+        type: 'no error object'
     };
 }
 
@@ -49,7 +50,9 @@ function parseAxiosError(error) {
         code:
             typeof error.response?.data?.code === 'string'
                 ? error.response.data.code
-                : 'UNKNOWN'
+                : 'UNKNOWN',
+
+        type: 'axios'
     };
 
     if (typeof error.response?.status === 'number') {
@@ -73,21 +76,25 @@ function parseJsError(error) {
         code:
             typeof error.name === 'string'
                 ? error.name.toUpperCase()
-                : 'UNKNOWN_JS_ERROR'
+                : 'UNKNOWN_JS_ERROR',
+
+        type: 'js'
     };
 }
 
 function parseStringError(error) {
     return {
         developerMessage: error,
-        code: 'STRING_ERROR'
+        code: 'STRING_ERROR',
+        type: 'string'
     };
 }
 
 function parseUnknownError(error) {
     return {
         developerMessage: stringifyError(error),
-        code: 'UNKNOWN_ERROR_TYPE'
+        code: 'UNKNOWN_ERROR_TYPE',
+        type: 'unknown'
     };
 }
 
@@ -96,6 +103,7 @@ function parseBoundaryError(error, errorInfo) {
         name: error?.name || 'BOUNDARY_ERROR',
         developerMessage: error?.message || 'Unknown error in component.',
         code: 'REACT_COMPONENT_ERROR',
+        type: 'react/boundary',
         componentStack: errorInfo?.componentStack?.trim() || null
     };
 }

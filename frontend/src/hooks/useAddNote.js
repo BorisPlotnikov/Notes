@@ -2,8 +2,10 @@
 
 import useApiRequest from './useApiRequest';
 import { API_ROUTES } from '../constants';
+import useErrorHandler from './useErrorHandler';
 
-const useAddNote = (setLoading, handleError, setNotes) => {
+const useAddNote = (setLoading, setNotes) => {
+    const { handleError } = useErrorHandler(); 
     const { sendRequest } = useApiRequest(handleError, setLoading);
 
     const addNote = async (content) => {
