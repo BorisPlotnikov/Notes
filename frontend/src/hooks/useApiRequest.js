@@ -18,9 +18,7 @@ const useApiRequest = (setLoading) => {
     };
 
     const getSignal = () => {
-        if (!controllerRef.current) {
-            createAbortController();
-        }
+        createAbortController();
         return controllerRef.current.signal;
     };
 
@@ -35,7 +33,6 @@ const useApiRequest = (setLoading) => {
 
     const sendRequest = async (method, path, data = null) => {
         setLoading(true);
-        createAbortController();
 
         try {
             const baseUrl = getApiBaseUrl();
@@ -45,19 +42,16 @@ const useApiRequest = (setLoading) => {
                 data,
                 signal: getSignal(),
             });
-            return response.data;
+            return response?.data ?? null;
         } catch (error) {
-            const isCanceled = axios.isCancel?.(error) || error?.name === 'CanceledError';
-            if (!isCanceled) {
-                handleError(error, `${method.toUpperCase()} ${path} failed`);
-            }
-            throw error;
+                handleError(error);
+                return null;
         } finally {
             setLoading(false);
         }
     };
 
-    return { sendRequest };
+    return sendRequest;
 };
 
 export default useApiRequest;

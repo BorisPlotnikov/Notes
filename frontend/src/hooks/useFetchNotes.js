@@ -2,12 +2,15 @@
 
 import { useEffect } from 'react';
 
-import { ERROR_MESSAGES, API_ROUTES } from '../constants';
+import useErrorHandler from './useErrorHandler';
 
 import useApiRequest from './useApiRequest';
 
-const useFetchNotes = (setLoading, handleError, setNotes) => {
-    const { sendRequest } = useApiRequest(handleError, setLoading);
+import { ERROR_MESSAGES, API_ROUTES } from '../constants';
+
+const useFetchNotes = (setLoading, setNotes) => {
+    const handleError = useErrorHandler();
+    const sendRequest = useApiRequest(setLoading);
 
     useEffect(() => {
         const fetchNotes = async () => {
@@ -21,8 +24,8 @@ const useFetchNotes = (setLoading, handleError, setNotes) => {
                 } else {
                     handleError(ERROR_MESSAGES.DATA.UNEXPECTED_FORMAT);
                 }
-            } catch {
-                // Error already handled by sendRequest
+            } catch (error) {        
+                handleError(error);
             }
         };
 
