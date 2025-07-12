@@ -4,9 +4,9 @@ import useErrorHandler from './useErrorHandler';
 import useApiRequest from './useApiRequest';
 import { API_ROUTES } from '../constants';
 
-const useDeleteNote = (setLoading, setNotes) => {
+const useDeleteNote = (setNotes) => {
     const handleError = useErrorHandler();
-    const { sendRequest } = useApiRequest(setLoading);
+    const { sendRequest } = useApiRequest();
 
     const deleteNote = async (id) => {
         let backup = [];

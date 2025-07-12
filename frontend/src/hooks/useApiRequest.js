@@ -3,10 +3,12 @@
 import { useRef, useEffect } from 'react';
 import axios from 'axios';
 import useErrorHandler from './useErrorHandler';
+import { useNotes } from '../context/NotesContext';
 
 import { getApiBaseUrl } from '../utils/apiConfig';
 
-const useApiRequest = (setLoading) => {
+const useApiRequest = () => {
+    const { setLoading } = useNotes();
     const handleError = useErrorHandler();
     const controllerRef = useRef(null);
 

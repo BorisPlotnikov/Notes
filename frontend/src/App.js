@@ -52,6 +52,7 @@ const App = () => {
         handleError,
         editingIds,
         setEditingIds,
+        setLoading,
         inputRef,
         noteInputRefs,
     };

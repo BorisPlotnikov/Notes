@@ -1,16 +1,13 @@
 // hooks/useFetchNotes.js
 
 import { useEffect } from 'react';
-
 import useErrorHandler from './useErrorHandler';
-
 import useApiRequest from './useApiRequest';
-
 import { ERROR_MESSAGES, API_ROUTES } from '../constants';
 
-const useFetchNotes = (setLoading, setNotes) => {
+const useFetchNotes = (setNotes) => {
     const handleError = useErrorHandler();
-    const sendRequest = useApiRequest(setLoading);
+    const sendRequest = useApiRequest();
 
     useEffect(() => {
         const fetchNotes = async () => {

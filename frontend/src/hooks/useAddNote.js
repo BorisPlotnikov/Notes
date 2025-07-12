@@ -4,9 +4,9 @@ import useApiRequest from './useApiRequest';
 import { API_ROUTES } from '../constants';
 import useErrorHandler from './useErrorHandler';
 
-const useAddNote = (setLoading, setNotes) => {
+const useAddNote = (setNotes) => {
     const handleError = useErrorHandler(); 
-    const sendRequest = useApiRequest(setLoading);
+    const sendRequest = useApiRequest();
 
     const addNote = async (content) => {
             try {
