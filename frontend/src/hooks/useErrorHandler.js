@@ -1,15 +1,12 @@
 // hooks/useErrorHandler.js
 
 import { useCallback } from 'react';
-import { errorHandler } from '../utils/errorHandler';
+import rawErrorHandler from '../utils/errorHandler';
 
 function useErrorHandler() {
-        const handleError = useCallback((error) => {
-            errorHandler(error);
-        }
-    , []);
-
-    return handleError;
+    return useCallback((error, errorInfo = null) => {
+            rawErrorHandler(error, errorInfo);
+        }, []);
 }
 
 export default useErrorHandler;
