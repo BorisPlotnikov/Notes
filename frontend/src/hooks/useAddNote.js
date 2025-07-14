@@ -2,25 +2,17 @@
 
 import useApiRequest from './useApiRequest';
 import { API_ROUTES } from '../constants';
-import useErrorHandler from './useErrorHandler';
 
 const useAddNote = (setNotes) => {
-    const handleError = useErrorHandler(); 
     const sendRequest = useApiRequest();
 
     const addNote = async (content) => {
-            try {
-                const newNote = await sendRequest('post', API_ROUTES.NOTES, { content });
-                if (newNote) {
-                    setNotes(prev => [...prev, newNote]);
-                    return true;
-                }
-                return false;
-            } catch (error){
-                handleError(error);
-                return false;
-            }
-        };
+        const newNote = await sendRequest('post', API_ROUTES.NOTES, { content });
+        if (!newNote) return false;
+        
+        setNotes(prev => [...prev, newNote]);
+        return true;
+    };
     return { addNote };
 };
 

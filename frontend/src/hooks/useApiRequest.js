@@ -35,7 +35,6 @@ const useApiRequest = () => {
 
     const sendRequest = async (method, path, data = null) => {
         setLoading(true);
-
         try {
             const baseUrl = getApiBaseUrl();
             const response = await axios({

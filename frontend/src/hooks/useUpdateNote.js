@@ -3,20 +3,19 @@
 import useApiRequest from './useApiRequest';
 import { API_ROUTES } from '../constants';
 
-const useUpdateNote = (handleError, setNotes) => {
-    const { sendRequest } = useApiRequest(handleError);
+const useUpdateNote = (setNotes) => {
+    const sendRequest = useApiRequest();
 
     const updateNote = async (id, content) => {
-        try {
-            await sendRequest('put', API_ROUTES.NOTE_BY_ID(id), { content });
-            setNotes(prevNotes =>
-                prevNotes.map(note =>
-                    note._id === id ? { ...note, content } : note
-                )
-            );
-        } catch {
-            // error handled inside sendRequest
-        }
+        const result = await sendRequest('put', API_ROUTES.NOTE_BY_ID(id), { content });
+        if (!result) return false;
+
+        setNotes(prevNotes =>
+            prevNotes.map(note =>
+                note._id === id ? { ...note, content } : note
+            )
+        );
+        return true;
     };
 
     return { updateNote };
