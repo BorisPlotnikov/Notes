@@ -16,14 +16,14 @@ import NoteForm from './components/NoteForm';
 
 const App = () => {
     const [loading, setLoading] = useState(false);
-    const { errorMessage, handleError } = useErrorHandler();
+    const handleError = useErrorHandler();
     const [editingIds, setEditingIds] = useState([]);
     const [notes, setNotes] = useState([]);
 
-    useFetchNotes(setLoading, handleError, setNotes);
-    const { addNote } = useAddNote(setLoading, handleError, setNotes);
-    const { updateNote } = useUpdateNote(setLoading, handleError, setNotes);
-    const { deleteNote } = useDeleteNote(setLoading, handleError, setNotes);
+    useFetchNotes(setNotes);
+    const { addNote } = useAddNote(setNotes);
+    const { updateNote } = useUpdateNote(setNotes);
+    const { deleteNote } = useDeleteNote(setNotes);
 
     const inputRef = useRef(null);
     const noteInputRefs = useRef({});
@@ -53,6 +53,7 @@ const App = () => {
         editingIds,
         setEditingIds,
         setLoading,
+        setNotes,
         inputRef,
         noteInputRefs,
     };
