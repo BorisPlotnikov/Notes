@@ -6,7 +6,7 @@ import { API_ROUTES } from '../constants';
 const useDeleteNote = (setNotes) => {
     const sendRequest = useApiRequest();
 
-    const deleteNote = async (id) => {
+    return async (id) => {
         let backup = [];
 
         setNotes(prevNotes => {
@@ -22,8 +22,6 @@ const useDeleteNote = (setNotes) => {
 
         return true;
     };
-
-    return { deleteNote };
 };
 
 export default useDeleteNote;

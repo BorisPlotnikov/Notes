@@ -21,9 +21,9 @@ const App = () => {
     const [notes, setNotes] = useState([]);
 
     useFetchNotes(setNotes);
-    const { addNote } = useAddNote(setNotes);
-    const { updateNote } = useUpdateNote(setNotes);
-    const { deleteNote } = useDeleteNote(setNotes);
+    const addNote = useAddNote(setNotes);
+    const updateNote = useUpdateNote(setNotes);
+    const deleteNote = useDeleteNote(setNotes);
 
     const inputRef = useRef(null);
     const noteInputRefs = useRef({});
