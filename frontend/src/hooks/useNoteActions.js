@@ -1,8 +1,20 @@
 import useApiRequest from './useApiRequest';
-import { API_ROUTES } from '../constants';
+import { ERROR_MESSAGES, API_ROUTES } from '../constants';
 
 const useNotesActions = (setNotes) => {
     const sendRequest = useApiRequest();
+
+    const fetchNotes = async () => {
+        const data = await sendRequest('get', API_ROUTES.NOTES);
+        if (Array.isArray(data)) {
+            setNotes(data.map(note => ({
+                ...note,
+                isEditing: false
+            })));
+        } else {
+            throw new Error(ERROR_MESSAGES.DATA.UNEXPECTED_FORMAT);
+        }
+    };
 
     const addNote = async (content) => {
         const newNote = await sendRequest('post', API_ROUTES.NOTES, { content });
@@ -42,6 +54,7 @@ const useNotesActions = (setNotes) => {
     };
 
     return {
+        fetchNotes,
         addNote,
         updateNote,
         deleteNote
