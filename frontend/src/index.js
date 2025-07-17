@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom/client';
 import './css/index.css';
 
 import App from './App';
+import { NotesProvider } from './context/NotesContext';
 import ErrorBoundary from './components/ErrorBoundary';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
