@@ -1,27 +1,25 @@
-// App.js
+// /src/App.js
 
 import React from 'react';                     
 import './css/App.css';
-import ErrorBoundary from './components/ErrorBoundary';
-import Spinner from './components/Spinner';
+import AppLoader from './components/AppLoader';
 import NoteList from './components/NoteList';
 import NoteForm from './components/NoteForm';
-import { useNotes } from './context/NotesContext';
+import { useNotes } from './features/notes/context/NotesContext';
 
 const App = () => {
-    const { loading } = useNotes();
+    const { loading, isInitialized } = useNotes();
+
+    if (!isInitialized) {
+        return <AppLoader message="Loading your notes..." />
+    }
 
     return (
-            <div className='app'>
+            <main className='app'>
                 <h1>Notes</h1>
-                <ErrorBoundary>
-                    <NoteForm />
-                </ErrorBoundary>
-                <ErrorBoundary>
-                    <NoteList />
-                </ErrorBoundary>
-                {loading && <Spinner />}
-            </div>
+                <NoteForm />
+                {loading ? <Spinner /> : <NoteList />}
+            </main>
     );
 };
 

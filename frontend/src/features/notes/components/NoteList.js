@@ -4,7 +4,7 @@ import React from 'react';
 import ErrorBoundary from './ErrorBoundary';
 import { EMPTY_STATE_MESSAGES } from '../constants';
 
-import { useNotes } from '../context/NotesContext';
+import { useNotes } from '../features/notes/context/NotesContext';
 
 import Note from './Note';
 import '../css/NoteList.css';

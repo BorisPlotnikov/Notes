@@ -1,4 +1,4 @@
-// components/ErrorBoundary.jsx
+// /src/features/notes/components/ErrorBoundary.jsx
 
 import React from 'react';
 import errorHandler from '../utils/errorHandler';

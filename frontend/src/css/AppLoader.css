@@ -1,0 +1,22 @@
+/* /sec/css/AppLoader.css */
+
+.fullscreen-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    z-index: 9999;
+}
+
+.loader-message {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    color: #444;
+    font-weight: 500;
+}

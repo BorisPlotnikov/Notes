@@ -1,5 +1,5 @@
 import useApiRequest from './useApiRequest';
-import { ERROR_MESSAGES, API_ROUTES } from '../constants';
+import { ERROR_MESSAGES, API_ROUTES } from '../../../constants';
 
 const useNotesActions = (setNotes) => {
     const sendRequest = useApiRequest();
@@ -11,8 +11,10 @@ const useNotesActions = (setNotes) => {
                 ...note,
                 isEditing: false
             })));
+            return true;
         } else {
             throw new Error(ERROR_MESSAGES.DATA.UNEXPECTED_FORMAT);
+            return false;
         }
     };
 

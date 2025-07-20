@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { useNotes } from '../context/NotesContext';
+import { useNotes } from '../features/notes/context/NotesContext';
 
 import CharacterCounter from './CharacterCounter';
 import AccessibilityAlertRegion from './AccessibilityAlertRegion';

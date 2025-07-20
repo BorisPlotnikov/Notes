@@ -1,16 +1,16 @@
-// context/NotesContext.js
+// /src/features/notes/context/NotesProvider.js
 
-import { createContext, useContext, useState, useRef, useEffect } from 'react';
-import { ERROR_MESSAGES } from '../constants';
-import useErrorHandler from '../hooks/useErrorHandler';
-import useNoteActions from '../hooks/useNoteAction';
+import React, { useEffect, useState, useRef } from 'react';
+import NotesContext from './NotesContext';
+import useNoteActions from '../../hooks/useNoteActions';
+import useErrorHandler from '../../hooks/useErrorHandler';
 
-const NotesContext = createContext(null);
 
-export const NotesProvider = ({ children }) => {
-    const [loading, setLoading] = useState(false);
-    const [editingIds, setEditingIds] = useState([]);
+const NotesProvider = ({ children }) => {
     const [notes, setNotes] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [isInitialized, setIsInitialized] = useState(false);
+    const [editingIds, setEditingIds] = useState([]);
 
     const handleError = useErrorHandler();
     const { fetchNotes, addNote, updateNote, deleteNote } = useNoteActions(setNotes);
@@ -19,15 +19,20 @@ export const NotesProvider = ({ children }) => {
     const noteInputRefs = useRef({});
 
     useEffect(() => {
-        fetchNotes();
+        const init = async () => {
+            await fetchNotes();
+            setLoading(false);
+            setIsInitialized(true);
+        };
+        init();
     }, [fetchNotes]);
 
     useEffect(() => {
         if (editingIds.length === 0) {
             inputRef.current?.focus();
         } else {
-            const lastEditedid = editingIds.at(-1);
-            const lastTextarea = noteInputRefs.current[lastEditedid];
+            const lastEditedId = editingIds.at(-1);
+            const lastTextarea = noteInputRefs.current[lastEditedId];
             if (lastTextarea) {
                 lastTextarea.focus();
                 const length = lastTextarea.value.length;
@@ -49,6 +54,7 @@ export const NotesProvider = ({ children }) => {
         handleError,
         inputRef,
         noteInputRefs,
+        isInitialized,
     };
 
     return (
@@ -56,14 +62,6 @@ export const NotesProvider = ({ children }) => {
             {children}
         </NotesContext.Provider>
     );
-}
-
-export const useNotes = () => {
-    const context = useContext(NotesContext);
-    if (!context) {
-        throw new Error(ERROR_MESSAGES.CONTEXT.NOTES);
-    }
-    return context;
 };
 
-export default NotesContext;
+export default NotesProvider;
