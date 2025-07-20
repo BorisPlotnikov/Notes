@@ -8,17 +8,13 @@ import NoteForm from './components/NoteForm';
 import { useNotes } from './features/notes/context/NotesContext';
 
 const App = () => {
-    const { loading, isInitialized } = useNotes();
-
-    if (!isInitialized) {
-        return <AppLoader message="Loading your notes..." />
-    }
+    const { isInitialized } = useNotes();
 
     return (
             <main className='app'>
                 <h1>Notes</h1>
                 <NoteForm />
-                {loading ? <Spinner /> : <NoteList />}
+                {!isInitialized ? <AppLoader /> : <NoteList />}
             </main>
     );
 };
