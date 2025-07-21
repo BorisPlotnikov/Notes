@@ -1,8 +1,9 @@
 import React from 'react';
 import Spinner from './Spinner';
+import { STATUS_MESSAGES } from '../constants'
 import '../css/AppLoader.css';
 
-const AppLoader = ({ message = 'Loading...' }) => {
+const AppLoader = ({ message = STATUS_MESSAGES.LOADING }) => {
     return (
         <div className="fullscreen-loader">
             <Spinner />

@@ -2,7 +2,7 @@
 
 const API_ROUTES = {
     NOTES: '/notes',
-    NOTE_BY_ID: (id) => `/notes/${id}`,
+    NOTE: (id) => `/notes/${id}`,
 
 };
 

@@ -103,7 +103,9 @@ Note.propTypes = {
     onEdit: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
-    textAreaRef: PropTypes.func.isRequired,
+    textAreaRef: PropTypes.shape({
+        current: PropTypes.instanceOf(Element)
+    }).isRequired,
 };
 
 export default Note;

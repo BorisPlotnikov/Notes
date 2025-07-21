@@ -4,6 +4,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import NotesContext from './NotesContext';
 import useNoteActions from '../../hooks/useNoteActions';
 import useErrorHandler from '../../hooks/useErrorHandler';
+import { LOAD_TIMES } from '../../constants';
+import PropTypes from 'prop-types';
 
 
 const NotesProvider = ({ children }) => {
@@ -19,11 +21,22 @@ const NotesProvider = ({ children }) => {
     const noteInputRefs = useRef({});
 
     useEffect(() => {
+        const wait = (ms) => new Promise((res) => setTimeout(res, ms));
+
         const init = async () => {
+            const start = Date.now();
+
             await fetchNotes();
+            
+            const elapsed = Date.now() - start;
+            const remaining = LOAD_TIMES.MIN_LOAD_TIME - elapsed;
+
+            if (remaining > 0) await wait(remaining);
+            
             setLoading(false);
             setIsInitialized(true);
         };
+        
         init();
     }, [fetchNotes]);
 
@@ -62,6 +75,10 @@ const NotesProvider = ({ children }) => {
             {children}
         </NotesContext.Provider>
     );
+};
+
+NotesPropviders.propTypes = {
+    children: PropTypes.note.isRequired,
 };
 
 export default NotesProvider;

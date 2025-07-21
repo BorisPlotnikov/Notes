@@ -7,5 +7,7 @@ export {
 } from './messages';
 
 export { default as API_ROUTES } from './apiRoutes';
-// export { DEFAULT_ERROR_TIMEOUT } from './timeouts';
+
+export { LOAD_TIMES } from './timeouts';
+
 export { LENGTHS } from './validation';

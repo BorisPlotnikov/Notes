@@ -1,4 +1,4 @@
-// constants/messages.js
+// /src/constants/messages.js
 
 export const ERROR_MESSAGES = {
     CONTEXT: {
@@ -16,7 +16,7 @@ export const ERROR_MESSAGES = {
 };
 
 export const STATUS_MESSAGES = {
-    LOADING: 'Loading...',
+    LOADING: 'Loading...', // AppLoader
 };
 
 export const EMPTY_STATE_MESSAGES = { // NoteList
