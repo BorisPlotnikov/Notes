@@ -3,10 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { useNotes } from '../features/notes/context/NotesContext';
-
 import CharacterCounter from './CharacterCounter';
 import AccessibilityAlertRegion from './AccessibilityAlertRegion';
+
+import validateNoteContent from '../utils/validateNoteContent';
+
+import { useNotes } from '../features/notes/context/NotesContext';
+
 import '../css/Note.css';
 
 const Note = ({
@@ -21,10 +24,20 @@ const Note = ({
     const { loading, deleteNote } = useNotes();
     const [draft, setDraft] = useState(content);
 
-    const trimmedContent = draft.trim();
-    const contentLength = draft.length;
-    const isContentValid = trimmedContent.length > 0;
-    const isNearMaxLength = contentLength >= 180;
+    // const trimmedContent = draft.trim();
+    // const contentLength = draft.length;
+    // const isContentValid = trimmedContent.length > 0;
+    // const isNearMaxLength = contentLength >= 180;
+    // const isUnchanged = draft === content;
+
+    const {
+        trimmedContent,
+        contentLength,
+        isValid: isContentValid,
+        isNearMaxLength,
+        isUnchanged,
+    } = validateNoteContent(draft, content);
+
 
     useEffect(() => {
         if (isEditing) {

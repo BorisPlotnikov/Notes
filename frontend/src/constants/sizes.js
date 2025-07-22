@@ -1,4 +1,4 @@
-// constants/validation.js
+// constants/sizes.js
 
 export const LENGTHS = {
     MIN: 1,
