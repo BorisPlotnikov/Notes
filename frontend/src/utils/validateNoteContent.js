@@ -24,7 +24,7 @@ const validateNoteContent = (content, originalContent = '') => {
       contentLength >= LENGTHS.MIN && contentLength <=LENGTHS.MAX;
 
     const isUnchanged = originalContent !== undefined && content === originalContent;
-    const isNearMaxLength = contentLength >= 180;
+    const isNearMaxLength = contentLength >= LENGTHS.WARNING_THRESHOLD;
 
     const isValid = isLengthValid && !isUnchanged;
 

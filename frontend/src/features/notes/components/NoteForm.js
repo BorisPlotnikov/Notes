@@ -1,13 +1,11 @@
 // components/NoteForm.js
 
 import React from 'react';
-
-import { LENGTHS } from '../constants';
-import useNoteContent from '../features/notes/hooks/useNoteContent';
-import { useNotes } from '../features/notes/context/NotesContext';
+import useNoteContent from '../hooks/useNoteContent';
+import { useNotes } from '../context/NotesContext';
 
 import CharacterCounter from './CharacterCounter';
-import '../css/NoteForm.css';
+import '../../../css/NoteForm.css';
 
 const NoteForm = () => {
     const {
@@ -22,7 +20,7 @@ const NoteForm = () => {
         setContent,
         trimmedContent,
         contentLength,
-        isContentValid,
+        isValid,
         isNearMaxLength,
         onChange,
     } = useNoteContent('');
@@ -59,7 +57,7 @@ const NoteForm = () => {
             </div>
             <button
                 type='submit'
-                disabled={loading || !isContentValid}
+                disabled={loading || !isValid}
                 aria-label={loading ? "Adding note..." : "Add a new note"}
             >
                 {loading ? 'Adding...' : 'Add'}

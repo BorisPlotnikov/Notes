@@ -6,11 +6,11 @@ import PropTypes from 'prop-types';
 import CharacterCounter from './CharacterCounter';
 import AccessibilityAlertRegion from './AccessibilityAlertRegion';
 
-import validateNoteContent from '../utils/validateNoteContent';
+import validateNoteContent from '../../../utils/validateNoteContent';
 
-import { useNotes } from '../features/notes/context/NotesContext';
+import { useNotes } from '../context/NotesContext';
 
-import '../css/Note.css';
+import '../../../css/Note.css';
 
 const Note = ({
     id,
@@ -24,18 +24,11 @@ const Note = ({
     const { loading, deleteNote } = useNotes();
     const [draft, setDraft] = useState(content);
 
-    // const trimmedContent = draft.trim();
-    // const contentLength = draft.length;
-    // const isContentValid = trimmedContent.length > 0;
-    // const isNearMaxLength = contentLength >= 180;
-    // const isUnchanged = draft === content;
-
     const {
         trimmedContent,
         contentLength,
-        isValid: isContentValid,
+        isValid,
         isNearMaxLength,
-        isUnchanged,
     } = validateNoteContent(draft, content);
 
 
@@ -66,7 +59,7 @@ const Note = ({
                         <button
                             className="save"
                             onClick={() => onSave(trimmedContent)}
-                            disabled={loading || !isContentValid}
+                            disabled={loading || !isValid}
                             aria-label={loading ? 'Saving the note...' : 'Save note'}
                         >
                             Save

@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import NotesContext from './NotesContext';
-import useNoteActions from '../../hooks/useNoteActions';
-import useErrorHandler from '../../hooks/useErrorHandler';
-import { LOAD_TIMES } from '../../constants';
+import useNoteActions from '../hooks/useNoteActions';
+import useErrorHandler from '../../../hooks/useErrorHandler';
+import { LOAD_TIMES } from '../../../constants';
 import PropTypes from 'prop-types';
 
 

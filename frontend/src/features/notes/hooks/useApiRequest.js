@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from 'react';
 import axios from 'axios';
-import useErrorHandler from './useErrorHandler';
+import useErrorHandler from '../../../useErrorHandler';
 import { useNotes } from '../context/NotesContext';
 
 import { getApiBaseUrl } from '../../../utils/apiConfig';

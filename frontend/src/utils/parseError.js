@@ -1,4 +1,4 @@
-// utils/parseError.js
+// src/utils/parseError.js
 
 import safeStringify from 'fast-safe-stringify';
 

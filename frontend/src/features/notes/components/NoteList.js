@@ -1,13 +1,13 @@
 // components/NoteList
 
 import React from 'react';
-import ErrorBoundary from './ErrorBoundary';
-import { EMPTY_STATE_MESSAGES } from '../constants';
+import ErrorBoundary from '../../../components/ErrorBoundary';
+import { EMPTY_STATE_MESSAGES } from '../../../constants';
 
-import { useNotes } from '../features/notes/context/NotesContext';
+import { useNotes } from '../context/NotesContext';
 
 import Note from './Note';
-import '../css/NoteList.css';
+import '../../../css/NoteList.css';
 
 const NoteList = () => {
     const {
@@ -19,7 +19,9 @@ const NoteList = () => {
     } = useNotes();
 
     const enterEditMode = (id) => {
-        setEditingIds(prev =>(prev.includes(id) ? prev: [...prev, id]));
+        setEditingIds(prev => (
+            prev.includes(id) ? prev: [...prev, id]
+        ));
     };
 
     const exitEditMode = (noteId) => {

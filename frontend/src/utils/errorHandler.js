@@ -1,4 +1,4 @@
-// utils/errorHandler.js
+// /src/utils/errorHandler.js
 
 import axios from 'axios';
 import parseError from './parseError.js';

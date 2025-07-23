@@ -10,4 +10,4 @@ export { default as API_ROUTES } from './apiRoutes';
 
 export { LOAD_TIMES } from './timeouts';
 
-export { LENGTHS } from './sizes';
+export { default as LENGTHS } from './limits';

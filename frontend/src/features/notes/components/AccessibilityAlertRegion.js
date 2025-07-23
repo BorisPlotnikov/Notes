@@ -1,8 +1,8 @@
 // components/AccessibilityAlertRegion.js
 
 import React from 'react';
-import '../css/AccessibilityAlertRegion.css';
-import { STATUS_MESSAGES } from '../constants';
+import '../../../css/AccessibilityAlertRegion.css';
+import { STATUS_MESSAGES } from '../../../constants';
 import PropTypes from 'prop-types';
 
 const AccessibilityAlertRegion = ({ loading }) => {
