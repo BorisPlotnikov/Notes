@@ -1,6 +1,6 @@
 // /src/providers/AppProviders.js
 
-import { NotesProvider } from '../features/notes/context/NotesProvider';
+import NotesProvider from '../features/notes/context/NotesProvider';
 import PropTypes from 'prop-types';
 
 const AppProviders = ({ children }) => (

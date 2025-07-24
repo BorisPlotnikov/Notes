@@ -77,8 +77,8 @@ const NotesProvider = ({ children }) => {
     );
 };
 
-NotesPropviders.propTypes = {
-    children: PropTypes.note.isRequired,
+NotesProvider.propTypes = {
+    children: PropTypes.node.isRequired,
 };
 
 export default NotesProvider;
