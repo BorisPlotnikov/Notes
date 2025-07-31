@@ -32,7 +32,7 @@ const useNotesActions = (setNotes, setLoading) => {
     };
 
     const updateNote = async (id, content) => {
-        const result = await sendRequest('put', API_ROUTES.NOTE_BY_ID(id), { content });
+        const result = await sendRequest('put', API_ROUTES.NOTE(id), { content });
         if (!result) return false;
 
         setNotes(prevNotes =>
@@ -51,7 +51,7 @@ const useNotesActions = (setNotes, setLoading) => {
             return prevNotes.filter(note => note._id !== id);
         });
 
-        const result = await sendRequest('delete', API_ROUTES.NOTE_BY_ID(id));
+        const result = await sendRequest('delete', API_ROUTES.NOTE(id));
         if (!result) {
             setNotes(backup);
             return false;
