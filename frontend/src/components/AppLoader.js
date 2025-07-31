@@ -1,3 +1,5 @@
+// /src/components/AppLoader.js
+
 import React from 'react';
 import Spinner from './Spinner';
 import { STATUS_MESSAGES } from '../constants'

@@ -3,7 +3,7 @@
 import React from 'react';
 import useNoteContent from '../hooks/useNoteContent';
 import { useNotes } from '../context/NotesContext';
-
+import { LENGTHS } from '../../../constants';
 import CharacterCounter from './CharacterCounter';
 import '../../../css/NoteForm.css';
 

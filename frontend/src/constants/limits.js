@@ -1,4 +1,4 @@
-// constants/limits.js
+// /src/constants/limits.js
 
 const warningRange = 20;
 

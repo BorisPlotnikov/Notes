@@ -1,52 +1,31 @@
 // hooks/useApiRequest.js
 
-import { useRef, useEffect } from 'react';
 import axios from 'axios';
 import useErrorHandler from '../../../hooks/useErrorHandler';
-import { useNotes } from '../context/NotesContext';
 
 import { getApiBaseUrl } from '../../../utils/apiConfig';
 
-const useApiRequest = () => {
-    const { setLoading } = useNotes();
+const useApiRequest = (setLoading) => {
     const handleError = useErrorHandler();
-    const controllerRef = useRef(null);
-
-    const createAbortController = () => {
-        if (controllerRef.current) {
-            controllerRef.current.abort();
-        }
-        controllerRef.current = new AbortController();
-    };
-
-    const getSignal = () => {
-        createAbortController();
-        return controllerRef.current.signal;
-    };
-
-    useEffect(() => {
-        return () => {
-            if (controllerRef.current) {
-                controllerRef.current.abort();
-                controllerRef.current = null;
-            }
-        };
-    }, []);
 
     const sendRequest = async (method, path, data = null) => {
         setLoading(true);
+        const controller = new AbortController();
         try {
             const baseUrl = getApiBaseUrl();
+            const fullUrl = `${baseUrl}${path}`;
+
             const response = await axios({
                 method,
-                url: `${baseUrl}${path}`,
+                url: fullUrl,
                 data,
-                signal: getSignal(),
+                signal: controller.signal,
             });
+
             return response?.data ?? null;
         } catch (error) {
-                handleError(error);
-                return null;
+            if (!axios.isCancel(error)) handleError(error);
+            return null;
         } finally {
             setLoading(false);
         }

@@ -1,0 +1,39 @@
+.
+├── App.js                                      Interface
+├── components                              APP COMPONENTS
+│   ├── AppLoader.js                            Loading screen
+│   ├── ErrorBoundary.js                        Prevents crushing
+│   └── Spinner.js                              Spinnner
+├── constants                               CONSTANTS
+│   ├── apiRoutes.js                            Endpoints
+│   ├── index.js                                Barrell
+│   ├── limits.js                               Limits
+│   ├── messages.js                             Messages
+│   └── timeouts.js                             Time intervals
+├── features                                FEATURES
+│   └── notes                               NOTES
+│       ├── components                      NOTES COMPONENTS
+│       │   ├── AccessibilityAlertRegion.js     Screen reader
+│       │   ├── CharacterCounter.js             Counter
+│       │   ├── Note.js                         Note
+│       │   ├── NoteForm.js                     Form
+│       │   └── NoteList.js                     List
+│       ├── context                         CONTEXT
+│       │   ├── NotesContext.js                 Shared space
+│       │   └── NotesProvider.js                Context values
+│       ├── hooks                           NOTES HOOKS
+│       │   ├── useApiRequest.js                API calls
+│       │   ├── useNoteActions.js               Note manipulation functions
+│       │   └── useNoteContent.js               Content state
+│       └── NotesApp.js
+├── hooks                                   APP HOOKS
+│   └── useErrorHandler.js                      Memoising handleError utility
+├── index.js                                    Main entry point
+├── providers                               PROVIDERS
+│   └── AppProviders.js                         Applies providers
+├── structure.txt
+└── utils                                   UTILITIES
+    ├── apiConfig.js                            API address verification
+    ├── errorHandler.js                         Reports errors
+    ├── parseError.js                           Created error messages
+    └── validateNoteContent.js                  Content validation

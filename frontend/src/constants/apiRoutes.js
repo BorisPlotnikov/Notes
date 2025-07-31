@@ -1,4 +1,4 @@
-// constants/apiRoutes.js
+// /src/constants/apiRoutes.js
 
 const API_ROUTES = {
     NOTES: '/notes',

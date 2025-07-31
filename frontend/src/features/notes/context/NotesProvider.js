@@ -15,22 +15,25 @@ const NotesProvider = ({ children }) => {
     const [editingIds, setEditingIds] = useState([]);
 
     const handleError = useErrorHandler();
-    const { fetchNotes, addNote, updateNote, deleteNote } = useNoteActions(setNotes);
+    const { fetchNotes, addNote, updateNote, deleteNote } = useNoteActions(setNotes, setLoading);
 
     const inputRef = useRef(null);
     const noteInputRefs = useRef({});
 
     useEffect(() => {
+
         const wait = (ms) => new Promise((res) => setTimeout(res, ms));
 
         const init = async () => {
             const start = Date.now();
-
-            await fetchNotes();
+            try {
+                await fetchNotes();
+            } catch (error) {
+                handleError(error)
+            }
             
             const elapsed = Date.now() - start;
             const remaining = LOAD_TIMES.MIN_LOAD_TIME - elapsed;
-
             if (remaining > 0) await wait(remaining);
             
             setLoading(false);
@@ -38,7 +41,8 @@ const NotesProvider = ({ children }) => {
         };
         
         init();
-    }, [fetchNotes]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         if (editingIds.length === 0) {

@@ -1,22 +1,27 @@
 import useApiRequest from './useApiRequest';
 import { ERROR_MESSAGES, API_ROUTES } from '../../../constants';
 
-const useNotesActions = (setNotes) => {
-    const sendRequest = useApiRequest();
+const useNotesActions = (setNotes, setLoading) => {
+    const sendRequest = useApiRequest(setLoading);
 
     const fetchNotes = async () => {
         const data = await sendRequest('get', API_ROUTES.NOTES);
-        if (Array.isArray(data)) {
+
+        if (!data) {
+            throw new Error('fetchNotes: No data received.');
+        }
+
+        if (!Array.isArray(data)) {
+            throw new Error(ERROR_MESSAGES.DATA.UNEXPECTED_FORMAT);
+        }
             setNotes(data.map(note => ({
                 ...note,
                 isEditing: false
             })));
+            
             return true;
-        } else {
-            throw new Error(ERROR_MESSAGES.DATA.UNEXPECTED_FORMAT);
-            return false;
-        }
     };
+    
 
     const addNote = async (content) => {
         const newNote = await sendRequest('post', API_ROUTES.NOTES, { content });
