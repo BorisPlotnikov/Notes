@@ -1,8 +1,8 @@
 // /src/components/ErrorBoundary.jsx
 
 import React from 'react';
-import errorHandler from '../utils/errorHandler';
 import PropTypes from 'prop-types';
+import errorHandler from '../utils/errorHandler';
 
 class ErrorBoundary extends React.Component {
     constructor(props) {

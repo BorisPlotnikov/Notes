@@ -1,9 +1,9 @@
 // /src/features/notes/context/NotesProvider.js
 
 import React, { useEffect, useState, useRef } from 'react';
-import NotesContext from './NotesContext';
-import useNoteActions from '../hooks/useNoteActions';
-import useErrorHandler from '../../../hooks/useErrorHandler';
+import NotesContext from '../context/NotesContext';
+import { useNoteActions } from '../hooks';
+import { useErrorHandler } from '../../../hooks';
 import { LOAD_TIMES } from '../../../constants';
 import PropTypes from 'prop-types';
 

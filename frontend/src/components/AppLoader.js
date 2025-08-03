@@ -3,7 +3,7 @@
 import React from 'react';
 import Spinner from './Spinner';
 import { STATUS_MESSAGES } from '../constants'
-import '../css/AppLoader.css';
+import '../css';
 
 const AppLoader = ({ message = STATUS_MESSAGES.LOADING }) => {
     return (

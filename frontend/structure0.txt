@@ -1,0 +1,62 @@
+.
+├── package.json
+├── public
+│   └── index.html
+├── README.md
+├── src
+│   ├── App.js
+│   ├── components
+│   │   ├── AppLoader.js
+│   │   ├── ErrorBoundary.js
+│   │   ├── index.js
+│   │   └── Spinner.js
+│   ├── constants
+│   │   ├── apiRoutes.js
+│   │   ├── index.js
+│   │   ├── limits.js
+│   │   ├── messages.js
+│   │   └── timeouts.js
+│   ├── css
+│   │   ├── AccessibilityAlertRegion.css
+│   │   ├── App.css
+│   │   ├── AppLoader.css
+│   │   ├── CharacterCounter.css
+│   │   ├── DisplayState.css
+│   │   ├── EditingState.css
+│   │   ├── index.css
+│   │   ├── index.js
+│   │   ├── Note.css
+│   │   ├── NoteForm.css
+│   │   ├── NoteList.css
+│   │   └── Spinner.css
+│   ├── features
+│   │   └── notes
+│   │       ├── components
+│   │       │   ├── AccessibilityAlertRegion.js
+│   │       │   ├── CharacterCounter.js
+│   │       │   ├── Note.js
+│   │       │   ├── NoteForm.js
+│   │       │   └── NoteList.js
+│   │       ├── context
+│   │       │   ├── NotesContext.js
+│   │       │   └── NotesProvider.js
+│   │       ├── hooks
+│   │       │   ├── useApiRequest.js
+│   │       │   ├── useNoteActions.js
+│   │       │   └── useNoteContent.js
+│   │       └── NotesApp.js
+│   ├── hooks
+│   │   └── useErrorHandler.js
+│   ├── index.js
+│   ├── providers
+│   │   └── AppProviders.js
+│   ├── structure.txt
+│   └── utils
+│       ├── apiConfig.js
+│       ├── errorHandler.js
+│       ├── parseError.js
+│       └── validateNoteContent.js
+├── structure0.txt
+└── yarn.lock
+
+14 directories, 46 files

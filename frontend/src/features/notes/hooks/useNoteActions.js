@@ -1,4 +1,4 @@
-import useApiRequest from './useApiRequest';
+import { useApiRequest } from '../hooks';
 import { ERROR_MESSAGES, API_ROUTES } from '../../../constants';
 
 const useNotesActions = (setNotes, setLoading) => {

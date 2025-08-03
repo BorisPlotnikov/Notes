@@ -1,7 +1,7 @@
 // hooks/useApiRequest.js
 
 import axios from 'axios';
-import useErrorHandler from '../../../hooks/useErrorHandler';
+import { useErrorHandler } from '../../../hooks';
 
 import { getApiBaseUrl } from '../../../utils/apiConfig';
 

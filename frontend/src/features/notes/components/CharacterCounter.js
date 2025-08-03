@@ -2,11 +2,11 @@
 
 import React from 'react';
 import pluralize from 'pluralize';
+import PropTypes from 'prop-types';
 
 import { LENGTHS } from '../../../constants';
 
-import '../../../css/CharacterCounter.css';
-import PropTypes from 'prop-types';
+import '../../../css';
 
 const CharacterCounter = ({ contentLength, isNearMaxLength = false }) => {
 

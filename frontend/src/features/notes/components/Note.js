@@ -3,14 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import CharacterCounter from './CharacterCounter';
-import AccessibilityAlertRegion from './AccessibilityAlertRegion';
+import CharacterCounter from '../components/CharacterCounter';
+import AccessibilityAlertRegion from '../components/AccessibilityAlertRegion';
 
 import validateNoteContent from '../../../utils/validateNoteContent';
 
 import { useNotes } from '../context/NotesContext';
 
-import '../../../css/Note.css';
+import '../../../css';
 
 const Note = ({
     id,
