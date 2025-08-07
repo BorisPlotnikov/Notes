@@ -1,10 +1,11 @@
 // components/NoteForm.js
 
 import React from 'react';
+import { Form, Button, InputGroup, Spinner } from 'react-bootstrap';
 import { useNoteContent } from '../hooks';
 import { useNotes } from '../context/NotesContext';
 import { LENGTHS } from '../../../constants';
-import CharacterCounter from '../components/CharacterCounter';
+import CharacterCounter from './CharacterCounter';
 import '../../../css';
 
 const NoteForm = () => {
@@ -36,10 +37,13 @@ const NoteForm = () => {
     };
 
     return (
-        <form onSubmit={onSubmit} className='note-form' aria-busy={loading}>
-            <label htmlFor='note-content' className='sr-only'>Add a new note</label>
-            <div className="input-wrapper">
-                <input
+        <Form onSubmit={onSubmit} className='my-3' aria-busy={loading}>
+            <Form.Label htmlFor='note-content' visuallyHidden>
+                Add a new note
+            </Form.Label>
+
+            <InputGroup>
+                <Form.Control
                     id="note-content"
                     type="text"
                     value={content}
@@ -49,20 +53,39 @@ const NoteForm = () => {
                     aria-label="Enter note content"
                     aria-describedby="character-counter"
                     maxLength={LENGTHS.MAX}
+                    disabled={loading}
                 />
-                <CharacterCounter 
-                    contentLength={contentLength} 
-                    isNearMaxLength={isNearMaxLength} 
+                <Button
+                    type="submit"
+                    variant="primary"
+                    disabled={loading || !isValid}
+                    aria-label={loading ? "Adding note..." : "Add a new note"}
+                >
+                    {loading ? (
+                        <>
+                            <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                                className="me-2"
+                            />
+                            Adding...
+                        </>
+                    ) : (
+                        'Add'
+                    )}
+                </Button>
+            </InputGroup>
+
+            <Form.Text id="character-counter" muted>
+                <CharacterCounter
+                    contentLength={contentLength}
+                    isNearMaxLength={isNearMaxLength}
                 />
-            </div>
-            <button
-                type='submit'
-                disabled={loading || !isValid}
-                aria-label={loading ? "Adding note..." : "Add a new note"}
-            >
-                {loading ? 'Adding...' : 'Add'}
-            </button> 
-        </form>
+            </Form.Text>
+        </Form>
     );
 };
 

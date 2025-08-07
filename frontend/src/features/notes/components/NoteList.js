@@ -6,7 +6,7 @@ import { EMPTY_STATE_MESSAGES } from '../../../constants';
 
 import { useNotes } from '../context/NotesContext';
 
-import Note from '../components/Note';
+import Note from './Note';
 import '../../../css';
 
 const NoteList = () => {
