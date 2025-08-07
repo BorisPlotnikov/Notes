@@ -13,7 +13,7 @@ const NotesApp = () => {
     return (
         <>
             <h1>Notes</h1>
-            <Container classname="mt-4">
+            <Container className="mt-4">
                 <NoteForm />
                 {!isInitialized ? <AppLoader /> : <NoteList />}
             </Container>

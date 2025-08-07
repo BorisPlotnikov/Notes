@@ -1,16 +1,15 @@
-// components/Note.js
+// /src/features/notes/components/Note.js
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Form, Button, Row, Col } from 'react-bootstrap';
+import { Card, Form, Button } from 'react-bootstrap';
+import '../../../css';
 
 import CharacterCounter from '../components/CharacterCounter';
 import AccessibilityAlertRegion from '../components/AccessibilityAlertRegion';
 
 import validateNoteContent from '../../../utils/validateNoteContent';
 import { useNotes } from '../context/NotesContext';
-
-// import '../../../css';
 
 const Note = ({
     id,
@@ -54,10 +53,10 @@ const Note = ({
                                 aria-label="Edit note content"
                                 disabled={loading}
                             />
-                            <Form.Text id={`conter=${id}`} muted>
+                            <Form.Text id={`counter-${id}`} muted>
                                 <CharacterCounter
                                     contentLength={contentLength}
-                                    isNearMaxlength={isNearMaxLength}
+                                    isNearMaxLength={isNearMaxLength}
                                 />
                             </Form.Text>
                         </Form.Group>
@@ -107,69 +106,6 @@ const Note = ({
             </Card.Body>
             <AccessibilityAlertRegion loading={loading} aria-live="assertive" />
         </Card>
-
-
-
-        // <div className="note" aria-busy={loading}>
-        //     {isEditing ? (
-        //         <div className="textarea-container">
-        //             <div className="input-wrapper">
-        //                 <textarea
-        //                     value={draft}
-        //                     ref={textAreaRef}
-        //                     onChange={(e) => setDraft(e.target.value)}
-        //                     aria-label="Edit note content"
-        //                 />
-        //                 <CharacterCounter
-        //                     contentLength={contentLength}
-        //                     isNearMaxLength={isNearMaxLength}
-        //                 />
-        //             </div>
-
-        //             <div className="button-container">
-        //                 <button
-        //                     className="save"
-        //                     onClick={() => onSave(trimmedContent)}
-        //                     disabled={loading || !isValid}
-        //                     aria-label={loading ? 'Saving the note...' : 'Save note'}
-        //                 >
-        //                     Save
-        //                 </button>
-        //                 <button
-        //                     className="cancel"
-        //                     onClick={onCancel}
-        //                     disabled={loading}
-        //                     aria-label="Cancel the editing"
-        //                 >
-        //                     Cancel
-        //                 </button>
-        //             </div>
-        //         </div>
-        //     ) : (
-        //         <div className="display-state">
-        //             <p>{content}</p>
-        //             <div className="button-container">
-        //                 <button
-        //                     className="edit"
-        //                     onClick={onEdit}
-        //                     disabled={loading}
-        //                     aria-label="Edit the note"
-        //                 >
-        //                     Edit
-        //                 </button>
-        //                 <button
-        //                     className="delete"
-        //                     onClick={() => deleteNote(id)}
-        //                     disabled={loading}
-        //                     aria-label="Delete the note"
-        //                 >
-        //                     Delete
-        //                 </button>
-        //             </div>
-        //         </div>
-        //     )}
-        //     <AccessibilityAlertRegion loading={loading} aria-live="assertive" />
-        // </div>
     );
 };
 
