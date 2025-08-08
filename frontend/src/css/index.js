@@ -2,6 +2,7 @@
 
 import './AccessibilityAlertRegion.css';
 import './App.css';
+import './NotesApp.css';
 import './AppLoader.css';
 import './CharacterCounter.css';
 import './DisplayState.css';

@@ -6,6 +6,7 @@ import NoteForm from './components/NoteForm';
 import NoteList from './components/NoteList';
 import AppLoader from '../../components/AppLoader';
 import { useNotes } from './context/NotesContext';
+import '../../css';
 
 const NotesApp = () => {
     const { isInitialized } = useNotes();
@@ -32,6 +33,7 @@ const NotesApp = () => {
                 </Col>
             </Row>
         </Container>
+
     );
 };
 

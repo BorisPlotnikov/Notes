@@ -7,7 +7,7 @@ import './css/App.css';
 const App = () => {
 
     return (
-            <main className='app'>
+            <main className="app text-center">
                 <NotesApp />
             </main>
     );

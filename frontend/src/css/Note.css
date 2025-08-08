@@ -1,13 +1,17 @@
-/* Note.css */
+/* //src/css/Note.css */
 
 .note-button-group {
     display: flex;
-    gap: 0.5rem; /* or use Bootstrap's gap-2 */
     justify-content: center;
   }
   
   .note-button {
-    flex: 1 1 0;
     max-width: 25%;
   }
-  
+
+  .note-text {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
