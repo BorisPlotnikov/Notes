@@ -1,1 +1,13 @@
 /* Note.css */
+
+.note-button-group {
+    display: flex;
+    gap: 0.5rem; /* or use Bootstrap's gap-2 */
+    justify-content: center;
+  }
+  
+  .note-button {
+    flex: 1 1 0;
+    max-width: 25%;
+  }
+  

@@ -61,20 +61,24 @@ const Note = ({
                             </Form.Text>
                         </Form.Group>
 
-                        <div className="d-flex gap-2">
+                        <div className="d-flex gap-2 note-button-group mt-4">
                             <Button
+                                className="note-button"
                                 variant="success"
                                 onClick={() => onSave(trimmedContent)}
                                 disabled={loading || !isValid}
                                 aria-label={loading ? 'Saving the note...' : 'Save note'}
+                                size="sm"
                             >
                                 Save
                             </Button>
                             <Button
+                                className="note-button"
                                 variant="secondary"
                                 onClick={onCancel}
                                 disabled={loading}
                                 aria-label="Cancel the editing"
+                                size="sm"
                             >
                                 Cancel
                             </Button>
@@ -83,20 +87,24 @@ const Note = ({
                 ) : (
                     <>
                         <Card.Text>{content}</Card.Text>
-                        <div className="d-flex gap-2">
+                        <div className="d-flex gap-2 note-button-group mt-4">
                             <Button
+                                className="note-button"
                                 variant="outline-primary"
                                 onClick={onEdit}
                                 disabled={loading}
                                 aria-label="Edit the note"
+                                size="sm"
                             >
                                 Edit
                             </Button>
                             <Button
+                                className="note-button"
                                 variant="outline-danger"
                                 onClick={() => deleteNote(id)}
                                 disabled={loading}
                                 aria-label="Delete the note"
+                                size="sm"
                             >
                                 Delete
                             </Button>

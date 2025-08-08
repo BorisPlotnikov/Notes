@@ -44,6 +44,8 @@ const NoteForm = () => {
                 </Form.Label>
                 
                     <Form.Control
+                        as="textarea"
+                        rows={3}
                         id="note-content"
                         type="text"
                         value={content}
@@ -60,7 +62,7 @@ const NoteForm = () => {
                         variant="primary"
                         disabled={loading || !isValid}
                         aria-label={loading ? "Adding note..." : "Add a new note"}
-                        className="mt-2"
+                        className="mt-2 w-25"
                     >
                         {loading ? (
                             <>
